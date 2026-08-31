@@ -25,7 +25,9 @@ img{max-width:100%;border-radius:10px}
 </style>
 <script src="https://pl31107541.profitableratecpmnetwork.com/53/80/65/538065a4ef16329efd62bd1aeda8552e.js"></script>
 </head><body>
-
+<div style="background:#e0ffe0; border-left:5px solid #00c853; padding:12px; margin:15px; border-radius:8px; color:#000; font-family:Arial; font-size:14px;">
+🔒 <b>100% Safe & Private:</b> Aapka koi bhi data save nahi hota hai. Sab kuch aapke phone me hi hota hai.
+</div>
 <!-- VIRAL TOOLS FIRST -->
 <div class="card"><h2>🎬 Insta Reels Downloader <span class="badge">VIRAL</span></h2><form method="post"><input type="hidden" name="type" value="reels"><input name="text" placeholder="Paste Public Reels Link" required><button>Get Download Link</button></form>{% if reels %}<div class="result">{{ reels|safe }}</div>{% endif %}</div>
 <div class="card"><h2>🖼️ Insta DP Viewer <span class="badge">VIRAL</span></h2><form method="post"><input type="hidden" name="type" value="insta"><input name="text" placeholder="Insta Username" required><button>View DP HD</button></form>{% if insta %}<div class="result"><img src="{{ insta }}"><br><a href="{{ insta }}" target="_blank" style="color:#0ff">Download</a></div>{% endif %}</div>
