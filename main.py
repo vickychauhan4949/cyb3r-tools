@@ -22,8 +22,9 @@ button{background:linear-gradient(90deg,#ff00ff,#00ffff);color:#000;font-weight:
 .badge{display:inline-block;background:linear-gradient(90deg,#ff00ff,#00ffff);color:#000;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:bold;margin-left:8px}
 img{max-width:100%;border-radius:10px}
 .footer{text-align:center;padding:20px;color:#666;font-size:11px}
-</style></head><body>
-<div class="header"><h1>CYB3R TOOLS 4.0</h1><p style="color:#aaa">VIRAL EDITION BY VICKY | VADODARA</p></div>
+</style>
+<script src="https://pl31107541.profitableratecpmnetwork.com/53/80/65/538065a4ef16329efd62bd1aeda8552e.js"></script>
+</head><body>
 
 <!-- VIRAL TOOLS FIRST -->
 <div class="card"><h2>🎬 Insta Reels Downloader <span class="badge">VIRAL</span></h2><form method="post"><input type="hidden" name="type" value="reels"><input name="text" placeholder="Paste Public Reels Link" required><button>Get Download Link</button></form>{% if reels %}<div class="result">{{ reels|safe }}</div>{% endif %}</div>
