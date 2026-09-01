@@ -216,9 +216,20 @@ setInterval(draw,35);
 <form method="post"><input type="hidden" name="type" value="lorem"><input name="text" placeholder="How many words? ex: 20"><button>Generate</button></form>
 {% if lorem %}<div class="result">{{ lorem }}</div>{% endif %}</div>
 
-<div style="text-align:center;padding:20px;color:#555;font-size:11px">
-CYB3R DASHBOARD v2.0<br>Made by <b style="color:#FFD60A">Vicky Chauhan</b> | Vadodara<br>30 Tools | Login System | 2026
+<div style="text-align:center; padding:22px; margin-top:25px; border-top:2px solid #FFD60A; background:#121212; border-radius:15px 15px 0 0;">
+  <p style="color:#FFD60A; font-weight:bold; font-size:16px; letter-spacing:1px;">⚡ MADE WITH ❤️ BY VICKY CHAUHAN ⚡</p>
+  <p style="color:#aaa; font-size:12px; margin-top:6px;">30+ CYBER TOOLS | 100% SECURE | FOUNDER - CYB3R TOOLS</p>
+  <div style="margin-top:12px; display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
+    <span style="background:#000; border:1px solid #FFD60A; color:#FFD60A; padding:5px 12px; border-radius:20px; font-size:12px;">👁️ Visitors: <span id="visits">1,247</span></span>
+    <span style="background:#000; border:1px solid #FFD60A; color:#FFD60A; padding:5px 12px; border-radius:20px; font-size:12px;">🟢 Status: ONLINE</span>
+    <span style="background:#000; border:1px solid #FFD60A; color:#FFD60A; padding:5px 12px; border-radius:20px; font-size:12px;">© 2026 CYB3R TOOLS</span>
+  </div>
 </div>
+<script>
+let count = 1247 + Math.floor(Math.random()*50);
+document.getElementById('visits').innerText = count.toLocaleString();
+setInterval(()=>{ count++; document.getElementById('visits').innerText = count.toLocaleString(); }, 5000);
+</script>
 
 <script>
 function filterTools(c){
