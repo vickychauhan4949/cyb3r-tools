@@ -36,7 +36,9 @@ button:hover{background:#fff}
 </style></head><body>
 
 <div class="header">
+<img src="https://raw.githubusercontent.com/vickychauhan4949/cyb3r-tools/main/IMG-20260901-WA8291.jpg" style="width:100px;height:100px;border-radius:20px;border:2px solid #FFD60A;box-shadow:0 0 20px #FFD60A77;">
 <h1>⚡ CYB3R DASHBOARD ⚡</h1>
+
 <p style="color:#aaa;font-size:11px">30+ TOOLS | SECURE | MADE BY VICKY CHAUHAN</p>
 </div>
 
