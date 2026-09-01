@@ -37,12 +37,37 @@ button:hover{background:#fff}
 .topbar{display:flex;justify-content:space-between;align-items:center;padding:10px;background:#111;border-radius:12px;margin-bottom:12px;border:1px solid #222}
 </style></head><body>
 
-<div class="header">
-<img src="https://raw.githubusercontent.com/vickychauhan4949/cyb3r-tools/main/IMG-20260901-WA8291.jpg" style="width:100px;height:100px;border-radius:20px;border:2px solid #FFD60A;box-shadow:0 0 20px #FFD60A77;">
-<h1>⚡ CYB3R DASHBOARD ⚡</h1>
-
-<p style="color:#aaa;font-size:11px">30+ TOOLS | SECURE | MADE BY VICKY CHAUHAN</p>
+<div class="header" style="position:relative; overflow:hidden; height:120px;">
+  <canvas id="matrix" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:0;"></canvas>
+  <div style="position:relative; z-index:1;">
+    <h1 style="color:#FFD60A; text-shadow: 0 0 15px #FFD60A;">⚡ CYB3R DASHBOARD ⚡</h1>
+    <p style="color:#FFD60A; font-size:12px;">30+ TOOLS | SECURE | MADE BY VICKY CHAUHAN</p>
+  </div>
 </div>
+
+<script>
+const c = document.getElementById('matrix');
+const ctx = c.getContext('2d');
+c.width = c.offsetWidth; c.height = c.offsetHeight;
+const letters = "01".split("");
+const fontSize = 14;
+const columns = c.width / fontSize;
+const drops = [];
+for(let x=0;x<columns;x++) drops[x]=1;
+function draw(){
+  ctx.fillStyle="rgba(15,12,41,0.1)";
+  ctx.fillRect(0,0,c.width,c.height);
+  ctx.fillStyle="#FFD60A";
+  ctx.font=fontSize+"px monospace";
+  for(let i=0;i<drops.length;i++){
+    const text=letters[Math.floor(Math.random()*letters.length)];
+    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+    if(drops[i]*fontSize>c.height && Math.random()>0.975) drops[i]=0;
+    drops[i]++;
+  }
+}
+setInterval(draw,35);
+</script>
 
 {% if not session.get('user') %}
 <div class="card">
