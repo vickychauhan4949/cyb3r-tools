@@ -172,7 +172,11 @@ setInterval(draw,35);
 <form method="post"><input type="hidden" name="type" value="fake"><button>Generate ID</button></form>
 {% if fake %}<div class="result">{{ fake|safe }}</div>{% endif %}</div>
 
-<div class="card t-calc t-all"><h2>20. 🎂 Age Calculator</h2>
+<div class="card" style="background:#121212; border:1px dashed #FFD60A;">
+<p style="color:#FFD60A; font-size:10px;">🔥 Sponsored</p>
+<script async="async" data-cfasync="false" src="https://pl31125495.profitableratecpmnetwork.com/96b8326926ff16d26996637019139071/invoke.js"></script>
+<div id="container-96b8326926ff16d26996637019139071"></div>
+ <div class="card t-calc t-all"><h2>20. 🎂 Age Calculator</h2>
 <form method="post"><input type="hidden" name="type" value="age"><input name="text" type="date" required><button>Calculate Age</button></form>
 {% if age %}<div class="result">{{ age }}</div>{% endif %}</div>
 
