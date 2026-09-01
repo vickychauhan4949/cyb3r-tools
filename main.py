@@ -18,7 +18,7 @@ HTML = """
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#070707;color:#fff;font-family:Poppins,sans-serif;padding:10px}
+body{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;font-family:Poppins,sans-serif;min-height:100vh}
 .header{text-align:center;padding:25px;border:2px solid #FFD60A;border-radius:20px;background:linear-gradient(145deg,#1a1a00,#000);margin-bottom:15px}
 .header h1{color:#FFD60A;font-size:32px;letter-spacing:2px}
 .nav{display:flex;gap:8px;overflow-x:auto;padding:10px 0}
