@@ -230,7 +230,7 @@ let count = 1247 + Math.floor(Math.random()*50);
 document.getElementById('visits').innerText = count.toLocaleString();
 setInterval(()=>{ count++; document.getElementById('visits').innerText = count.toLocaleString(); }, 5000);
 </script>
-
+<script src="https://pl31107541.profitableratecpmnetwork.com/53/80/65/538065a4ef16329efd62bd1aeda8552e.js"></script>
 <script>
 function filterTools(c){
  document.querySelectorAll('.card').forEach(el=>{
