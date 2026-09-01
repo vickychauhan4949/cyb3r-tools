@@ -15,6 +15,8 @@ init_db()
 HTML = """
 <!DOCTYPE html><html><head>
 <title>CYB3R DASHBOARD - By Vicky</title>
+<link rel="icon" href="https://img.icons8.com/color/48/hacker.png?v=2" type="image/png">
+<link rel="shortcut icon" href="https://img.icons8.com/color/48/hacker.png?v=2" type="image/png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
