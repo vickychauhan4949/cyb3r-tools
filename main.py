@@ -3,7 +3,7 @@ import hashlib, base64, random, string, secrets, urllib.parse, sqlite3, os
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = "vicky_cyb3r_2026_super_secret"
+app.secret_key = os.environ.get("SECRET_KEY", "vicky_backup_key_12345")
 
 # DB setup
 def init_db():
