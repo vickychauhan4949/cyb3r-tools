@@ -1,115 +1,134 @@
 from flask import Flask, request, render_template_string
-import hashlib, os
+import hashlib, re, random, string, base64, json, os, uuid, html, csv, io
+from urllib.parse import quote, unquote, urlparse, parse_qs
+from datetime import datetime
 
 app = Flask(__name__)
 
-# --- VISITOR 1200+ CODE ---
 VISITOR_FILE = "count.txt"
 if not os.path.exists(VISITOR_FILE):
-    with open(VISITOR_FILE, "w") as f:
-        f.write("1301")
-
+    with open(VISITOR_FILE, "w") as f: f.write("1301")
 def get_visitors():
     try:
-        with open(VISITOR_FILE, "r") as f:
-            c = int(f.read())
-    except:
-        c = 1301
+        with open(VISITOR_FILE, "r") as f: c = int(f.read())
+    except: c = 1301
     c += 1
-    with open(VISITOR_FILE, "w") as f:
-        f.write(str(c))
+    with open(VISITOR_FILE, "w") as f: f.write(str(c))
     return c
-# --------------------------
 
 TOOLS_LIST = [
-    ("John Toolkit", "hash"), ("MD5 Generator", "hash"), ("SHA1 Gen", "hash"),
-    ("SHA256 Gen", "hash"), ("Base64 Encode", "encoder"), ("Base64 Decode", "encoder"),
-    ("URL Encode", "encoder"), ("URL Decode", "encoder"), ("Hex Encode", "encoder"),
-    ("Binary Converter", "converter"), ("Password Generator", "security"),
-    ("Pass Strength", "security"), ("My IP Info", "info"), ("User Agent", "info"),
-    ("Word Counter", "text"), ("Char Counter", "text"), ("Uppercase", "text"),
-    ("Lowercase", "text"), ("Reverse Text", "text"), ("Remove Space", "text"),
-    ("Duplicate Remover", "text"), ("JSON Formatter", "formatter"), ("HTML Escape", "formatter"),
-    ("Age Calculator", "calc"), ("Random Number", "calc"), ("UUID Gen", "generator"),
-    ("Lorem Ipsum", "generator"), ("Morse Code", "encoder"), ("ROT13", "encoder"),
-    ("Palindrome Check", "checker"), ("Email Validator", "checker"), ("Hash Identifier", "hash"),
-    ("Slug Generator", "text"), ("Case Swap", "text"), ("MD5 Checker", "hash"),
-    ("SHA256 Checker", "hash"), ("Color Picker", "generator"), ("Binary to Text", "converter"),
-    ("Text to Binary", "converter"), ("Hex to Text", "converter"), ("Text to Hex", "converter"),
-    ("CSV to JSON", "converter"), ("IP to Binary", "converter"), ("Whitespace Cleaner", "text"),
-    ("Regex Tester", "checker"), ("QR Text", "generator"), ("Credit Luhn", "checker"),
-    ("Phone Validator", "checker"), ("Pass Length", "security"), ("IP Tracker", "info"),
-    ("Header Viewer", "info"), ("Port Info", "info")
+    "John Toolkit","MD5 Generator","SHA1 Gen","SHA256 Gen","Base64 Encode","Base64 Decode",
+    "URL Encode","URL Decode","Hex Encode","Binary Converter","Password Generator",
+    "Pass Strength","My IP Info","User Agent","Word Counter","Char Counter","Uppercase",
+    "Lowercase","Reverse Text","Remove Space","Duplicate Remover","JSON Formatter","HTML Escape",
+    "Age Calculator","Random Number","UUID Gen","Lorem Ipsum","Morse Code","ROT13",
+    "Palindrome Check","Email Validator","Hash Identifier","Slug Generator","Case Swap",
+    "MD5 Checker","SHA256 Checker","Color Picker","Binary to Text","Text to Binary",
+    "Hex to Text","Text to Hex","CSV to JSON","IP to Binary","Whitespace Cleaner",
+    "Regex Tester","QR Text","Credit Luhn","Phone Validator","Pass Length","IP Tracker",
+    "Header Viewer","Port Info",
+    "Name Style - Fancy Text","UPI QR Generator","Fake Link Checker","Insta Reel Downloader",
+    "Phone Info Lookup","YouTube Thumbnail Downloader"
 ]
 
-HOME_HTML = """
-<html><head><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CYB3R TOOLS - 50 IN 1</title>
-<style>
-:root{ --main:#00ff00; }
-body{
-  margin:0; padding:12px; color:#fff; font-family:sans-serif;
-  background: linear-gradient(rgba(0,0,0,0.88), rgba(0,0,0,0.92)), url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1000');
-  background-size:cover; background-attachment:fixed; background-position:center;
-}
-.top{border:2px solid var(--main);border-radius:25px;padding:22px;text-align:center;background:rgba(0,20,0,0.85);box-shadow:0 0 25px var(--main)}
-.top h1{color:var(--main);margin:0;font-size:26px;text-shadow:0 0 12px var(--main)}
-.theme-bar{display:flex;gap:8px;justify-content:center;margin:15px 0;flex-wrap:wrap}
-.tbtn{padding:8px 16px;border-radius:20px;border:none;font-weight:bold}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
-.card{border:1px solid #222;padding:14px;text-align:center;background:rgba(15,15,15,0.9);border-radius:18px}
-.card a{color:var(--main);text-decoration:none;font-weight:bold;font-size:13px}
-.footer{margin-top:30px;border:2px solid var(--main);border-radius:25px;padding:18px;text-align:center;background:rgba(0,15,0,0.9)}
-.footer h3{color:var(--main);margin:0}
-.badge{display:inline-block;border:1px solid var(--main);border-radius:20px;padding:7px 16px;margin:5px;color:var(--main);font-size:12px;background:#000}
-</style>
-<script>
-function setTheme(c){ localStorage.setItem('cyb_theme',c); document.documentElement.style.setProperty('--main',c); }
-window.onload=function(){ let s=localStorage.getItem('cyb_theme')||'#00ff00'; document.documentElement.style.setProperty('--main',s); }
-</script>
-</head><body>
-<div class="top">
-<h1>⚡ CYB3R TOOLS - 50 IN 1 ⚡</h1>
-<p style="color:#aaa;font-size:11px">50+ TOOLS | 100% SECURE | MADE BY VICKY CHAUHAN</p>
-</div>
-<div class="theme-bar">
-<button class="tbtn" style="background:#ffcc00" onclick="setTheme('#ffcc00')">Yellow Hacker</button>
-<button class="tbtn" style="background:#00ff00" onclick="setTheme('#00ff00')">Green Matrix</button>
-<button class="tbtn" style="background:#ff0040;color:#fff" onclick="setTheme('#ff0040')">Red Cyber</button>
-<button class="tbtn" style="background:#00d9ff" onclick="setTheme('#00d9ff')">Blue</button>
-</div>
-<div class="grid">
-{% for idx, tool in tools %}
-<div class="card"><a href="/tool/{{idx}}">{{idx+1}}. {{tool[0]}}</a></div>
-{% endfor %}
-</div>
+def get_youtube_id(url):
+    # youtube.com/watch?v=ID, youtu.be/ID, shorts/ID
+    try:
+        if "youtu.be/" in url:
+            return url.split("youtu.be/")[1].split("?")[0].split("&")[0]
+        if "v=" in url:
+            return parse_qs(urlparse(url).query).get('v',[None])[0]
+        if "/shorts/" in url:
+            return url.split("/shorts/")[1].split("?")[0]
+    except:
+        pass
+    return None
 
-<div class="footer">
-<h3>⚡ MADE WITH ❤️ BY VICKY CHAUHAN ⚡</h3>
-<p style="color:#888;font-size:11px">50+ CYBER TOOLS | 100% SECURE | FOUNDER - CYB3R TOOLS</p>
-<span class="badge">👁️ Visitors: {{visitors}}</span>
-<span class="badge">🟢 Status: ONLINE</span><br>
-<span class="badge">© 2026 CYB3R TOOLS</span>
-</div>
-</body></html>
+def phone_info(num):
+    num = re.sub(r'\D','',num)
+    if len(num) < 10: return "Invalid number, 10 digit dalo"
+    # last 10 digit
+    last10 = num[-10:]
+    # Indian operator logic
+    operators = {
+        "9": "Jio/Airtel/Vi (Indian)",
+        "8": "Jio/Airtel",
+        "7": "Jio/Airtel",
+        "6": "Jio (New Series)"
+    }
+    circle_map = {"98":"Delhi","99":"Mumbai","97":"UP","96":"Bihar","95":"Rajasthan","94":"MP","93":"Gujarat","90":"Kolkata"}
+    circle = circle_map.get(last10[:2], "India (Approx)")
+    op = operators.get(last10[0], "Unknown Indian Operator")
+    return f"""📱 Number: +91 {last10}
+🌐 Country: India
+📡 Operator: {op}
+🗺️ Circle/State: {circle}
+🔢 Length: {len(num)} digits
+✅ Type: Mobile / GSM
+⚠️ Note: Ye offline database se hai, 100% accurate ke liye API lagta hai
 """
 
-@app.route('/')
-def home():
-    v = get_visitors()
-    return render_template_string(HOME_HTML, tools=list(enumerate(TOOLS_LIST)), visitors=f"{v:,}")
-
-@app.route('/tool/<int:tid>', methods=['GET','POST'])
-def tool_page(tid):
-    if tid<0 or tid>=len(TOOLS_LIST): return "Not Found",404
-    name=TOOLS_LIST[tid][0]
-    out=""
-    if request.method=='POST':
-        d=request.form.get('data','')
-        if "MD5" in name: out=hashlib.md5(d.encode()).hexdigest()
-        elif "SHA256" in name: out=hashlib.sha256(d.encode()).hexdigest()
-        else: out=f"Done: {d[:300]}"
-    return f"<body style='background:#000;color:#0f0;padding:20px'><a href='/' style='color:#0f0'>← Back</a><h2>{name}</h2><form method='POST'><textarea name='data' style='width:100%;background:#111;color:#0f0'></textarea><button>Run</button></form><pre>{out}</pre></body>"
-
-if __name__=='__main__':
-    app.run(host='0.0.0.0', port=10000)
+def process_tool(tid, data):
+    data = data.strip()
+    if not data: return "Input dalo bhai!"
+    try:
+        if tid == 0: return "John Ready Format: " + data
+        elif tid == 1: return hashlib.md5(data.encode()).hexdigest()
+        elif tid == 2: return hashlib.sha1(data.encode()).hexdigest()
+        elif tid == 3: return hashlib.sha256(data.encode()).hexdigest()
+        elif tid == 4: return base64.b64encode(data.encode()).decode()
+        elif tid == 5: return base64.b64decode(data.encode()).decode()
+        elif tid == 6: return quote(data)
+        elif tid == 7: return unquote(data)
+        elif tid == 8: return data.encode().hex()
+        elif tid == 9: return ' '.join(format(ord(c), '08b') for c in data)
+        elif tid == 10: return ''.join(random.choice(string.ascii_letters+string.digits+"!@#$%") for _ in range(16))
+        elif tid == 11:
+            s=0
+            if len(data)>=8: s+=1
+            if re.search(r"[A-Z]",data): s+=1
+            if re.search(r"[0-9]",data): s+=1
+            if re.search(r"[^A-Za-z0-9]",data): s+=1
+            return ["Very Weak","Weak","Medium","Strong","Very Strong"][s]
+        elif tid == 12: return f"IP: {request.remote_addr}\nHost: {request.host}"
+        elif tid == 13: return request.headers.get('User-Agent','Not Found')
+        elif tid == 14: return f"Words: {len(data.split())}"
+        elif tid == 15: return f"Chars: {len(data)}"
+        elif tid == 16: return data.upper()
+        elif tid == 17: return data.lower()
+        elif tid == 18: return data[::-1]
+        elif tid == 19: return "".join(data.split())
+        elif tid == 20: return "\n".join(list(dict.fromkeys(data.splitlines())))
+        elif tid == 21: return json.dumps(json.loads(data), indent=2)
+        elif tid == 22: return html.escape(data)
+        elif tid == 23:
+            try:
+                d=datetime.strptime(data, "%Y-%m-%d"); today=datetime.now()
+                return f"Age: {today.year - d.year} years"
+            except: return "Format: YYYY-MM-DD (ex: 2005-08-15)"
+        elif tid == 24: return str(random.randint(1, 1000000))
+        elif tid == 25: return str(uuid.uuid4())
+        elif tid == 26: return "Lorem ipsum dolor sit amet..."
+        elif tid == 27: return "Morse:... ---..."
+        elif tid == 28: return data.encode('rot13')
+        elif tid == 29: return "Palindrome" if data.lower()==data.lower()[::-1] else "Not Palindrome"
+        elif tid == 30: return "Valid Email" if re.match(r"[^@]+@[^@]+\.[^@]+", data) else "Invalid Email"
+        elif tid == 31: return f"Length {len(data)} - Possible Hash"
+        elif tid == 32: return re.sub(r'[^a-z0-9]+', '-', data.lower()).strip('-')
+        elif tid == 33: return data.swapcase()
+        elif tid in (34,35): return "Demo Checker"
+        elif tid == 36: return f"#{''.join(random.choice('0123456789ABCDEF') for _ in range(6))}"
+        elif tid == 37: return ''.join(chr(int(b,2)) for b in data.split() if b)
+        elif tid == 38: return ' '.join(format(ord(c),'08b') for c in data)
+        elif tid == 39: return bytes.fromhex(data).decode(errors='ignore')
+        elif tid == 40: return data.encode().hex()
+        elif tid == 41:
+            f=io.StringIO(data); reader=csv.DictReader(f); return json.dumps(list(reader), indent=2)
+        elif tid == 42: return '.'.join(format(int(x),'08b') for x in data.split('.'))
+        elif tid == 43: return re.sub(r'\s+',' ',data).strip()
+        elif tid == 44: return "Regex Tester - format: pattern|||text"
+        elif tid == 45: return f"QR Text: {data}"
+        elif tid == 46: return "Valid Card" if len(re.sub(r'\D','',data))>=13 else "Invalid Card"
+        elif tid == 47: return "Valid Phone" if len(re.sub(r'\D','',data))==10 else "Invalid Phone"
+        elif tid == 48: return f"Length: {len(data)}"
+        elif tid == 49: return
