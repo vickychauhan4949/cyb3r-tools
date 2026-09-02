@@ -1,134 +1,161 @@
-from flask import Flask, request, render_template_string
-import hashlib, re, random, string, base64, json, os, uuid, html, csv, io
-from urllib.parse import quote, unquote, urlparse, parse_qs
-from datetime import datetime
+from flask import Flask, request
+import hashlib, base64, random, string, re, html, json
+from urllib.parse import quote, unquote
 
 app = Flask(__name__)
+visitors = 1301
 
-VISITOR_FILE = "count.txt"
-if not os.path.exists(VISITOR_FILE):
-    with open(VISITOR_FILE, "w") as f: f.write("1301")
-def get_visitors():
-    try:
-        with open(VISITOR_FILE, "r") as f: c = int(f.read())
-    except: c = 1301
-    c += 1
-    with open(VISITOR_FILE, "w") as f: f.write(str(c))
-    return c
-
-TOOLS_LIST = [
-    "John Toolkit","MD5 Generator","SHA1 Gen","SHA256 Gen","Base64 Encode","Base64 Decode",
-    "URL Encode","URL Decode","Hex Encode","Binary Converter","Password Generator",
-    "Pass Strength","My IP Info","User Agent","Word Counter","Char Counter","Uppercase",
-    "Lowercase","Reverse Text","Remove Space","Duplicate Remover","JSON Formatter","HTML Escape",
-    "Age Calculator","Random Number","UUID Gen","Lorem Ipsum","Morse Code","ROT13",
-    "Palindrome Check","Email Validator","Hash Identifier","Slug Generator","Case Swap",
-    "MD5 Checker","SHA256 Checker","Color Picker","Binary to Text","Text to Binary",
-    "Hex to Text","Text to Hex","CSV to JSON","IP to Binary","Whitespace Cleaner",
-    "Regex Tester","QR Text","Credit Luhn","Phone Validator","Pass Length","IP Tracker",
-    "Header Viewer","Port Info",
-    "Name Style - Fancy Text","UPI QR Generator","Fake Link Checker","Insta Reel Downloader",
-    "Phone Info Lookup","YouTube Thumbnail Downloader"
+TOOLS = [
+    "MD5 Generator",
+    "SHA256 Generator",
+    "Base64 Encode",
+    "Base64 Decode",
+    "Uppercase Text",
+    "Lowercase Text",
+    "Reverse Text",
+    "Word Counter",
+    "Password Generator",
+    "Name Style - Fancy",
+    "UPI QR Generator",
+    "Fake Link Checker",
+    "Phone Info Lookup",
+    "YouTube Thumbnail",
+    "Insta Reel Info",
+    "URL Encode",
+    "URL Decode",
+    "Binary Converter",
+    "Age Calculator",
+    "Email Validator",
+    "My IP Info",
+    "User Agent"
 ]
 
-def get_youtube_id(url):
-    # youtube.com/watch?v=ID, youtu.be/ID, shorts/ID
+def run_tool(i, text):
+    t = text.strip()
+    if not t: return "Kuch likh to sahi bhai!"
     try:
-        if "youtu.be/" in url:
-            return url.split("youtu.be/")[1].split("?")[0].split("&")[0]
-        if "v=" in url:
-            return parse_qs(urlparse(url).query).get('v',[None])[0]
-        if "/shorts/" in url:
-            return url.split("/shorts/")[1].split("?")[0]
-    except:
-        pass
-    return None
+        if i==0: return hashlib.md5(t.encode()).hexdigest()
+        if i==1: return hashlib.sha256(t.encode()).hexdigest()
+        if i==2: return base64.b64encode(t.encode()).decode()
+        if i==3:
+            try: return base64.b64decode(t.encode()).decode()
+            except: return "Galat Base64 hai!"
+        if i==4: return t.upper()
+        if i==5: return t.lower()
+        if i==6: return t[::-1]
+        if i==7: return f"Words: {len(t.split())}\nChars: {len(t)}\nLines: {len(t.splitlines())}"
+        if i==8: return ''.join(random.choice(string.ascii_letters+string.digits+"@#$%") for _ in range(12))
+        if i==9:
+            return f"1. Bold: {t.upper()}\n2. Fancy: {' '.join('𝕍𝕀ℂ𝕂𝕐'[ord(c.lower())-97] if c.isalpha() and ord(c.lower())-97<5 else c for c in t)}\n3. Small: {t.lower()}\n4. Reverse Fancy: {t[::-1]}\n5. Leet: {t.replace('a','4').replace('e','3').replace('i','1').replace('o','0')}"
+        if i==10:
+            # UPI: upi_id|name|amount
+            parts = t.split("|")
+            upi = parts[0].strip()
+            name = parts[1].strip() if len(parts)>1 else "Vicky"
+            amt = parts[2].strip() if len(parts)>2 else "100"
+            link = f"upi://pay?pa={upi}&pn={quote(name)}&am={amt}&cu=INR"
+            return f"UPI ID: {upi}\nName: {name}\nAmount: Rs.{amt}\n\nLINK:\n{link}\n\nIs link ka QR banao Google QR Generator se"
+        if i==11:
+            bad = ["bit.ly","tinyurl","free-money","lottery","verify-account",".tk","exe"]
+            found = [b for b in bad if b in t.lower()]
+            if found: return f"⚠️ FAKE LINK! Mila: {found}\nLink: {t}"
+            if not t.startswith("https"): return f"⚠️ No HTTPS! Risky: {t}"
+            return f"✅ SAFE lag raha hai: {t}"
+        if i==12:
+            num = re.sub(r'\D','',t)[-10:]
+            if len(num)!=10: return "10 digit number dalo"
+            return f"Number: +91 {num}\nCountry: India\nOperator: Jio/Airtel/Vi (Indian Series)\nType: Mobile GSM\nCircle: {num[:2]} Series"
+        if i==13:
+            # youtube
+            vid = ""
+            if "youtu.be/" in t: vid = t.split("youtu.be/")[1].split("?")[0].split("&")[0]
+            elif "v=" in t:
+                import urllib.parse
+                qs = urllib.parse.parse_qs(urllib.parse.urlparse(t).query)
+                vid = qs.get('v',[''])[0]
+            elif "/shorts/" in t: vid = t.split("/shorts/")[1].split("?")[0]
+            else: vid = t.strip()
+            if not vid: return "Link galat hai! Ex: https://youtu.be/dQw4w9WgXcQ"
+            return f"Video ID: {vid}\n\n1. MAX HD:\nhttps://img.youtube.com/vi/{vid}/maxresdefault.jpg\n\n2. HQ:\nhttps://img.youtube.com/vi/{vid}/hqdefault.jpg\n\n3. MQ:\nhttps://img.youtube.com/vi/{vid}/mqdefault.jpg"
+        if i==14: return f"Reel Link: {t}\n\nSaveInsta.app ya SnapInsta.app pe jao, ye link paste karo, HD download ho jayega."
+        if i==15: return quote(t)
+        if i==16: return unquote(t)
+        if i==17: return ' '.join(format(ord(c),'08b') for c in t)
+        if i==18: return "Format: YYYY-MM-DD likho\nEx: 2005-01-01"
+        if i==19:
+            return "Valid Email ✅" if re.match(r"[^@]+@[^@]+\.[^@]+", t) else "Invalid Email ❌"
+        if i==20: return f"IP: {request.remote_addr}\nHost: {request.host}"
+        if i==21: return request.headers.get('User-Agent','Not Found')
+    except Exception as e:
+        return f"Error: {e}"
+    return "Done"
 
-def phone_info(num):
-    num = re.sub(r'\D','',num)
-    if len(num) < 10: return "Invalid number, 10 digit dalo"
-    # last 10 digit
-    last10 = num[-10:]
-    # Indian operator logic
-    operators = {
-        "9": "Jio/Airtel/Vi (Indian)",
-        "8": "Jio/Airtel",
-        "7": "Jio/Airtel",
-        "6": "Jio (New Series)"
-    }
-    circle_map = {"98":"Delhi","99":"Mumbai","97":"UP","96":"Bihar","95":"Rajasthan","94":"MP","93":"Gujarat","90":"Kolkata"}
-    circle = circle_map.get(last10[:2], "India (Approx)")
-    op = operators.get(last10[0], "Unknown Indian Operator")
-    return f"""📱 Number: +91 {last10}
-🌐 Country: India
-📡 Operator: {op}
-🗺️ Circle/State: {circle}
-🔢 Length: {len(num)} digits
-✅ Type: Mobile / GSM
-⚠️ Note: Ye offline database se hai, 100% accurate ke liye API lagta hai
+@app.route('/', methods=['GET'])
+def home():
+    global visitors
+    visitors += 1
+    html_page = f"""
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{{margin:0;padding:10px;background:#0a0a0a;color:#fff;font-family:Arial}}
+.top{{border:2px solid #ffcc00;border-radius:20px;padding:15px;text-align:center;background:#111}}
+.top h1{{color:#ffcc00;margin:0;font-size:20px}}
+.grid{{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}}
+.card{{border:1px solid #333;padding:12px;text-align:center;background:#151515;border-radius:12px}}
+.card a{{color:#ffcc00;text-decoration:none;font-weight:bold;font-size:12px}}
+.footer{{margin-top:20px;border:2px solid #ffcc00;border-radius:15px;padding:15px;text-align:center;background:#111}}
+.badge{{border:1px solid #ffcc00;border-radius:15px;padding:5px 10px;margin:3px;display:inline-block;font-size:11px;color:#ffcc00}}
+</style></head><body>
+<div class="top"><h1>⚡ CYB3R TOOLS - 22 IN 1 ⚡</h1><p style="color:#888;font-size:11px">MADE BY VICKY CHAUHAN</p></div>
+<div class="grid">
+"""
+    for idx, name in enumerate(TOOLS):
+        html_page += f'<div class="card"><a href="/tool/{idx}">{idx+1}. {name}</a></div>'
+    html_page += f"""
+</div>
+<div class="footer">
+<h3 style="color:#ffcc00;margin:0">⚡ MADE BY VICKY CHAUHAN ⚡</h3>
+<span class="badge">👁️ Visitors: {visitors}</span>
+<span class="badge">🟢 ONLINE</span><br>
+<span class="badge">© 2026 CYB3R TOOLS</span>
+</div>
+</body></html>
+"""
+    return html_page
+
+@app.route('/tool/<int:tid>', methods=['GET','POST'])
+def tool(tid):
+    if tid<0 or tid>=len(TOOLS): return "Not Found",404
+    name = TOOLS[tid]
+    inp = ""
+    out = ""
+    if request.method == 'POST':
+        inp = request.form.get('data','')
+        out = run_tool(tid, inp)
+
+    return f"""
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{{background:#0a0a0a;color:#fff;font-family:Arial;display:flex;justify-content:center;padding:10px;margin:0}}
+.box{{border:2px solid #ffcc00;padding:15px;width:100%;max-width:500px;border-radius:15px;background:#111}}
+textarea{{width:100%;padding:10px;background:#000;color:#fff;border:1px solid #333;border-radius:10px;box-sizing:border-box}}
+button{{background:#ffcc00;color:#000;font-weight:bold;padding:12px;width:100%;border:none;border-radius:10px;margin-top:10px}}
+pre{{background:#000;color:#ffcc00;padding:10px;border-left:3px solid #ffcc00;border-radius:8px;white-space:pre-wrap;word-break:break-all;margin-top:10px}}
+a{{color:#ffcc00;text-decoration:none}}
+.hint{{color:#888;font-size:11px;margin:5px 0}}
+</style></head><body>
+<div class="box">
+<a href="/">← Back</a>
+<h2 style="color:#ffcc00">{name}</h2>
+<div class="hint">Input niche dalo aur RUN dabao</div>
+<form method="POST">
+<textarea name="data" rows="4" placeholder="Yaha likho...">{inp}</textarea>
+<button type="submit">RUN {name}</button>
+</form>
+<pre>{out if out else 'Result yaha ayega...'}</pre>
+</div>
+</body></html>
 """
 
-def process_tool(tid, data):
-    data = data.strip()
-    if not data: return "Input dalo bhai!"
-    try:
-        if tid == 0: return "John Ready Format: " + data
-        elif tid == 1: return hashlib.md5(data.encode()).hexdigest()
-        elif tid == 2: return hashlib.sha1(data.encode()).hexdigest()
-        elif tid == 3: return hashlib.sha256(data.encode()).hexdigest()
-        elif tid == 4: return base64.b64encode(data.encode()).decode()
-        elif tid == 5: return base64.b64decode(data.encode()).decode()
-        elif tid == 6: return quote(data)
-        elif tid == 7: return unquote(data)
-        elif tid == 8: return data.encode().hex()
-        elif tid == 9: return ' '.join(format(ord(c), '08b') for c in data)
-        elif tid == 10: return ''.join(random.choice(string.ascii_letters+string.digits+"!@#$%") for _ in range(16))
-        elif tid == 11:
-            s=0
-            if len(data)>=8: s+=1
-            if re.search(r"[A-Z]",data): s+=1
-            if re.search(r"[0-9]",data): s+=1
-            if re.search(r"[^A-Za-z0-9]",data): s+=1
-            return ["Very Weak","Weak","Medium","Strong","Very Strong"][s]
-        elif tid == 12: return f"IP: {request.remote_addr}\nHost: {request.host}"
-        elif tid == 13: return request.headers.get('User-Agent','Not Found')
-        elif tid == 14: return f"Words: {len(data.split())}"
-        elif tid == 15: return f"Chars: {len(data)}"
-        elif tid == 16: return data.upper()
-        elif tid == 17: return data.lower()
-        elif tid == 18: return data[::-1]
-        elif tid == 19: return "".join(data.split())
-        elif tid == 20: return "\n".join(list(dict.fromkeys(data.splitlines())))
-        elif tid == 21: return json.dumps(json.loads(data), indent=2)
-        elif tid == 22: return html.escape(data)
-        elif tid == 23:
-            try:
-                d=datetime.strptime(data, "%Y-%m-%d"); today=datetime.now()
-                return f"Age: {today.year - d.year} years"
-            except: return "Format: YYYY-MM-DD (ex: 2005-08-15)"
-        elif tid == 24: return str(random.randint(1, 1000000))
-        elif tid == 25: return str(uuid.uuid4())
-        elif tid == 26: return "Lorem ipsum dolor sit amet..."
-        elif tid == 27: return "Morse:... ---..."
-        elif tid == 28: return data.encode('rot13')
-        elif tid == 29: return "Palindrome" if data.lower()==data.lower()[::-1] else "Not Palindrome"
-        elif tid == 30: return "Valid Email" if re.match(r"[^@]+@[^@]+\.[^@]+", data) else "Invalid Email"
-        elif tid == 31: return f"Length {len(data)} - Possible Hash"
-        elif tid == 32: return re.sub(r'[^a-z0-9]+', '-', data.lower()).strip('-')
-        elif tid == 33: return data.swapcase()
-        elif tid in (34,35): return "Demo Checker"
-        elif tid == 36: return f"#{''.join(random.choice('0123456789ABCDEF') for _ in range(6))}"
-        elif tid == 37: return ''.join(chr(int(b,2)) for b in data.split() if b)
-        elif tid == 38: return ' '.join(format(ord(c),'08b') for c in data)
-        elif tid == 39: return bytes.fromhex(data).decode(errors='ignore')
-        elif tid == 40: return data.encode().hex()
-        elif tid == 41:
-            f=io.StringIO(data); reader=csv.DictReader(f); return json.dumps(list(reader), indent=2)
-        elif tid == 42: return '.'.join(format(int(x),'08b') for x in data.split('.'))
-        elif tid == 43: return re.sub(r'\s+',' ',data).strip()
-        elif tid == 44: return "Regex Tester - format: pattern|||text"
-        elif tid == 45: return f"QR Text: {data}"
-        elif tid == 46: return "Valid Card" if len(re.sub(r'\D','',data))>=13 else "Invalid Card"
-        elif tid == 47: return "Valid Phone" if len(re.sub(r'\D','',data))==10 else "Invalid Phone"
-        elif tid == 48: return f"Length: {len(data)}"
-        elif tid == 49: return
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)
