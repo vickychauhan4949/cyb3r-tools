@@ -28,13 +28,35 @@ HOME_HTML = """
 <html><head><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CYB3R TOOLS - 50 IN 1</title>
 <style>
-body{background:#000;color:#0f0;font-family:monospace;padding:10px}
-h1{text-align:center;border:2px solid #0f0;padding:10px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:20px}
-.card{border:1px solid #0f0;padding:12px;text-align:center;background:#0a0a0a}
-.card a{color:#0f0;text-decoration:none;font-weight:bold}
-</style></head><body>
-<h1>🔥 CYB3R TOOLS - 50 IN 1 🔥</h1>
+:root{ --main:#ffcc00; }
+body{background:#0a0a0a;color:#fff;font-family:sans-serif;margin:0;padding:12px;transition:0.3s}
+.top{border:2px solid var(--main);border-radius:25px;padding:22px;text-align:center;background:linear-gradient(180deg,#1a1a00,#000);box-shadow:0 0 20px var(--main)}
+.top h1{color:var(--main);margin:0;font-size:26px}
+.top p{color:#aaa;font-size:12px;margin-top:5px}
+.theme-bar{display:flex;gap:8px;justify-content:center;margin:15px 0;flex-wrap:wrap}
+.tbtn{padding:8px 16px;border-radius:20px;border:none;font-weight:bold;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:10px}
+.card{border:1px solid #333;padding:12px;text-align:center;background:#141414;border-radius:18px}
+.card a{color:var(--main);text-decoration:none;font-weight:bold;font-size:13px}
+.card:hover{border-color:var(--main);box-shadow:0 0 10px var(--main)}
+</style>
+<script>
+function setTheme(c){ localStorage.setItem('cyb_theme',c); document.documentElement.style.setProperty('--main',c); }
+window.onload=function(){ let s=localStorage.getItem('cyb_theme')||'#ffcc00'; document.documentElement.style.setProperty('--main',s); }
+</script>
+</head><body>
+<div class="top">
+<h1>⚡ CYB3R TOOLS - 50 IN 1 ⚡</h1>
+<p>50+ TOOLS | SECURE | MADE BY VICKY CHAUHAN</p>
+</div>
+
+<div class="theme-bar">
+<button class="tbtn" style="background:#ffcc00" onclick="setTheme('#ffcc00')">Yellow Hacker</button>
+<button class="tbtn" style="background:#00ff00" onclick="setTheme('#00ff00')">Green Matrix</button>
+<button class="tbtn" style="background:#ff0040;color:#fff" onclick="setTheme('#ff0040')">Red Cyber</button>
+<button class="tbtn" style="background:#00d9ff" onclick="setTheme('#00d9ff')">Blue</button>
+</div>
+
 <div class="grid">
 {% for idx, tool in tools %}
 <div class="card"><a href="/tool/{{idx}}">{{idx+1}}. {{tool[0]}}</a></div>
@@ -47,16 +69,21 @@ JOHN_HTML = """
 <html><head><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CYB3R - John Toolkit</title>
 <style>
-body{background:#000;color:#0f0;font-family:monospace;display:flex;justify-content:center;padding:15px}
-.box{border:1px solid #0f0;padding:20px;width:100%;max-width:500px}
-input{width:100%;padding:10px;background:#111;color:#0f0;border:1px solid #0f0;margin-top:5px;box-sizing:border-box}
-button{background:#0f0;color:#000;font-weight:bold;padding:8px 15px;border:none;margin-top:8px}
-pre{background:#111;padding:10px;border-left:3px solid #0f0;white-space:pre-wrap;word-break:break-all}
-a{color:#0f0}
-</style></head><body>
+:root{ --main:#ffcc00; }
+body{background:#0a0a0a;color:#fff;font-family:sans-serif;display:flex;justify-content:center;padding:12px}
+.box{border:2px solid var(--main);padding:20px;width:100%;max-width:500px;border-radius:20px;background:#141414}
+input{width:100%;padding:12px;background:#000;color:#fff;border:1px solid #333;margin-top:5px;box-sizing:border-box;border-radius:12px}
+button{background:var(--main);color:#000;font-weight:bold;padding:10px 15px;border:none;margin-top:8px;border-radius:10px;width:100%}
+pre{background:#000;padding:10px;border-left:3px solid var(--main);white-space:pre-wrap;word-break:break-all;color:var(--main);border-radius:8px}
+a{color:var(--main);text-decoration:none}
+</style>
+<script>
+window.onload=function(){ let s=localStorage.getItem('cyb_theme')||'#ffcc00'; document.documentElement.style.setProperty('--main',s); }
+</script>
+</head><body>
 <div class="box">
 <a href="/">← Back to 50 Tools</a>
-<h2>🔒 CYB3R - John Toolkit [Legal]</h2>
+<h2 style="color:var(--main)">🔒 CYB3R - John Toolkit [Legal]</h2>
 <form method="POST">
 <label>1. Hash Identifier</label>
 <input name="hash_input" placeholder="Hash paste karo" value="{{h_input}}">
@@ -76,13 +103,20 @@ a{color:#0f0}
 GENERIC_HTML = """
 <html><head><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{{name}}</title>
-<style>body{background:#000;color:#0f0;font-family:monospace;display:flex;justify-content:center;padding:15px}
-.box{border:1px solid #0f0;padding:20px;width:100%;max-width:500px}
-textarea{width:100%;padding:10px;background:#111;color:#0f0;border:1px solid #0f0;box-sizing:border-box}
-button{background:#0f0;color:#000;font-weight:bold;padding:10px;border:none;margin-top:10px;width:100%}
-pre{background:#111;padding:10px;white-space:pre-wrap;word-break:break-all;border-left:3px solid #0f0}
-a{color:#0f0}</style></head><body>
-<div class="box"><a href="/">← Back</a><h2>{{name}}</h2>
+<style>
+:root{ --main:#ffcc00; }
+body{background:#0a0a0a;color:#fff;font-family:sans-serif;display:flex;justify-content:center;padding:12px}
+.box{border:2px solid var(--main);padding:20px;width:100%;max-width:500px;border-radius:20px;background:#141414}
+textarea{width:100%;padding:12px;background:#000;color:#fff;border:1px solid #333;box-sizing:border-box;border-radius:12px}
+button{background:var(--main);color:#000;font-weight:bold;padding:12px;border:none;margin-top:10px;width:100%;border-radius:12px}
+pre{background:#000;padding:10px;white-space:pre-wrap;word-break:break-all;border-left:3px solid var(--main);color:var(--main);border-radius:8px}
+a{color:var(--main);text-decoration:none}
+</style>
+<script>
+window.onload=function(){ let s=localStorage.getItem('cyb_theme')||'#ffcc00'; document.documentElement.style.setProperty('--main',s); }
+</script>
+</head><body>
+<div class="box"><a href="/">← Back</a><h2 style="color:var(--main)">{{name}}</h2>
 <form method="POST"><textarea name="data" rows="4" placeholder="Input dalo...">{{inp}}</textarea>
 <button>Run {{name}}</button></form>
 {% if out %}<pre>{{out}}</pre>{% endif %}
