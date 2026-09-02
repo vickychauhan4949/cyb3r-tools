@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+from flask import Flask
+app = Flask(__name__)
+
+HTML = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -52,10 +55,9 @@ footer{text-align:center;border-top:1px solid #242732;color:#626979;padding:30px
 </style>
 </head>
 <body>
-
 <div class="app">
 <aside class="side">
-<div class="logo">Tool<b>Hub</b></div>
+<div class="logo">Tool<b>Hub</b> ⚡</div>
 <div class="navtitle">Categories</div>
 <div class="nav">
 <button class="active" onclick="cat('all',this)">🏠 All</button>
@@ -67,19 +69,16 @@ footer{text-align:center;border-top:1px solid #242732;color:#626979;padding:30px
 <button onclick="cat('utility',this)">🛠️ Utility</button>
 </div>
 </aside>
-
 <main class="main">
 <header class="top">
 <div class="search">
 <input id="search" placeholder="Search 100+ tools..." oninput="render()">
 </div>
 </header>
-
 <section class="hero">
 <h1>Powerful tools.<br><span>Simple & Free.</span></h1>
-<p>100+ useful online tools. Fast, simple and free — directly in your browser.</p>
+<p>100+ useful online tools. Fast, simple and free — directly in your browser. Made by Vicky Chauhan.</p>
 </section>
-
 <section class="section">
 <div class="head">
 <h2 id="title">All Tools</h2>
@@ -88,11 +87,9 @@ footer{text-align:center;border-top:1px solid #242732;color:#626979;padding:30px
 <div class="tools" id="tools"></div>
 <div class="empty" id="empty">No tools found.</div>
 </section>
-
-<footer>ToolHub © 2026 — Free Online Tools</footer>
+<footer>ToolHub © 2026 — Free Online Tools | VICKY CHAUHAN</footer>
 </main>
 </div>
-
 <div class="modalbg" id="bg" onclick="outside(event)">
 <div class="modal">
 <div class="modalhead">
@@ -102,7 +99,6 @@ footer{text-align:center;border-top:1px solid #242732;color:#626979;padding:30px
 <div class="toolbox" id="box"></div>
 </div>
 </div>
-
 <script>
 const T=[
 ["Word Counter","Count words","📝","text","word"],
@@ -120,7 +116,6 @@ const T=[
 ["Slug Generator","Create URL slug","🔗","text","slug"],
 ["Text Repeater","Repeat text","🔁","text","repeat"],
 ["Word Frequency","Find word frequency","📊","text","freq"],
-
 ["Percentage","Calculate percentage","%","calc","percent"],
 ["Average","Calculate average","📊","calc","avg"],
 ["BMI Calculator","Calculate BMI","⚖️","calc","bmi"],
@@ -136,7 +131,6 @@ const T=[
 ["Ratio Calculator","Calculate ratio","⚖️","calc","ratio"],
 ["Fraction Calculator","Calculate fraction","½","calc","fraction"],
 ["Compound Interest","Calculate interest","💰","calc","interest"],
-
 ["Meters to Feet","Convert meters","📐","convert","mfeet"],
 ["Feet to Meters","Convert feet","📐","convert","feetm"],
 ["KM to Miles","Convert distance","🚗","convert","kmmile"],
@@ -156,7 +150,6 @@ const T=[
 ["GB to MB","Convert data","💾","convert","gbmb"],
 ["Decimal to Binary","Convert number","01","convert","bin"],
 ["Binary to Decimal","Convert number","01","convert","dec"],
-
 ["JSON Formatter","Format JSON","{}","dev","json"],
 ["JSON Minifier","Minify JSON","{}","dev","jsonmin"],
 ["Base64 Encoder","Encode Base64","🔐","dev","enc"],
@@ -174,7 +167,6 @@ const T=[
 ["Binary to Text","Binary to text","🔢","dev","bintxt"],
 ["ASCII Converter","ASCII converter","🔤","dev","ascii"],
 ["Hex Converter","Convert hexadecimal","🔢","dev","hex"],
-
 ["Password Generator","Generate password","🔑","utility","pass"],
 ["Random Number","Random number","🎲","utility","random"],
 ["Random Color","Generate color","🎨","utility","randcolor"],
@@ -192,7 +184,6 @@ const T=[
 ["URL Validator","Validate URL","🔗","utility","urlval"],
 ["IP Validator","Validate IP","🌐","utility","ip"],
 ["Text Hash","Create hash","🔒","utility","hash"],
-
 ["Image Resize","Resize image","🖼️","image","resize"],
 ["Image Info","Image dimensions","ℹ️","image","imginfo"],
 ["Image Preview","Preview image","👁️","image","preview"],
@@ -203,7 +194,6 @@ const T=[
 ["Pixel Calculator","Image pixels","🔲","image","pixel"],
 ["Aspect Ratio","Calculate ratio","📐","image","ratioimg"],
 ["Image File Name","Clean filename","📁","image","filename"],
-
 ["Timer","Simple timer","⏱️","utility","timer"],
 ["Stopwatch","Stopwatch","⏱️","utility","stopwatch"],
 ["QR Text Generator","Create QR text","▦","utility","qr"],
@@ -220,9 +210,7 @@ const T=[
 ["Time Calculator","Add time","⏰","calc","timecalc"],
 ["Data Size Calculator","Calculate data","💾","calc","datasize"]
 ];
-
 let current="all";
-
 function cat(c,b){
 current=c;
 document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
@@ -230,160 +218,112 @@ b.classList.add("active");
 document.getElementById("title").textContent=c==="all"?"All Tools":c[0].toUpperCase()+c.slice(1)+" Tools";
 render();
 }
-
 function render(){
 let q=document.getElementById("search").value.toLowerCase();
-let list=T.filter(x=>(current==="all"||x[3]===current)&&
-(x[0]+" "+x[1]).toLowerCase().includes(q));
-
+let list=T.filter(x=>(current==="all"||x[3]===current)&&(x[0]+" "+x[1]).toLowerCase().includes(q));
 document.getElementById("tools").innerHTML=list.map(x=>`
 <div class="card" onclick="openTool(${T.indexOf(x)})">
 <div class="icon">${x[2]}</div>
 <h3>${x[0]}</h3>
 <p>${x[1]}</p>
 </div>`).join("");
-
 document.getElementById("count").textContent=list.length+" tools";
 document.getElementById("empty").style.display=list.length?"none":"block";
 }
-
 function openTool(i){
 let t=T[i];
 document.getElementById("mtitle").textContent=t[0];
 document.getElementById("box").innerHTML=UI(t[4]);
 document.getElementById("bg").style.display="block";
 }
-
 function closeTool(){document.getElementById("bg").style.display="none"}
 function outside(e){if(e.target.id==="bg")closeTool()}
-
 function textarea(ph="Enter text..."){
 return `<textarea id="a" placeholder="${ph}"></textarea>`;
 }
-
 function UI(t){
-
 if(["word","char","line","upper","lower","title","reverse","spaces","dup","pal","sort","clean","slug","freq"].includes(t))
 return `${textarea()}<br><button class="btn primary" onclick="text('${t}')">Run</button><div class="result" id="r"></div>`;
-
 if(t==="percent")return `Number<input id="a" type="number">Percent<input id="b" type="number"><br><button class="btn primary" onclick="R(Number(a.value)*Number(b.value)/100)">Calculate</button><div class="result" id="r"></div>`;
-
 if(t==="avg")return `${textarea("10,20,30,40")}<br><button class="btn primary" onclick="R(a.value.split(',').map(Number).reduce((x,y)=>x+y,0)/a.value.split(',').length)">Calculate</button><div class="result" id="r"></div>`;
-
 if(t==="bmi")return `Weight KG<input id="a" type="number">Height CM<input id="b" type="number"><br><button class="btn primary" onclick="R((a.value/(b.value/100)**2).toFixed(2))">Calculate</button><div class="result" id="r"></div>`;
-
 if(t==="basic")return `Expression<input id="a" placeholder="10+20*3"><br><button class="btn primary" onclick="calc()">Calculate</button><div class="result" id="r"></div>`;
-
 if(["square","cube","power"].includes(t))return `Number<input id="a" type="number">`+(t==="power"?`Power<input id="b" type="number">`:"")+`<br><button class="btn primary" onclick="R(${t==="square"?"a.value**2":t==="cube"?"a.value**3":"a.value**b.value"})">Calculate</button><div class="result" id="r"></div>`;
-
 if(t==="pass")return `Length<input id="a" type="number" value="16"><br><button class="btn primary" onclick="password()">Generate</button><div class="result" id="r"></div>`;
-
 if(t==="random")return `Min<input id="a" type="number" value="1">Max<input id="b" type="number" value="100"><br><button class="btn primary" onclick="R(Math.floor(Math.random()*(b.value-a.value+1))+Number(a.value))">Generate</button><div class="result" id="r"></div>`;
-
 if(t==="uuid")return `<button class="btn primary" onclick="R(crypto.randomUUID())">Generate UUID</button><div class="result" id="r"></div>`;
-
 if(t==="json"||t==="jsonmin")return `${textarea("Paste JSON...")}<br><button class="btn primary" onclick="jsonTool('${t}')">Run</button><div class="result" id="r"></div>`;
-
 if(t==="enc"||t==="dec64")return `${textarea()}<br><button class="btn primary" onclick="R('${t}'==='enc'?btoa(unescape(encodeURIComponent(a.value))):decodeURIComponent(escape(atob(a.value))))">Run</button><div class="result" id="r"></div>`;
-
 if(t==="urlenc"||t==="urldec")return `${textarea()}<br><button class="btn primary" onclick="R('${t}'==='urlenc'?encodeURIComponent(a.value):decodeURIComponent(a.value))">Run</button><div class="result" id="r"></div>`;
-
 if(t==="cf"||t==="fc")return `Temperature<input id="a" type="number"><br><button class="btn primary" onclick="R('${t}'==='cf'?a.value*9/5+32:(a.value-32)*5/9)">Convert</button><div class="result" id="r"></div>`;
-
 if(t==="mfeet"||t==="feetm"||t==="kmmile"||t==="milekm"||t==="kgpound"||t==="poundkg"||t==="cmin"||t==="incm"||t==="hm"||t==="ms"||t==="kbmb"||t==="mbgb"||t==="gbmb"||t==="lg"||t==="gl"||t==="bin"||t==="dec")
 return `Value<input id="a" type="number"><br><button class="btn primary" onclick="convert('${t}')">Convert</button><div class="result" id="r"></div>`;
-
 if(t==="textbin"||t==="bintxt")return `${textarea()}<br><button class="btn primary" onclick="binary('${t}')">Convert</button><div class="result" id="r"></div>`;
-
 if(t==="time")return `<button class="btn primary" onclick="R(Math.floor(Date.now()/1000))">Get Timestamp</button><div class="result" id="r"></div>`;
-
 if(t==="hexrgb")return `HEX<input id="a" placeholder="#7c5cff"><br><button class="btn primary" onclick="hexrgb()">Convert</button><div class="result" id="r"></div>`;
-
 if(t==="rgbhex")return `RGB<input id="a" placeholder="124,92,255"><br><button class="btn primary" onclick="rgbhex()">Convert</button><div class="result" id="r"></div>`;
-
 if(t==="picker")return `<input id="a" type="color" value="#7c5cff" style="height:70px"><br><button class="btn primary" onclick="R(a.value)">Show Color</button><div class="result" id="r"></div>`;
-
 if(t==="lorem")return `<button class="btn primary" onclick="R('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.')">Generate</button><div class="result" id="r"></div>`;
-
 if(t==="email")return `${textarea("email@example.com")}<br><button class="btn primary" onclick="R(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(a.value)?'Valid email':'Invalid email')">Validate</button><div class="result" id="r"></div>`;
-
 if(t==="urlval")return `${textarea("https://example.com")}<br><button class="btn primary" onclick="urlcheck()">Validate</button><div class="result" id="r"></div>`;
-
 if(t==="leap")return `Year<input id="a" type="number"><br><button class="btn primary" onclick="R((a.value%4===0&&a.value%100!==0)||a.value%400===0?'Leap Year':'Not Leap Year')">Check</button><div class="result" id="r"></div>`;
-
 if(t==="days")return `Year<input id="a" type="number">Month<input id="b" type="number" min="1" max="12"><br><button class="btn primary" onclick="R(new Date(a.value,b.value,0).getDate())">Calculate</button><div class="result" id="r"></div>`;
-
 if(t==="words")return `Number<input id="a" type="number"><br><button class="btn primary" onclick="R(words(Number(a.value)))">Convert</button><div class="result" id="r"></div>`;
-
 if(t==="roman")return `Number<input id="a" type="number"><br><button class="btn primary" onclick="R(roman(Number(a.value)))">Convert</button><div class="result" id="r"></div>`;
-
 if(t==="gradient")return `Color 1<input id="a" type="color" value="#7c5cff">Color 2<input id="b" type="color" value="#ff5caa"><br><button class="btn primary" onclick="R('linear-gradient(90deg,'+a.value+','+b.value+')')">Generate CSS</button><div class="result" id="r"></div>`;
-
 if(t==="imginfo"||t==="preview"||t==="resize"||t==="img64")
 return `<input id="file" type="file" accept="image/*"><div class="result" id="r">Choose an image.</div><br><button class="btn primary" onclick="imageTool('${t}')">Run</button>`;
-
 return `${textarea()}<br><button class="btn primary" onclick="R(a.value)">Run</button><div class="result" id="r"></div>`;
 }
-
 function R(x){document.getElementById("r").textContent=x}
-
 function text(t){
 let v=a.value,r="";
-if(t==="word")r="Words: "+(v.trim()?v.trim().split(/\s+/).length:0);
+if(t==="word")r="Words: "+(v.trim()?v.trim().split(/\\s+/).length:0);
 if(t==="char")r="Characters: "+v.length;
-if(t==="line")r="Lines: "+(v?v.split("\n").length:0);
+if(t==="line")r="Lines: "+(v?v.split("\\n").length:0);
 if(t==="upper")r=v.toUpperCase();
 if(t==="lower")r=v.toLowerCase();
-if(t==="title")r=v.toLowerCase().replace(/\b\w/g,x=>x.toUpperCase());
+if(t==="title")r=v.toLowerCase().replace(/\\b\\w/g,x=>x.toUpperCase());
 if(t==="reverse")r=[...v].reverse().join("");
-if(t==="spaces")r=v.replace(/\s+/g," ").trim();
-if(t==="dup")r=[...new Set(v.split("\n"))].join("\n");
+if(t==="spaces")r=v.replace(/\\s+/g," ").trim();
+if(t==="dup")r=[...new Set(v.split("\\n"))].join("\\n");
 if(t==="pal"){let x=v.toLowerCase().replace(/[^a-z0-9]/g,"");r=x===[...x].reverse().join("")?"Palindrome":"Not Palindrome"}
-if(t==="sort")r=v.split("\n").sort().join("\n");
-if(t==="clean")r=v.replace(/[^\x20-\x7E\n]/g,"");
+if(t==="sort")r=v.split("\\n").sort().join("\\n");
+if(t==="clean")r=v.replace(/[^\\x20-\\x7E\\n]/g,"");
 if(t==="slug")r=v.toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 if(t==="repeat")r=v;
-if(t==="freq"){let o={};v.toLowerCase().split(/\s+/).forEach(x=>o[x]=(o[x]||0)+1);r=JSON.stringify(o,null,2)}
+if(t==="freq"){let o={};v.toLowerCase().split(/\\s+/).forEach(x=>o[x]=(o[x]||0)+1);r=JSON.stringify(o,null,2)}
 R(r);
 }
-
 function calc(){
 try{if(!/^[0-9+*/().% -]+$/.test(a.value))throw 1;R(Function("return "+a.value)())}catch(e){R("Invalid expression")}
 }
-
 function password(){
 let s="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
 let r="";for(let i=0;i<Number(a.value);i++)r+=s[Math.floor(Math.random()*s.length)];R(r);
 }
-
 function jsonTool(t){
 try{let x=JSON.parse(a.value);R(t==="json"?JSON.stringify(x,null,2):JSON.stringify(x))}catch(e){R("Invalid JSON")}
 }
-
 function convert(t){
 let n=Number(a.value),r;
 const m={mfeet:n*3.28084,feetm:n/3.28084,kmmile:n*.621371,milekm:n*1.60934,kgpound:n*2.20462,poundkg:n*.453592,cmin:n/2.54,incm:n*2.54,hm:n*60,ms:n*60,kbmb:n/1024,mbgb:n/1024,gbmb:n*1024,lg:n*.264172,gl:n*3.78541,bin:n.toString(2),dec:parseInt(n,2)};
 R(m[t]);
 }
-
 function binary(t){
 if(t==="textbin")R([...a.value].map(x=>x.charCodeAt(0).toString(2).padStart(8,"0")).join(" "));
-else R(a.value.split(/\s+/).map(x=>String.fromCharCode(parseInt(x,2))).join(""));
+else R(a.value.split(/\\s+/).map(x=>String.fromCharCode(parseInt(x,2))).join(""));
 }
-
 function hexrgb(){
 let h=a.value.replace("#","");if(h.length===3)h=h.split("").map(x=>x+x).join("");
 R(`rgb(${parseInt(h.slice(0,2),16)}, ${parseInt(h.slice(2,4),16)}, ${parseInt(h.slice(4,6),16)})`);
 }
-
 function rgbhex(){
 R("#"+a.value.split(",").map(Number).map(x=>x.toString(16).padStart(2,"0")).join(""));
 }
-
 function urlcheck(){
 try{new URL(a.value);R("Valid URL")}catch(e){R("Invalid URL")}
 }
-
 function words(n){
 if(n===0)return"Zero";
 if(n<0)return"Minus "+words(-n);
@@ -395,24 +335,29 @@ if(n<1000)return o[Math.floor(n/100)]+" Hundred"+(n%100?" "+words(n%100):"");
 if(n<1000000)return words(Math.floor(n/1000))+" Thousand"+(n%1000?" "+words(n%1000):"");
 return "Number too large";
 }
-
 function roman(n){
 let a=[[1000,"M"],[900,"CM"],[500,"D"],[400,"CD"],[100,"C"],[90,"XC"],[50,"L"],[40,"XL"],[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]],r="";
 for(let x of a)while(n>=x[0]){r+=x[1];n-=x[0]}return r||"Invalid";
 }
-
 function imageTool(t){
 let f=document.getElementById("file").files[0];if(!f)return R("Choose image first");
 let im=new Image(),u=URL.createObjectURL(f);
 im.onload=()=>{
-if(t==="imginfo")R("Width: "+im.width+"px\nHeight: "+im.height+"px\nSize: "+(f.size/1024).toFixed(2)+" KB");
+if(t==="imginfo")R("Width: "+im.width+"px\\nHeight: "+im.height+"px\\nSize: "+(f.size/1024).toFixed(2)+" KB");
 else if(t==="preview")R("Image loaded: "+f.name);
 else if(t==="img64"){let rd=new FileReader();rd.onload=()=>R(rd.result);rd.readAsDataURL(f)}
 else R("Image: "+im.width+" × "+im.height);
 };im.src=u;
 }
-
 render();
 </script>
 </body>
 </html>
+"""
+
+@app.route('/')
+def home():
+    return HTML
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)
