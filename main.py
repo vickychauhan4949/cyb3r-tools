@@ -5,7 +5,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return open('index.html','r',encoding='utf-8').read()
+    with open('index.html', 'r', encoding='utf-8') as f:
+        return f.read()
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
