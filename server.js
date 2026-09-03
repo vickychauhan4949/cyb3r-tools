@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => res.send('HACKTOOLS PRO API IS LIVE'));
 
@@ -12,31 +13,43 @@ app.get('/download', async (req, res) => {
   if(!instaUrl) return res.json({error: "No URL"});
 
   try {
-    // TRICK: Use ddinstagram - ye Instagram ka mirror hai jo Render ko block nahi karta
-    const id = instaUrl.match(/\/reel\/([^\/\?]+)/)?.[1] || instaUrl.match(/\/p\/([^\/\?]+)/)?.[1];
+    // Using Cobalt API - most reliable
+    const response = await axios.post('https://api.cobalt.tools/api/json', 
+      { url: instaUrl },
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+    );
 
-    // Method 1: ddinstagram
-    const ddUrl = `https://www.ddinstagram.com/reel/${id}/`;
-    const { data: html } = await axios.get(ddUrl, {
-      headers: { "User-Agent": "Mozilla/5.0" }
-    });
+    console.log("Cobalt Response:", response.data);
 
-    const videoUrl = html.match(/href="([^"]+\.mp4[^"]*)"/)?.[1] || html.match(/content="([^"]+\.mp4[^"]*)"/)?.[1];
-
-    if(videoUrl){
-      return res.json({ video: videoUrl });
+    if(response.data && response.data.url){
+      return res.json({ video: response.data.url });
+    }
+    
+    if(response.data && response.data.error){
+      return res.json({ error: response.data.error });
     }
 
-    // Method 2: Fallback API
-    const apiRes = await axios.get(`https://api.vidfly.ai/api/media?url=${encodeURIComponent(instaUrl)}`);
-    if(apiRes.data?.video_url){
-      return res.json({ video: apiRes.data.video_url });
-    }
-
-    return res.json({ error: "Private video or not found" });
+    return res.json({ error: "Could not get video, try another public reel" });
 
   } catch (e) {
-    console.log(e.message);
+    console.log("Error:", e.response?.data || e.message);
+    // Fallback to co.wuk.sh
+    try {
+        const fallback = await axios.post('https://co.wuk.sh/api/json', 
+          { url: instaUrl },
+          { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
+        );
+        if(fallback.data && fallback.data.url){
+          return res.json({ video: fallback.data.url });
+        }
+    } catch(err2){
+        console.log("Fallback Error:", err2.message);
+    }
     return res.json({ error: "Server busy, try again after 30 sec" });
   }
 });
