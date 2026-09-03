@@ -3844,6 +3844,38 @@ setInterval(()=>{
   ];
 
 },3000);
+async function downloadReel(){
+  const url = document.getElementById('reelUrl').value.trim();
+  const resultDiv = document.getElementById('result');
+  const actionDiv = document.getElementById('reelActions');
+  
+  if(!url){ 
+    resultDiv.innerHTML = '❌ Pehle link paste kar!'; 
+    return; 
+  }
+  
+  resultDiv.innerHTML = '⏳ HACKTOOLS server se connect ho raha hai... 5 sec';
+  actionDiv.innerHTML = '';
+  
+  const api = `https://cyb3r-tools-2.onrender.com/download?url=${encodeURIComponent(url)}`;
+  
+  try{
+    const res = await fetch(api);
+    const data = await res.json();
+    
+    if(data.video){
+      resultDiv.innerHTML = `✅ Video Mil Gayi!`;
+      actionDiv.innerHTML = `
+        <a href="${data.video}" target="_blank" style="display:block;margin-top:12px;padding:14px;background:#00ff88;color:#000;text-align:center;font-weight:bold;border-radius:10px;text-decoration:none">📥 DOWNLOAD NOW</a>
+        <video src="${data.video}" controls style="width:100%;margin-top:12px;border-radius:12px;background:#000"></video>
+      `;
+    } else {
+      resultDiv.innerHTML = `❌ Error: ${data.error || 'Private / Wrong Link'}`;
+    }
+  } catch(e){
+    resultDiv.innerHTML = '⚠️ Server so gaya tha (free wala hai), 30 sec baad fir se DOWNLOAD pe click kar.';
+  }
+}
 
 </script>
 
