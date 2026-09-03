@@ -329,7 +329,29 @@ vc.textContent = saved;
 setInterval(()=>{ lc.textContent = 12 + Math.floor(Math.random()*25); }, 3000);
 setInterval(()=>{ saved++; localStorage.setItem("hack_visitors", saved); vc.textContent = saved; }, 15000);
 
-
+// Live Activity Ticker + Trusted Footer
+let ticker = document.createElement("div");
+ticker.className = "live-ticker";
+ticker.id = "liveTicker";
+ticker.innerHTML = "🔥 Rahul used Password Generator 2 min ago";
+document.querySelector(".visitor-bar").after(ticker);
+let msgs = [
+  "🔥 Rahul used Password Generator 2 min ago",
+  "⚡ Priya used Word Counter 5 min ago",
+  "🚀 Aman generated QR Code 1 min ago",
+  "💻 3 people using Image Tools right now",
+  "🔥 7 tools used in last 10 minutes",
+  "⚡ Someone from Mumbai just visited"
+];
+let i=0;
+setInterval(()=>{ i=(i+1)%msgs.length; document.getElementById("liveTicker").innerHTML = msgs[i]; }, 3000);
+let foot = document.querySelector("footer");
+if(foot){
+  let trust = document.createElement("div");
+  trust.style.cssText="text-align:center;color:#39ff72;font-size:12px;margin-top:10px;opacity:0.8";
+  trust.innerHTML = "🛡️ Trusted by <span id='trustCount'>1249</span>+ Hackers Worldwide";
+  foot.prepend(trust);
+}
 document.addEventListener("keydown",e=>{
 if(e.key=="Escape")closeTool()
 });
