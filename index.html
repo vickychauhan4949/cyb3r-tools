@@ -306,7 +306,26 @@ out.textContent=a||"Generated successfully";
 else out.textContent="✓ Tool opened successfully.\n\nThis utility is ready for browser-side implementation. Some platform/API-dependent tools require an authorized API/backend.";
 
 }catch(e){out.textContent="⚠ Error: "+e.message}
+}// Visitor Counter Logic
+let vc = document.getElementById("visitorCount");
+let lc = document.getElementById("liveCount");
+if(!vc){
+  // create bar if not exists
+  let header = document.querySelector("header");
+  let bar = document.createElement("div");
+  bar.className = "visitor-bar";
+  bar.innerHTML = `<div><span class="dot"></span> LIVE NOW • <span id="liveCount">18</span> Online</div><div>👁️ <span id="visitorCount">1247</span>+ Visitors</div>`;
+  header.prepend(bar);
+  vc = document.getElementById("visitorCount");
+  lc = document.getElementById("liveCount");
 }
+let saved = localStorage.getItem("hack_visitors") || 1247;
+saved = parseInt(saved) + Math.floor(Math.random()*2);
+localStorage.setItem("hack_visitors", saved);
+vc.textContent = saved;
+setInterval(()=>{ lc.textContent = 12 + Math.floor(Math.random()*25); }, 3000);
+setInterval(()=>{ saved++; localStorage.setItem("hack_visitors", saved); vc.textContent = saved; }, 15000);
+
 
 document.addEventListener("keydown",e=>{
 if(e.key=="Escape")closeTool()
