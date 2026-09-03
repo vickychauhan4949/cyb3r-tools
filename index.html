@@ -2,361 +2,185 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HACKTOOLS 160+</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#020b04">
+<title>HACKTOOLS 160+ | Free Online Tools</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#050805;color:#d8ffd8;font-family:Arial,sans-serif}
-header{position:sticky;top:0;z-index:10;background:#061006ee;border-bottom:1px solid #19ff5544;padding:18px}
-.logo{font-size:25px;font-weight:900;color:#39ff72;text-shadow:0 0 12px #20ff55}
-.logo span{color:#fff}
-.search{margin-top:14px;width:100%;padding:14px;border:1px solid #1cff55;background:#020602;color:#fff;border-radius:10px;outline:0}
-.tabs{display:flex;gap:8px;overflow:auto;padding:12px 0}
-.tabs button,.card button{background:#0a170b;color:#39ff72;border:1px solid #1cff5555;border-radius:8px;padding:9px 12px}
-.tabs button:hover,.card button:hover{background:#123b18}
-main{padding:18px;max-width:1300px;margin:auto}
-.cat{margin:28px 0 12px;color:#39ff72;font-size:20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-.card{background:#081008;border:1px solid #16ff4530;border-radius:13px;padding:15px;min-height:125px}
-.card h3{margin:0 0 9px;font-size:15px;color:#fff}
-.card p{font-size:12px;color:#91a991;height:30px}
-.card button{cursor:pointer;width:100%}
-#modal{display:none;position:fixed;inset:0;background:#000c;z-index:30;padding:20px}
-.box{max-width:650px;margin:7vh auto;background:#071007;border:1px solid #27ff62;padding:20px;border-radius:15px}
-textarea,input,select{width:100%;margin:8px 0;padding:12px;background:#020502;color:#fff;border:1px solid #24ff5555;border-radius:8px}
-textarea{min-height:150px;resize:vertical}
-.close{float:right;background:none!important;border:0!important;font-size:22px}
-.output{white-space:pre-wrap;background:#020402;border:1px solid #19ff5533;padding:12px;border-radius:8px;margin-top:10px;max-height:300px;overflow:auto}
-footer{text-align:center;padding:35px;color:#547054;font-size:12px}
-.badge{font-size:10px;color:#39ff72}
-.visitor-bar{display:flex;justify-content:space-between;align-items:center;background:#0a1a0a;border:1px solid #19ff55;color:#39ff72;padding:8px 14px;border-radius:10px;margin-bottom:14px;font-size:13px;font-weight:bold}
-.visitor-bar .dot{width:8px;height:8px;background:#19ff55;border-radius:50%;display:inline-block;animation:blink 1s infinite}
-.live-ticker{background:#111;border-left:3px solid #19ff55;color:#ccc;padding:8px 12px;margin:8px 0 12px 0;border-radius:6px;font-size:13px}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#020a04;--card:#061108;--green:#20ff62;--border:#0d7b31;--text:#f2fff5;--muted:#8ba291}
+html{scroll-behavior:smooth}
+body{background:linear-gradient(rgba(0,255,80,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,80,.025) 1px,transparent 1px),var(--bg);background-size:32px 32px;color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 0%,rgba(0,255,80,.09),transparent 38%)}
+.container{width:min(1100px,94%);margin:auto}
+header{padding:18px 0 8px;position:relative}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border:2px solid #12c947;border-radius:17px;background:rgba(2,14,5,.9);box-shadow:0 0 18px rgba(0,255,70,.12)}
+.live{color:var(--green);font-weight:800}
+.live-dot{display:inline-block;width:10px;height:10px;background:var(--green);border-radius:50%;margin-right:7px;box-shadow:0 0 12px var(--green);animation:pulse 1.3s infinite}
+.visitors{color:#d7e8db;font-weight:700}
+@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
+.activity{margin-top:28px;background:#080d09;border-left:5px solid var(--green);border-radius:10px;padding:14px 17px;color:#c7d3ca;font-size:15px;transition:.3s}
+.brand{margin:28px 0 22px;font-size:clamp(35px,8vw,66px);font-weight:900;letter-spacing:-3px;text-shadow:0 0 12px #00ff55,0 0 35px rgba(0,255,70,.5)}
+.brand span{color:#fff}
+.brand small{color:var(--green);font-size:.55em;letter-spacing:-1px}
+.searchbox{position:relative;margin-bottom:20px}
+.searchbox input{width:100%;padding:20px 55px 20px 55px;border:2px solid #14d94e;border-radius:18px;outline:none;color:white;background:#040c05;font-size:18px;box-shadow:0 0 18px rgba(0,255,80,.08)}
+.searchbox input:focus{box-shadow:0 0 25px rgba(0,255,80,.2)}
+.searchicon{position:absolute;left:19px;top:50%;transform:translateY(-50%);font-size:25px}
+.clear{position:absolute;right:18px;top:50%;transform:translateY(-50%);cursor:pointer;color:#6f8175;font-size:20px}
+.categories{display:flex;gap:10px;overflow-x:auto;padding:4px 0 14px;scrollbar-width:thin}
+.categories::-webkit-scrollbar{height:4px}
+.categories::-webkit-scrollbar-thumb{background:#176b30}
+.cat{flex:0 0 auto;border:1px solid #126e2e;background:#061108;color:#39f86c;padding:13px 19px;border-radius:12px;cursor:pointer;font-weight:700;transition:.2s}
+.cat:hover,.cat.active{background:#0a2710;border-color:var(--green);box-shadow:0 0 15px rgba(0,255,70,.15)}
+.section{margin-top:28px;padding-top:25px;border-top:1px solid #0c3820}
+.section-title{color:var(--green);font-size:27px;margin-bottom:17px}
+.section-title:before{content:"▶ ";font-size:16px}
+.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.tool{background:linear-gradient(145deg,#071309,#030b04);border:1px solid #0b5d27;border-radius:18px;padding:19px;min-height:190px;display:flex;flex-direction:column;transition:.22s;position:relative;overflow:hidden}
+.tool:after{content:"";position:absolute;height:1px;left:-100%;right:100%;bottom:0;background:var(--green);box-shadow:0 0 12px var(--green);transition:.5s}
+.tool:hover{transform:translateY(-3px);border-color:#16db4f;box-shadow:0 0 22px rgba(0,255,70,.13)}
+.tool:hover:after{left:0;right:0}
+.tool-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.tool-icon{font-size:29px}
+.tool h3{font-size:19px;line-height:1.25;flex:1}
+.badge{font-size:10px;padding:4px 7px;border-radius:6px;background:#10391a;color:#55ff7e;font-weight:900}
+.tool p{color:var(--muted);margin-top:12px;line-height:1.4;font-size:14px;flex:1}
+.open{width:100%;padding:11px;margin-top:15px;border:1px solid #0b8434;border-radius:12px;background:#061509;color:#2dff67;font-size:15px;font-weight:800;cursor:pointer}
+.open:hover{background:#0b2c12;box-shadow:0 0 14px rgba(0,255,70,.15)}
+.noresult{display:none;text-align:center;padding:45px 10px;color:#819389}
+footer{margin-top:50px;border-top:1px solid #0b4020;padding:28px 0;text-align:center;color:#708277}
+footer b{color:var(--green)}
+@media(max-width:800px){.tool-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.container{width:92%}.topbar{font-size:14px}.brand{font-size:42px;margin-top:25px}.activity{font-size:14px}.tool-grid{grid-template-columns:1fr}.tool{min-height:175px}}
 </style>
 </head>
 <body>
-
+<div class="container">
 <header>
-<div class="logo">⌁ HACK<span>TOOLS</span> <small>160+</small></div>
-<input id="search" class="search" placeholder="🔎 Search 160+ tools...">
-<div class="tabs" id="tabs"></div>
+  <div class="topbar">
+    <div class="live"><span class="live-dot"></span>LIVE NOW • <span id="online">12</span> Online</div>
+    <div class="visitors">👁️ <span id="visitors">1278</span>+ Visitors</div>
+  </div>
+  <div class="activity" id="activityBox">💻 <b id="activeToolUsers">3</b> people using <span id="activeCategory">Top Tools</span> right now</div>
+  <div class="brand">⚡ HACK<span>TOOLS</span> <small>160+</small></div>
+  <div class="searchbox">
+    <span class="searchicon">🔎</span>
+    <input id="search" type="text" placeholder="Search 160+ tools..." autocomplete="off">
+    <span class="clear" onclick="clearSearch()">×</span>
+  </div>
+  <div class="categories">
+    <button class="cat active" data-cat="All">All</button>
+    <button class="cat" data-cat="Top">🔥 Top Tools</button>
+    <button class="cat" data-cat="Text">Text</button>
+    <button class="cat" data-cat="Image">Image</button>
+    <button class="cat" data-cat="Developer">Developer</button>
+    <button class="cat" data-cat="Calculator">Calculator</button>
+    <button class="cat" data-cat="Social">Social</button>
+    <button class="cat" data-cat="SEO">SEO</button>
+    <button class="cat" data-cat="PDF">PDF</button>
+    <button class="cat" data-cat="Web">Web</button>
+    <button class="cat" data-cat="Security">Security</button>
+  </div>
 </header>
-
-<main id="app"></main>
-<footer>HACKTOOLS • Browser based utilities • Use downloaded/public content only when you have permission.</footer>
-
-<div id="modal">
-<div class="box">
-<button class="close" onclick="closeTool()">✕</button>
-<h2 id="mtitle"></h2>
-<p id="mdesc" class="badge"></p>
-<div id="form"></div>
-<button onclick="runTool()">⚡ RUN TOOL</button>
-<div id="out" class="output"></div>
+<section class="section" id="topSection"><h2 class="section-title">Top Tools</h2><div class="tool-grid" id="topTools"></div></section>
+<section class="section"><h2 class="section-title" id="allTitle">All Tools <span id="count"></span></h2><div class="tool-grid" id="tools"></div><div class="noresult" id="noresult">😕 No tools found.<br>Try another search.</div></section>
+<footer>⚡ <b>HACKTOOLS 160+</b><br><small>Free • Fast • Browser Tools • No Login Required</small><div style="margin-top:10px;color:#39ff72;font-size:12px;opacity:.8">🛡️ Trusted by <span id="trustCount">1278</span>+ Hackers Worldwide</div></footer>
 </div>
-</div>
-
 <script>
-const groups={
-"Text Tools":[
-"Word Counter","Character Counter","Line Counter","Uppercase","Lowercase","Title Case",
-"Sentence Case","Remove Spaces","Remove Empty Lines","Reverse Text","Sort Lines",
-"Unique Lines","Duplicate Lines","Slug Generator","Text Cleaner","Trim Lines",
-"Find & Replace","Extract Emails","Extract URLs","Extract Numbers","ASCII Text",
-"Binary Text","Text to Binary","Binary to Text","ROT13","Caesar Cipher",
-"Base64 Encode","Base64 Decode","URL Encode","URL Decode","HTML Encode","HTML Decode",
-"JSON Pretty Print","JSON Minify","CSV to JSON","JSON to CSV","Text Hash",
-"MD5 Helper","SHA-256 Hash","Lorem Ipsum","Random Text","Palindrome Checker"
-],
-"Image Tools":[
-"Image Resizer","Image Compressor","Image to Base64","Base64 to Image","Image Preview",
-"Image Cropper","Image Grayscale","Image Invert","Image Rotate","Image Flip",
-"Image to Data URL","Screenshot Canvas","PNG Download","JPG Download","WebP Download",
-"Favicon Generator","Color Picker","Image Metadata","Pixel Color","Image Format Info"
-],
-"Developer Tools":[
-"JSON Formatter","JSON Validator","HTML Formatter","CSS Minifier","JS Minifier",
-"HTML Escape","HTML Unescape","Regex Tester","Timestamp Converter","Unix Time",
-"UUID Generator","Password Generator","Username Generator","Random Number",
-"Hex Converter","RGB to HEX","HEX to RGB","Binary Calculator","URL Parser",
-"Query String Parser","JWT Decoder","Base Converter","Code Line Counter",
-"Indent JSON","Remove Comments","HTML Tag Counter","CSS Color Converter",
-"JS String Escape","Regex Escape","MIME Type Finder"
-],
-"Calculator Tools":[
-"Basic Calculator","Percentage Calculator","Discount Calculator","GST Calculator",
-"Tip Calculator","Age Calculator","BMI Calculator","Loan Calculator",
-"EMI Calculator","Simple Interest","Compound Interest","Ratio Calculator",
-"Average Calculator","Min Max Calculator","Random Number Generator",
-"Square Calculator","Cube Calculator","Power Calculator","Square Root",
-"Time Calculator"
-],
-"Converter Tools":[
-"KM to Miles","Miles to KM","Meters to Feet","Feet to Meters","CM to Inches",
-"Inches to CM","KG to Pounds","Pounds to KG","Celsius to Fahrenheit",
-"Fahrenheit to Celsius","Liters to Gallons","Gallons to Liters","Bytes to KB",
-"KB to MB","MB to GB","GB to TB","Minutes to Hours","Hours to Days",
-"Days to Weeks","Seconds to Minutes"
-],
-"Date & Time":[
-"Current Date","Current Time","UTC Time","Unix Timestamp","Timestamp to Date",
-"Days Between Dates","Add Days","Subtract Days","Leap Year Checker",
-"Day of Week","Age From DOB","Countdown","Week Number","Month Days",
-"Year Progress","Date Formatter","Time Difference","Seconds Converter",
-"Minutes Converter","Hours Converter"
-],
-"SEO Tools":[
-"Meta Tag Generator","Meta Description Counter","Title Counter","Keyword Counter",
-"Slug Checker","Robots.txt Generator","Sitemap XML Generator","Canonical Tag",
-"Open Graph Tags","Twitter Card Tags","SEO Text Counter","Keyword Density",
-"URL Length Checker","Heading Counter","Link Counter","Image Alt Checker",
-"Schema JSON-LD","FAQ Schema","Breadcrumb Schema","SEO Checklist"
-],
-"Social Media":[
-"Instagram Reel Link Helper","Instagram URL Cleaner","Social Caption Counter",
-"Hashtag Counter","Hashtag Generator","YouTube URL Cleaner","YouTube ID Extractor",
-"YouTube Embed Generator","WhatsApp Link Generator","WhatsApp Message Link",
-"WhatsApp Text Formatter","Status File Saver","Social Bio Counter",
-"Twitter/X Text Counter","Facebook Link Cleaner","Telegram Link Cleaner",
-"Social Share Generator","QR Social Link","Public Media Notes","Download Checklist"
-],
-"Security & Utility":[
-"Password Strength","Random Password","PIN Generator","Secure Token Generator",
-"UUID v4","SHA-256","SHA-1","Base64 Tool","URL Safety Checklist",
-"IP Address Format","Email Validator","URL Validator","Phone Validator",
-"Credit Card Format Checker","Hex Color Validator","IPv4 Validator",
-"IPv6 Validator","MAC Address Formatter","Cron Helper","Text Fingerprint"
-]
-};
-
-let tools=[];
-for(const cat in groups) groups[cat].forEach(name=>tools.push({name,cat}));
-
-const tabs=document.getElementById("tabs");
-["All",...Object.keys(groups)].forEach(x=>{
-let b=document.createElement("button");b.textContent=x;b.onclick=()=>show(x);tabs.appendChild(b)
-});
-
-const app=document.getElementById("app");
-function show(filter="All"){
-app.innerHTML="";
-for(const cat in groups){
-if(filter!="All"&&filter!=cat)continue;
-let sec=document.createElement("section");
-sec.innerHTML=`<div class="cat">▸ ${cat} <small>(${groups[cat].length})</small></div>`;
-let grid=document.createElement("div");grid.className="grid";
-groups[cat].forEach(n=>{
-let c=document.createElement("div");c.className="card";
-c.innerHTML=`<h3>⚡ ${n}</h3><p>Fast browser utility</p>
-<button onclick='openTool(${JSON.stringify(n)})'>OPEN</button>`;
-grid.appendChild(c)
-});
-sec.appendChild(grid);app.appendChild(sec)
-}
-}
-show();
-
-document.getElementById("search").oninput=function(){
-let q=this.value.toLowerCase();
-document.querySelectorAll(".card").forEach(c=>{
-c.style.display=c.innerText.toLowerCase().includes(q)?"block":"none"
-})
-};
-
-let current="";
-function openTool(n){
-current=n;
-document.getElementById("modal").style.display="block";
-document.getElementById("mtitle").textContent="⚡ "+n;
-document.getElementById("mdesc").textContent="HACKTOOLS browser utility";
-document.getElementById("out").textContent="";
-let f=document.getElementById("form");
-f.innerHTML="";
-
-if(n.includes("Calculator")||n.includes("Percentage")||n.includes("Discount")||
-n.includes("GST")||n.includes("Tip")||n.includes("Average")||n.includes("Ratio")||
-n.includes("Power")||n.includes("Square")||n.includes("Cube")||n.includes("Interest")||
-n.includes("BMI")||n.includes("EMI")||n.includes("Loan")){
-f.innerHTML=`<input id="a" type="number" placeholder="Number A">
-<input id="b" type="number" placeholder="Number B">`;
-}else if(n.includes("Date")||n.includes("DOB")||n.includes("Days")){
-f.innerHTML=`<input id="a" type="date"><input id="b" type="date">`;
-}else if(n.includes("Image")){
-f.innerHTML=`<input id="file" type="file" accept="image/*">`;
-}else if(n.includes("Password")||n.includes("PIN")||n.includes("Token")||n.includes("UUID")||n.includes("Random")){
-f.innerHTML=`<input id="a" type="number" placeholder="Length / quantity" value="16">`;
-}else{
-f.innerHTML=`<textarea id="a" placeholder="Paste or type your text here..."></textarea>`;
-}
-}
-function closeTool(){document.getElementById("modal").style.display="none"}
-
-async function runTool(){
-let out=document.getElementById("out"),a=document.getElementById("a")?.value||"";
-let b=document.getElementById("b")?.value||"";
-
-try{
-if(current=="Word Counter") out.textContent="Words: "+(a.trim()?a.trim().split(/\s+/).length:0);
-else if(current=="Character Counter") out.textContent="Characters: "+a.length;
-else if(current=="Line Counter") out.textContent="Lines: "+(a? a.split(/\n/).length:0);
-else if(current=="Uppercase") out.textContent=a.toUpperCase();
-else if(current=="Lowercase") out.textContent=a.toLowerCase();
-else if(current=="Title Case") out.textContent=a.toLowerCase().replace(/\b\w/g,x=>x.toUpperCase());
-else if(current=="Sentence Case") out.textContent=a.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g,x=>x.toUpperCase());
-else if(current=="Remove Spaces") out.textContent=a.replace(/\s+/g,"");
-else if(current=="Remove Empty Lines") out.textContent=a.split("\n").filter(x=>x.trim()).join("\n");
-else if(current=="Reverse Text") out.textContent=[...a].reverse().join("");
-else if(current=="Sort Lines") out.textContent=a.split("\n").sort().join("\n");
-else if(current=="Unique Lines") out.textContent=[...new Set(a.split("\n"))].join("\n");
-else if(current=="Duplicate Lines") {let x=a.split("\n"),m={};x.forEach(v=>m[v]=(m[v]||0)+1);out.textContent=x.filter(v=>m[v]>1).join("\n")}
-else if(current=="Slug Generator") out.textContent=a.toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
-else if(current=="Extract Emails") out.textContent=[...new Set(a.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi)||[])].join("\n");
-else if(current=="Extract URLs") out.textContent=[...new Set(a.match(/https?:\/\/[^\s]+/g)||[])].join("\n");
-else if(current=="Extract Numbers") out.textContent=(a.match(/-?\d+(\.\d+)?/g)||[]).join("\n");
-else if(current=="Base64 Encode") out.textContent=btoa(unescape(encodeURIComponent(a)));
-else if(current=="Base64 Decode") out.textContent=decodeURIComponent(escape(atob(a)));
-else if(current=="URL Encode") out.textContent=encodeURIComponent(a);
-else if(current=="URL Decode") out.textContent=decodeURIComponent(a);
-else if(current=="HTML Encode") out.textContent=a.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-else if(current=="HTML Decode"){let d=document.createElement("textarea");d.innerHTML=a;out.textContent=d.value}
-else if(current=="ROT13") out.textContent=a.replace(/[a-zA-Z]/g,c=>String.fromCharCode(c.charCodeAt(0)+(c.toLowerCase()<'n'?13:-13)));
-else if(current=="JSON Pretty Print") out.textContent=JSON.stringify(JSON.parse(a),null,2);
-else if(current=="JSON Minify") out.textContent=JSON.stringify(JSON.parse(a));
-else if(current=="JSON Validator"){JSON.parse(a);out.textContent="✓ Valid JSON"}
-else if(current=="RGB to HEX") out.textContent="#"+a.split(",").map(x=>Number(x.trim()).toString(16).padStart(2,"0")).join("");
-else if(current=="HEX to RGB"){let h=a.replace("#","");out.textContent=`rgb(${parseInt(h.slice(0,2),16)}, ${parseInt(h.slice(2,4),16)}, ${parseInt(h.slice(4,6),16)})`}
-else if(current=="UUID Generator") out.textContent=crypto.randomUUID();
-else if(current=="UUID v4") out.textContent=crypto.randomUUID();
-else if(current=="Random Number") out.textContent=Math.floor(Math.random()*(Number(b)||100-Number(a||1)+1))+Number(a||1);
-else if(current=="Random Number Generator") out.textContent=Math.floor(Math.random()*1000000);
-else if(current=="Password Generator"||current=="Random Password"){
-let chars="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%";
-let len=Math.min(100,Math.max(4,Number(a)||16));let r="";
-for(let i=0;i<len;i++)r+=chars[Math.floor(Math.random()*chars.length)];
-out.textContent=r
-}
-else if(current=="PIN Generator"){
-let len=Math.min(20,Math.max(4,Number(a)||6)),r="";
-for(let i=0;i<len;i++)r+=Math.floor(Math.random()*10);
-out.textContent=r
-}
-else if(current=="Percentage Calculator") out.textContent=(Number(a)*Number(b)/100)+"";
-else if(current=="Discount Calculator") out.textContent="Final: "+(Number(a)-(Number(a)*Number(b)/100));
-else if(current=="GST Calculator") out.textContent="Total: "+(Number(a)+(Number(a)*Number(b)/100));
-else if(current=="Tip Calculator") out.textContent="Tip: "+(Number(a)*Number(b)/100);
-else if(current=="Average Calculator") out.textContent="Average: "+a.split(",").map(Number).reduce((x,y)=>x+y,0)/a.split(",").length;
-else if(current=="Square Calculator") out.textContent=Number(a)**2;
-else if(current=="Cube Calculator") out.textContent=Number(a)**3;
-else if(current=="Power Calculator") out.textContent=Number(a)**Number(b);
-else if(current=="Square Root") out.textContent=Math.sqrt(Number(a));
-else if(current=="Basic Calculator") out.textContent=Function("return "+a)();
-else if(current=="Celsius to Fahrenheit") out.textContent=Number(a)*9/5+32;
-else if(current=="Fahrenheit to Celsius") out.textContent=(Number(a)-32)*5/9;
-else if(current=="KM to Miles") out.textContent=Number(a)*0.621371;
-else if(current=="Miles to KM") out.textContent=Number(a)*1.609344;
-else if(current=="Meters to Feet") out.textContent=Number(a)*3.28084;
-else if(current=="Feet to Meters") out.textContent=Number(a)/3.28084;
-else if(current=="CM to Inches") out.textContent=Number(a)/2.54;
-else if(current=="Inches to CM") out.textContent=Number(a)*2.54;
-else if(current=="KG to Pounds") out.textContent=Number(a)*2.20462;
-else if(current=="Pounds to KG") out.textContent=Number(a)/2.20462;
-else if(current=="Bytes to KB") out.textContent=Number(a)/1024;
-else if(current=="KB to MB") out.textContent=Number(a)/1024;
-else if(current=="MB to GB") out.textContent=Number(a)/1024;
-else if(current=="GB to TB") out.textContent=Number(a)/1024;
-else if(current=="Minutes to Hours") out.textContent=Number(a)/60;
-else if(current=="Hours to Days") out.textContent=Number(a)/24;
-else if(current=="Seconds to Minutes") out.textContent=Number(a)/60;
-else if(current=="Current Date") out.textContent=new Date().toLocaleDateString();
-else if(current=="Current Time") out.textContent=new Date().toLocaleTimeString();
-else if(current=="Unix Timestamp") out.textContent=Math.floor(Date.now()/1000);
-else if(current=="Timestamp to Date") out.textContent=new Date(Number(a)*1000).toString();
-else if(current=="Leap Year Checker"){let y=Number(a);out.textContent=((y%4==0&&y%100!=0)||y%400==0)?"Leap year":"Not a leap year"}
-else if(current=="Age From DOB"||current=="Age Calculator"){
-let d=new Date(a),now=new Date();let age=now.getFullYear()-d.getFullYear();
-if(now<new Date(now.getFullYear(),d.getMonth(),d.getDate()))age--;
-out.textContent="Age: "+age+" years";
-}
-else if(current=="Instagram URL Cleaner"||current=="YouTube URL Cleaner"||current=="Facebook Link Cleaner"||current=="Telegram Link Cleaner")
-out.textContent=a.split("?")[0];
-else if(current=="YouTube ID Extractor"){let m=a.match(/(?:v=|youtu\.be\/)([^&?/]+)/);out.textContent=m?m[1]:"ID not found"}
-else if(current=="YouTube Embed Generator"){let m=a.match(/(?:v=|youtu\.be\/)([^&?/]+)/);out.textContent=m?`https://www.youtube.com/embed/${m[1]}`:"Invalid URL"}
-else if(current=="WhatsApp Link Generator"||current=="WhatsApp Message Link"){
-let phone=a.replace(/\D/g,"");out.textContent="https://wa.me/"+phone+(b?"?text="+encodeURIComponent(b):"");
-}
-else if(current=="Hashtag Counter") out.textContent="Hashtags: "+(a.match(/#[\w]+/g)||[]).length;
-else if(current=="Social Caption Counter") out.textContent="Characters: "+a.length+" | Words: "+(a.trim()?a.trim().split(/\s+/).length:0);
-else if(current=="Instagram Reel Link Helper")
-out.textContent=a.includes("instagram.com")?"✓ Instagram link detected. Use only public/authorized content.":"Invalid Instagram URL";
-else if(current=="Status File Saver")
-out.textContent="Select/save status media that is already available on your own device. This tool does not bypass WhatsApp privacy or server restrictions.";
-else if(current=="Download Checklist")
-out.textContent="✓ Confirm you own/have permission\n✓ Use public/authorized media\n✓ Respect platform rules\n✓ Avoid private content";
-else if(current=="Email Validator") out.textContent=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(a)?"✓ Valid email":"✗ Invalid email";
-else if(current=="URL Validator") out.textContent=/^https?:\/\/.+/i.test(a)?"✓ Valid URL":"✗ Invalid URL";
-else if(current=="Palindrome Checker") out.textContent=a.replace(/\W/g,"").toLowerCase()===[...a.replace(/\W/g,"").toLowerCase()].reverse().join("")?"✓ Palindrome":"✗ Not palindrome";
-else if(current=="Password Strength"){
-let s=0;if(a.length>=8)s++;if(/[A-Z]/.test(a))s++;if(/[a-z]/.test(a))s++;if(/\d/.test(a))s++;if(/[^\w]/.test(a))s++;
-out.textContent="Strength: "+["Very Weak","Weak","Medium","Strong","Very Strong"][s];
-}
-else if(current.includes("Hash")||current=="SHA-256"){
-let data=new TextEncoder().encode(a),hash=await crypto.subtle.digest("SHA-256",data);
-out.textContent=[...new Uint8Array(hash)].map(x=>x.toString(16).padStart(2,"0")).join("");
-}
-else if(current.includes("Generator")&&current!="Password Generator"){
-out.textContent=a||"Generated successfully";
-}
-else out.textContent="✓ Tool opened successfully.\n\nThis utility is ready for browser-side implementation. Some platform/API-dependent tools require an authorized API/backend.";
-
-}catch(e){out.textContent="⚠ Error: "+e.message}
-}// Visitor Counter Logic
-let vc = document.getElementById("visitorCount");
-let lc = document.getElementById("liveCount");
-if(!vc){
-  // create bar if not exists
-  let header = document.querySelector("header");
-  let bar = document.createElement("div");
-  bar.className = "visitor-bar";
-  bar.innerHTML = `<div><span class="dot"></span> LIVE NOW • <span id="liveCount">18</span> Online</div><div>👁️ <span id="visitorCount">1247</span>+ Visitors</div>`;
-  header.prepend(bar);
-  vc = document.getElementById("visitorCount");
-  lc = document.getElementById("liveCount");
-}
-let saved = localStorage.getItem("hack_visitors") || 1247;
-saved = parseInt(saved) + Math.floor(Math.random()*2);
-localStorage.setItem("hack_visitors", saved);
-vc.textContent = saved;
-setInterval(()=>{ lc.textContent = 12 + Math.floor(Math.random()*25); }, 3000);
-setInterval(()=>{ saved++; localStorage.setItem("hack_visitors", saved); vc.textContent = saved; }, 15000);
-
-// Live Activity Ticker + Trusted Footer
-let ticker = document.createElement("div");
-ticker.className = "live-ticker";
-ticker.id = "liveTicker";
-ticker.innerHTML = "🔥 Rahul used Password Generator 2 min ago";
-document.querySelector(".visitor-bar").after(ticker);
-let msgs = [
-  "🔥 Rahul used Password Generator 2 min ago",
-  "⚡ Priya used Word Counter 5 min ago",
-  "🚀 Aman generated QR Code 1 min ago",
-  "💻 3 people using Image Tools right now",
-  "🔥 7 tools used in last 10 minutes",
-  "⚡ Someone from Mumbai just visited"
+const topTools = [
+ {name:"Instagram Reel Downloader",icon:"📸",cat:"Social",badge:"HOT",desc:"Download public Instagram reels quickly."},
+ {name:"WhatsApp Status Downloader",icon:"🟢",cat:"Social",badge:"HOT",desc:"Save WhatsApp status media from your device."},
+ {name:"QR Code Generator",icon:"▦",cat:"Web",badge:"TOP",desc:"Create QR codes for text, links and contact data."},
+ {name:"Password Generator",icon:"🔐",cat:"Security",badge:"TOP",desc:"Generate strong random passwords instantly."},
+ {name:"Image Compressor",icon:"🖼️",cat:"Image",badge:"TOP",desc:"Compress images directly in your browser."},
+ {name:"Word Counter",icon:"⚡",cat:"Text",badge:"HOT",desc:"Count words, characters, sentences and lines."},
+ {name:"Character Counter",icon:"⚡",cat:"Text",badge:"TOP",desc:"Count characters with and without spaces."},
+ {name:"JSON Formatter",icon:"{}",cat:"Developer",badge:"HOT",desc:"Format and validate JSON data."},
+ {name:"Base64 Encoder / Decoder",icon:"🔣",cat:"Developer",badge:"TOP",desc:"Encode or decode Base64 text."},
+ {name:"URL Encoder / Decoder",icon:"🔗",cat:"Developer",badge:"TOP",desc:"Encode and decode URL strings."},
+ {name:"UUID Generator",icon:"🆔",cat:"Developer",badge:"NEW",desc:"Generate unique UUID identifiers."},
+ {name:"BMI Calculator",icon:"⚖️",cat:"Calculator",badge:"TOP",desc:"Calculate BMI from height and weight."}
 ];
-let i=0;
-setInterval(()=>{ i=(i+1)%msgs.length; document.getElementById("liveTicker").innerHTML = msgs[i]; }, 3000);
-let foot = document.querySelector("footer");
-if(foot){
-  let trust = document.createElement("div");
-  trust.style.cssText="text-align:center;color:#39ff72;font-size:12px;margin-top:10px;opacity:0.8";
-  trust.innerHTML = "🛡️ Trusted by <span id='trustCount'>1249</span>+ Hackers Worldwide";
-  foot.prepend(trust);
-}
-document.addEventListener("keydown",e=>{
-if(e.key=="Escape")closeTool()
+const names = {
+Text:["Text Case Converter","Uppercase Converter","Lowercase Converter","Title Case Converter","Sentence Case Converter","Alternating Case","Reverse Text","Remove Duplicate Lines","Sort Lines","Text Cleaner","Whitespace Remover","Line Counter","Sentence Counter","Paragraph Counter","Reading Time Calculator","Lorem Ipsum Generator","Random Text Generator","Palindrome Checker","Text Diff Checker","Find and Replace","Email Extractor","URL Extractor","Number Extractor","Hashtag Extractor","Keyword Extractor","Slug Generator","Text to Binary","Binary to Text","Text to Morse","Morse to Text","Text to ASCII","ASCII to Text","ROT13 Encoder","ROT13 Decoder","Caesar Cipher","Word Frequency Counter","Character Frequency","Text Repeater","Text Splitter","Text Joiner","Markdown Preview"],
+Image:["Image Resizer","Image Cropper","Image Rotator","Image Flipper","Image Converter","JPG to PNG","PNG to JPG","WebP Converter","Image to Base64","Base64 to Image","Image Color Picker","Image Metadata Viewer","Image Blur Tool","Image Grayscale","Image Brightness","Image Contrast","Image Filters","Favicon Generator","Thumbnail Generator","Placeholder Image","SVG Previewer","SVG to PNG","Image Pixel Checker","Image Dimension Checker","Photo Frame Tool"],
+Developer:["HTML Formatter","CSS Formatter","JavaScript Formatter","JSON Minifier","HTML Minifier","CSS Minifier","JS Minifier","XML Formatter","SQL Formatter","SQL Minifier","Regex Tester","Regex Generator","JWT Decoder","Hash Generator","MD5 Generator","SHA256 Generator","SHA1 Generator","Timestamp Converter","Unix Timestamp","Color Code Converter","HEX to RGB","RGB to HEX","HSL Converter","HTML Entity Encoder","HTML Entity Decoder","URL Parser","Query String Parser","User Agent Parser","IP Address Parser","HTTP Status Code Lookup","MIME Type Lookup","Port Number Lookup","Cron Generator","Chmod Calculator","Git Command Helper","Gitignore Generator","Nginx Config Helper","Apache Config Helper","Meta Tag Generator","Robots.txt Generator","Sitemap Generator","Open Graph Generator"],
+Calculator:["Age Calculator","Percentage Calculator","Discount Calculator","Tip Calculator","Loan Calculator","EMI Calculator","Simple Interest","Compound Interest","GST Calculator","Tax Calculator","Currency Calculator","Unit Converter","Length Converter","Weight Converter","Temperature Converter","Speed Converter","Time Converter","Data Storage Converter","Area Calculator","Volume Calculator","Distance Calculator","Average Calculator","Ratio Calculator","Fraction Calculator","Scientific Calculator"],
+Social:["YouTube Thumbnail URL","YouTube Title Generator","YouTube Description Generator","YouTube Tag Generator","Instagram Bio Generator","Instagram Caption Generator","Hashtag Generator","Social Media Text Counter","Twitter/X Character Counter","Facebook Text Formatter","WhatsApp Text Formatter","WhatsApp Link Generator","Telegram Link Generator","YouTube Embed Generator","YouTube Timestamp Generator"],
+SEO:["SEO Meta Generator","Meta Description Generator","SEO Title Generator","Keyword Density Checker","Word Density Checker","Robots.txt Generator","Sitemap XML Generator","Canonical URL Generator","Schema Generator","Open Graph Meta Generator","Twitter Card Generator","Slug Generator SEO","SERP Snippet Preview","Keyword Counter","Text Readability Checker"],
+PDF:["PDF Page Counter","PDF Text Extractor","PDF Metadata Viewer","PDF to Text","Text to PDF","Image to PDF","PDF Merge Helper","PDF Split Helper","PDF Size Calculator","PDF Filename Generator"],
+Web:["QR Code Generator","Barcode Generator","Color Picker","Gradient Generator","CSS Shadow Generator","CSS Border Generator","CSS Button Generator","CSS Glass Generator","CSS Animation Generator","HTML Boilerplate","Landing Page Generator","Email Link Generator","Phone Link Generator","Google Maps Link Generator","WhatsApp Link Generator","Data URI Generator","PWA Manifest Generator","Web App Icon Generator","Viewport Tester","Screen Size Checker","Browser Info","Local Storage Viewer"],
+Security:["Password Generator","Strong Password Checker","Random Token Generator","UUID Generator","Hash Generator","MD5 Generator","SHA256 Generator","Base64 Encoder","Base64 Decoder","URL Encoder","URL Decoder","JWT Decoder","IP Privacy Checker","Security Headers Helper","Random Number Generator"]
+};
+let tools=[];
+Object.keys(names).forEach(cat=>{names[cat].forEach((name,i)=>{tools.push({name,cat,icon:cat==="Text"?"📝":cat==="Image"?"🖼️":cat==="Developer"?"💻":cat==="Calculator"?"🧮":cat==="Social"?"📱":cat==="SEO"?"📈":cat==="PDF"?"📄":cat==="Web"?"🌐":"🔐",badge:i<2?"NEW":"",desc:"Fast browser utility"})})});
+const used=new Set();tools=tools.filter(t=>{if(used.has(t.name)) return false;used.add(t.name);return true});
+function card(t){return `<article class="tool" data-name="${t.name.toLowerCase()}" data-cat="${t.cat}"><div class="tool-top"><span class="tool-icon">${t.icon}</span><h3>${t.name}</h3>${t.badge?`<span class="badge">${t.badge}</span>`:""}</div><p>${t.desc}</p><button class="open" onclick="openTool('${t.name.replace(/'/g,"\\'")}')">OPEN →</button></article>`}
+document.getElementById("topTools").innerHTML = topTools.map(card).join("");
+document.getElementById("tools").innerHTML = tools.map(card).join("");
+document.getElementById("count").textContent = "(" + (tools.length + topTools.length) + "+)";
+const search=document.getElementById("search");
+search.addEventListener("input",()=>{
+  const q=search.value.toLowerCase().trim();
+  document.querySelectorAll(".tool").forEach(el=>{
+    const match=el.dataset.name.includes(q);
+    const catMatch=currentCat==="All"||currentCat==="Top"||el.dataset.cat===currentCat;
+    el.style.display=(match && catMatch)?"flex":"none";
+  });
+  updateEmpty();
 });
-document.getElementById("modal").addEventListener("click",e=>{if(e.target.id=="modal")closeTool()});
+let currentCat="All";
+document.querySelectorAll(".cat").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));
+    btn.classList.add("active");
+    currentCat=btn.dataset.cat;
+    const q=search.value.toLowerCase().trim();
+    document.querySelectorAll(".tool").forEach(el=>{
+      let categoryOK=currentCat==="All"||(currentCat==="Top" && el.closest("#topTools"))||el.dataset.cat===currentCat;
+      let searchOK=el.dataset.name.includes(q);
+      el.style.display=(categoryOK && searchOK)?"flex":"none";
+    });
+    document.getElementById("activeCategory").textContent=currentCat==="All"?"Top Tools":currentCat+" Tools";
+    updateEmpty();
+  });
+});
+function updateEmpty(){let visible=0;document.querySelectorAll(".tool").forEach(x=>{if(x.style.display!=="none") visible++});document.getElementById("noresult").style.display=visible===0?"block":"none"}
+function clearSearch(){search.value="";search.dispatchEvent(new Event("input"));search.focus()}
+function openTool(name){
+  if(name==="Word Counter"){const text=prompt("Text paste karo:");if(text!==null){const words=text.trim()?text.trim().split(/\s+/).length:0;const chars=text.length;alert("Words: "+words+"\nCharacters: "+chars);}return;}
+  if(name==="Character Counter"){const text=prompt("Text paste karo:");if(text!==null){alert("Characters: "+text.length);}return;}
+  if(name==="Password Generator"){const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";let pass="";for(let i=0;i<16;i++){pass+=chars[Math.floor(Math.random()*chars.length)]}alert("Generated Password:\n\n"+pass);return;}
+  if(name==="UUID Generator"){const uuid=crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const r=Math.random()*16|0;const v=c==="x"?r:(r&3|8);return v.toString(16)});alert("UUID:\n\n"+uuid);return;}
+  alert("⚡ "+name+"\n\nTool interface ready.\nActual functionality can be connected here.");
+}
+/* === IMPROVED LIVE + TICKER === */
+let vCount = parseInt(localStorage.getItem('vCount')||'1278');
+function updateCounts(){
+  let online=10+Math.floor(Math.random()*18);
+  vCount+=Math.floor(Math.random()*2);
+  localStorage.setItem('vCount',vCount);
+  document.getElementById("online").textContent=online;
+  document.getElementById("visitors").textContent=vCount;
+  document.getElementById("trustCount").textContent=vCount;
+}
+setInterval(updateCounts,4000);
+updateCounts();
+const tickerMsgs=[
+  "💻 <b>3</b> people using Image Tools right now",
+  "🔥 <b>Rahul</b> used Password Generator 2 min ago",
+  "⚡ <b>Priya</b> used Word Counter 5 min ago",
+  "🚀 <b>Aman</b> generated QR Code 1 min ago",
+  "💻 <b>7</b> tools used in last 10 minutes",
+  "🌍 Someone from <b>Mumbai</b> just visited",
+  "📸 <b>5</b> people using Instagram Tools right now",
+  "🔐 <b>2</b> people generating passwords right now"
+];
+let t=0;
+setInterval(()=>{
+  t=(t+1)%tickerMsgs.length;
+  document.getElementById("activityBox").innerHTML=tickerMsgs[t];
+},3000);
 </script>
 </body>
 </html>
