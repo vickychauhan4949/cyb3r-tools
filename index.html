@@ -311,6 +311,7 @@ else out.textContent="✓ Tool opened successfully.\n\nThis utility is ready for
 document.addEventListener("keydown",e=>{
 if(e.key=="Escape")closeTool()
 });
+document.getElementById("modal").addEventListener("click",e=>{if(e.target.id=="modal")closeTool()});
 </script>
 </body>
 </html>
