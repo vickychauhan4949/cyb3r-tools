@@ -1,62 +1,87 @@
-require('dns').setServers(['1.1.1.1','8.8.8.8','1.0.0.1']);
-const express = require('express');
-const axios = require('axios');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
+
 const app = express();
+const PORT = process.env.PORT || 3000;
+
 app.use(cors());
+app.use(express.json());
+app.use(express.static("public"));
 
-app.get('/', (req,res)=> res.send('HACKTOOLS V9 LIVE - Direct'));
-
-app.get('/download', async (req, res) => {
-  let url = req.query.url;
-  if(!url) return res.json({error:"No URL"});
-  const match = url.match(/\/(p|reel|tv)\/([A-Za-z0-9-_]+)/);
-  if(!match) return res.json({error:"Invalid URL"});
-  const shortcode = match[2];
-
+function validInstagramUrl(value) {
   try {
-    // TRY 1: ddinstagram - FIXED LOGIC
-    try {
-      const dd = await axios.get('https://d.ddinstagram.com/reel/'+shortcode, {
-        headers: { 'User-Agent': 'Mozilla/5.0' },
-        timeout: 20000,
-        maxRedirects: 5,
-        family: 4
+    const url = new URL(value);
+
+    const host =
+      url.hostname === "instagram.com" ||
+      url.hostname === "www.instagram.com";
+
+    const path =
+      url.pathname.startsWith("/reel/") ||
+      url.pathname.startsWith("/reels/") ||
+      url.pathname.startsWith("/p/");
+
+    return host && path;
+  } catch {
+    return false;
+  }
+}
+
+// Reel URL check
+app.post("/api/reel", async (req, res) => {
+  try {
+    const { url } = req.body;
+
+    if (!url) {
+      return res.status(400).json({
+        success: false,
+        error: "Instagram Reel URL required"
       });
-      // isme se videoUrl nikalne ka sahi tarika
-      let m = dd.data.match(/"videoUrl":"([^"]+)"/) || dd.data.match(/"contentUrl":"([^"]+)"/);
-      if(m){
-        let v = m[1].replace(/\\u0026/g, '&').replace(/\\/g, '');
-        if(v.startsWith('http')) return res.json({success:true, video: v, download_url: v});
-      }
-    } catch(e){ console.log("DD fail", e.message) }
-
-    // TRY 2: saveinsta API - ye Render pe 100% chalta hai
-    const form = new URLSearchParams({ q: url, t: 'media', lang: 'en' });
-    const save = await axios.post('https://saveinsta.app/api/ajaxSearch', form.toString(), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': 'Mozilla/5.0',
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      timeout: 20000,
-      family: 4
-    });
-
-    if(save.data && save.data.data){
-        let vMatch = save.data.data.match(/href="([^"]+\.mp4[^"]*)"/);
-        if(vMatch){
-            let v = vMatch[1];
-            return res.json({success:true, video: v, download_url: v});
-        }
     }
 
-    return res.json({error:"Video not found - try public reel"});
+    if (!validInstagramUrl(url)) {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid Instagram Reel URL"
+      });
+    }
 
-  } catch(e){
-    console.log("V9 Error", e.message);
-    return res.json({error:"Failed", detail: e.message});
+    /*
+      IMPORTANT:
+      Yahan apna authorized/official Instagram API
+      integration add karo.
+
+      Protected/private Instagram content ko scrape,
+      login/session bypass ya unauthorized download
+      nahi karna chahiye.
+    */
+
+    res.json({
+      success: true,
+      status: "URL verified",
+      message:
+        "Reel URL valid hai. Authorized media source ko yahan connect karo.",
+      reelUrl: url
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      error: "Server error"
+    });
   }
 });
 
-app.listen(process.env.PORT || 10000, () => console.log("V9 Live"));
+app.get("/api/health", (req, res) => {
+  res.json({
+    online: true,
+    service: "HACKTOOLS PRO",
+    time: new Date().toISOString()
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`HACKTOOLS PRO server running on port ${PORT}`);
+});
