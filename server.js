@@ -3,48 +3,61 @@ const axios = require('axios');
 const cors = require('cors');
 const app = express();
 app.use(cors());
-app.use(express.json());
 
-app.get('/', (req,res)=> res.send('HACKTOOLS PRO API V4 LIVE'));
+app.get('/', (req,res)=> res.send('HACKTOOLS V5 LIVE'));
 
 app.get('/download', async (req, res) => {
-  const instaUrl = req.query.url;
-  if(!instaUrl) return res.json({ error: "No URL" });
+  let url = req.query.url;
+  if(!url) return res.json({error:"No URL"});
 
-  const instances = [
-    'https://co.wuk.sh/api/json',
-    'https://api.cobalt.tools/api/json'
-  ];
+  try {
+    // shortcode nikalna
+    const match = url.match(/\/(p|reel|tv)\/([^\/\?]+)/);
+    if(!match) return res.json({error:"Invalid URL"});
+    const shortcode = match[2];
 
-  for (let apiUrl of instances) {
-    try {
-      console.log("Trying: " + apiUrl);
-      const { data } = await axios.post(apiUrl,
-        { url: instaUrl, vQuality: "720", filenamePattern: "basic" },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          timeout: 20000
-        }
-      );
+    // Instagram embed page - ye Render pe bhi chalta hai
+    const embedUrl = `https://www.instagram.com/${match[1]}/${shortcode}/embed/captioned/`;
 
-      if (data && data.url) {
-        return res.json({ success: true, video: data.url, download_url: data.url });
-      }
-      if (data && data.picker && data.picker.length > 0) {
-        const best = data.picker[0];
-        return res.json({ success: true, video: best.url, download_url: best.url });
-      }
+    const { data: html } = await axios.get(embedUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'text/html',
+      },
+      timeout: 15000
+    });
 
-    } catch (e) {
-      console.log("Failed " + apiUrl + ": ", e.response?.data || e.message);
-      continue; // next instance try karega
+    // video_url dhundna
+    let videoUrl = null;
+
+    // method 1: video_url field
+    const vMatch = html.match(/"video_url":"([^"]+)"/);
+    if (vMatch) videoUrl = JSON.parse(`"${vMatch[1]}"`);
+
+    // method 2: contentUrl
+    if (!videoUrl) {
+      const cMatch = html.match(/"contentUrl":"([^"]+\.mp4[^"]*)"/);
+      if (cMatch) videoUrl = JSON.parse(`"${cMatch[1]}"`);
     }
-  }
 
-  return res.json({ error: "Server busy, try again after 30 sec" });
+    // method 3: video_versions
+    if (!videoUrl) {
+      const vvMatch = html.match(/"video_versions":\[.*?"url":"([^"]+)"/);
+      if (vvMatch) videoUrl = JSON.parse(`"${vvMatch[1]}"`);
+    }
+
+    if (videoUrl) {
+      // \u0026 ko & me convert
+      videoUrl = videoUrl.replace(/\\u0026/g, '&').replace(/\\\//g, '/');
+      return res.json({ success: true, video: videoUrl, download_url: videoUrl });
+    }
+
+    return res.json({ error: "Video not found in embed", shortcode });
+
+  } catch (e) {
+    console.log("Embed error:", e.message);
+    return res.json({ error: "Server busy, try again after 30 sec", detail: e.message });
+  }
 });
 
-app.listen(process.env.PORT || 10000, () => console.log("Live"));
+app.listen(process.env.PORT || 10000, () => console.log("V5 Live"));
