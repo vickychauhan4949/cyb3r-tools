@@ -2,750 +2,175 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#020b04">
-<title>HACKTOOLS 160+ | Free Online Tools</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HACKTOOLS PRO</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#020a04;
-  --card:#061108;
-  --card2:#08160a;
-  --green:#20ff62;
-  --green2:#00d94f;
-  --border:#0d7b31;
-  --text:#f2fff5;
-  --muted:#8ba291;
-}
-html{scroll-behavior:smooth}
-body{
-  background:
-    linear-gradient(rgba(0,255,80,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,255,80,.025) 1px,transparent 1px),
-    var(--bg);
-  background-size:32px 32px;
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-  min-height:100vh;
-}
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:radial-gradient(circle at 50% 0%,rgba(0,255,80,.09),transparent 38%);
-}
-.container{width:min(1100px,94%);margin:auto}
-
-/* HEADER */
-header{
-  padding:18px 0 8px;
-  position:relative;
-}
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  padding:12px 16px;
-  border:2px solid #12c947;
-  border-radius:17px;
-  background:rgba(2,14,5,.9);
-  box-shadow:0 0 18px rgba(0,255,70,.12);
-}
-.live{
-  color:var(--green);
-  font-weight:800;
-}
-.live-dot{
-  display:inline-block;
-  width:10px;height:10px;
-  background:var(--green);
-  border-radius:50%;
-  margin-right:7px;
-  box-shadow:0 0 12px var(--green);
-  animation:pulse 1.3s infinite;
-}
-.visitors{color:#d7e8db;font-weight:700}
-@keyframes pulse{
-  50%{opacity:.35;transform:scale(.7)}
-}
-
-.activity{
-  margin-top:28px;
-  background:#080d09;
-  border-left:5px solid var(--green);
-  border-radius:10px;
-  padding:14px 17px;
-  color:#c7d3ca;
-  font-size:15px;
-}
-
-.brand{
-  margin:28px 0 22px;
-  font-size:clamp(35px,8vw,66px);
-  font-weight:900;
-  letter-spacing:-3px;
-  text-shadow:0 0 12px #00ff55,0 0 35px rgba(0,255,70,.5);
-}
-.brand span{color:#fff}
-.brand small{
-  color:var(--green);
-  font-size:.55em;
-  letter-spacing:-1px;
-}
-
-/* SEARCH */
-.searchbox{
-  position:relative;
-  margin-bottom:20px;
-}
-.searchbox input{
-  width:100%;
-  padding:20px 55px 20px 55px;
-  border:2px solid #14d94e;
-  border-radius:18px;
-  outline:none;
-  color:white;
-  background:#040c05;
-  font-size:18px;
-  box-shadow:0 0 18px rgba(0,255,80,.08);
-}
-.searchbox input:focus{
-  box-shadow:0 0 25px rgba(0,255,80,.2);
-}
-.searchicon{
-  position:absolute;
-  left:19px;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:25px;
-}
-.clear{
-  position:absolute;
-  right:18px;
-  top:50%;
-  transform:translateY(-50%);
-  cursor:pointer;
-  color:#6f8175;
-  font-size:20px;
-}
-
-/* CATEGORIES */
-.categories{
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-  padding:4px 0 14px;
-  scrollbar-width:thin;
-}
-.categories::-webkit-scrollbar{height:4px}
-.categories::-webkit-scrollbar-thumb{background:#176b30}
-.cat{
-  flex:0 0 auto;
-  border:1px solid #126e2e;
-  background:#061108;
-  color:#39f86c;
-  padding:13px 19px;
-  border-radius:12px;
-  cursor:pointer;
-  font-weight:700;
-  transition:.2s;
-}
-.cat:hover,.cat.active{
-  background:#0a2710;
-  border-color:var(--green);
-  box-shadow:0 0 15px rgba(0,255,70,.15);
-}
-
-/* SECTIONS */
-.section{
-  margin-top:28px;
-  padding-top:25px;
-  border-top:1px solid #0c3820;
-}
-.section-title{
-  color:var(--green);
-  font-size:27px;
-  margin-bottom:17px;
-}
-.section-title:before{
-  content:"▶ ";
-  font-size:16px;
-}
-
-/* TOOL GRID */
-.tool-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-}
-.tool{
-  background:linear-gradient(145deg,#071309,#030b04);
-  border:1px solid #0b5d27;
-  border-radius:18px;
-  padding:19px;
-  min-height:190px;
-  display:flex;
-  flex-direction:column;
-  transition:.22s;
-  position:relative;
-  overflow:hidden;
-}
-.tool:after{
-  content:"";
-  position:absolute;
-  height:1px;
-  left:-100%;
-  right:100%;
-  bottom:0;
-  background:var(--green);
-  box-shadow:0 0 12px var(--green);
-  transition:.5s;
-}
-.tool:hover{
-  transform:translateY(-3px);
-  border-color:#16db4f;
-  box-shadow:0 0 22px rgba(0,255,70,.13);
-}
-.tool:hover:after{
-  left:0;right:0;
-}
-.tool-top{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:8px;
-}
-.tool-icon{font-size:29px}
-.tool h3{
-  font-size:19px;
-  line-height:1.25;
-  flex:1;
-}
-.badge{
-  font-size:10px;
-  padding:4px 7px;
-  border-radius:6px;
-  background:#10391a;
-  color:#55ff7e;
-  font-weight:900;
-}
-.tool p{
-  color:var(--muted);
-  margin-top:12px;
-  line-height:1.4;
-  font-size:14px;
-  flex:1;
-}
-.open{
-  width:100%;
-  padding:11px;
-  margin-top:15px;
-  border:1px solid #0b8434;
-  border-radius:12px;
-  background:#061509;
-  color:#2dff67;
-  font-size:15px;
-  font-weight:800;
-  cursor:pointer;
-}
-.open:hover{
-  background:#0b2c12;
-  box-shadow:0 0 14px rgba(0,255,70,.15);
-}
-
-/* NO RESULT */
-.noresult{
-  display:none;
-  text-align:center;
-  padding:45px 10px;
-  color:#819389;
-}
-
-/* FOOTER */
-footer{
-  margin-top:50px;
-  border-top:1px solid #0b4020;
-  padding:28px 0;
-  text-align:center;
-  color:#708277;
-}
-footer b{color:var(--green)}
-
-/* MOBILE */
-@media(max-width:800px){
-  .tool-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:560px){
-  .container{width:92%}
-  .topbar{font-size:14px}
-  .brand{
-    font-size:42px;
-    margin-top:25px;
-  }
-  .activity{font-size:14px}
-  .tool-grid{grid-template-columns:1fr}
-  .tool{min-height:175px}
-}
+*{box-sizing:border-box}
+body{margin:0;background:#010604;color:#d8ffe0;font-family:Arial,sans-serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.06;background:linear-gradient(#39ff1412 1px,transparent 1px),linear-gradient(90deg,#39ff1412 1px,transparent 1px);background-size:30px 30px}
+header{height:65px;position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:10px 18px;background:#020805ee;border-bottom:1px solid #0b632b;backdrop-filter:blur(10px)}
+.logo{color:#39ff14;font-size:22px;font-weight:900;letter-spacing:2px;text-shadow:0 0 12px #39ff14}
+.search{flex:1;max-width:600px;padding:12px;border-radius:8px;outline:none;border:1px solid #175d2c;background:#020a05;color:#fff}
+.search:focus{border-color:#39ff14;box-shadow:0 0 15px #39ff1422}
+.online{margin-left:auto;color:#39ff14;font-size:12px;font-weight:bold}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#39ff14;box-shadow:0 0 10px #39ff14;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.3}}
+.container{max-width:1400px;margin:auto;padding:18px}
+.hero{min-height:300px;border:1px solid #0b7130;border-radius:15px;overflow:hidden;position:relative;background:linear-gradient(90deg,#010604ee,#01060488),radial-gradient(circle at 30% 50%,#0aff5a22,transparent 50%),#010604;box-shadow:0 0 35px #00ff6615}
+.heroContent{padding:45px 30px;position:relative}
+.hero h1{margin:0;color:#39ff14;font-size:42px;line-height:1;text-shadow:0 0 18px #39ff1455}
+.hero h1 span{color:#eaffed}
+.hero p{color:#759b7c;font-size:15px;margin:18px 0}
+.status{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border:1px solid #16883a;border-radius:7px;color:#39ff14;font-size:12px;font-weight:bold;background:#031009}
+.section{margin-top:25px}
+.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.title h2{margin:0;color:#39ff14;font-size:21px}
+.title span{color:#648a6c;font-size:12px}
+.categories{display:flex;gap:8px;overflow:auto;margin-bottom:15px}
+.categories button{white-space:nowrap;padding:9px 13px;border-radius:7px;border:1px solid #174d29;background:#041008;color:#86a88d;cursor:pointer}
+.categories button:hover,.categories button.active{color:#39ff14;border-color:#39ff14;background:#06240e}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{position:relative;padding:16px;min-height:190px;border-radius:11px;border:1px solid #0a5526;background:linear-gradient(145deg,#07130a,#020704);transition:.25s;overflow:hidden}
+.card:hover{transform:translateY(-5px);border-color:#39ff14;box-shadow:0 0 25px #39ff1420}
+.icon{width:48px;height:48px;display:grid;place-items:center;border-radius:50%;background:#061c0b;border:1px solid #0d6a2d;font-size:23px;margin-bottom:12px}
+.card h3{margin:0 0 8px;font-size:15px}
+.card p{color:#668a6e;font-size:11px;line-height:1.5;min-height:34px}
+.open{width:100%;padding:9px;border-radius:7px;border:1px solid #15923b;background:#05220d;color:#39ff14;font-weight:bold;cursor:pointer}
+.open:hover{background:#0a3816}
+.badge{position:absolute;top:10px;right:10px;padding:4px 7px;border-radius:5px;font-size:9px;font-weight:bold;background:#e52e25;color:white}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:25px;border:1px solid #0b4d23;border-radius:10px;background:#030a05}
+.stat{padding:18px;text-align:center;border-right:1px solid #0b3b1c}
+.stat:last-child{border:0}
+.stat b{display:block;color:#39ff14;font-size:22px}
+.stat small{color:#66886e}
+footer{margin-top:25px;padding:25px;border-top:1px solid #0b4d23;color:#64856b;font-size:12px;text-align:center}
+/* TOOL MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;place-items:center;z-index:99;padding:15px}
+.modal.active{display:grid}
+.modalBox{width:min(500px,100%);background:#061108;border:2px solid #16c94d;border-radius:14px;padding:20px;box-shadow:0 0 30px #00ff5533}
+.modalBox h2{margin:0 0 10px;color:#39ff14}
+.modalBox input,.modalBox textarea{width:100%;padding:12px;background:#020a05;border:1px solid #126e2e;border-radius:8px;color:#fff;margin:10px 0;outline:none}
+.modalBox button{padding:10px 14px;border-radius:8px;border:1px solid #16c94d;background:#0a2710;color:#39ff14;font-weight:800;cursor:pointer}
+.close{float:right;cursor:pointer;color:#86a88d;font-size:20px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){header{padding:10px}.logo{font-size:17px}.online{display:none}.container{padding:10px}.hero{min-height:280px}.heroContent{padding:35px 20px}.hero h1{font-size:31px}.grid{grid-template-columns:repeat(2,1fr);gap:8px}.card{padding:12px}.card h3{font-size:13px}.card p{font-size:10px}.stats{grid-template-columns:repeat(2,1fr)}.stat{border-bottom:1px solid #0b3b1c}}
 </style>
 </head>
-
 <body>
-
-<div class="container">
-
 <header>
-
-  <div class="topbar">
-    <div class="live">
-      <span class="live-dot"></span>
-      LIVE NOW • <span id="online">12</span> Online
-    </div>
-    <div class="visitors">
-      👁️ <span id="visitors">1278</span>+ Visitors
-    </div>
-  </div>
-
-  <div class="activity">
-    💻 <b id="activeToolUsers">3</b> people using
-    <span id="activeCategory">Top Tools</span> right now
-  </div>
-
-  <div class="brand">
-    ⚡ HACK<span>TOOLS</span> <small>160+</small>
-  </div>
-
-  <div class="searchbox">
-    <span class="searchicon">🔎</span>
-    <input id="search" type="text"
-      placeholder="Search 160+ tools..."
-      autocomplete="off">
-    <span class="clear" onclick="clearSearch()">×</span>
-  </div>
-
-  <div class="categories">
-    <button class="cat active" data-cat="All">All</button>
-    <button class="cat" data-cat="Top">🔥 Top Tools</button>
-    <button class="cat" data-cat="Text">Text</button>
-    <button class="cat" data-cat="Image">Image</button>
-    <button class="cat" data-cat="Developer">Developer</button>
-    <button class="cat" data-cat="Calculator">Calculator</button>
-    <button class="cat" data-cat="Social">Social</button>
-    <button class="cat" data-cat="SEO">SEO</button>
-    <button class="cat" data-cat="PDF">PDF</button>
-    <button class="cat" data-cat="Web">Web</button>
-    <button class="cat" data-cat="Security">Security</button>
-  </div>
-
+ <div class="logo">☠ HACKTOOLS PRO</div>
+ <input class="search" id="search" placeholder="⌕ Search tools..." oninput="searchTools()">
+ <div class="online"><span class="dot"></span> <span id="online">82</span> ONLINE • <span id="visitors">1278</span>+</div>
 </header>
-
-<!-- TOP TOOLS FIRST -->
-<section class="section" id="topSection">
-  <h2 class="section-title">Top Tools</h2>
-  <div class="tool-grid" id="topTools"></div>
+<div class="container">
+<section class="hero">
+ <div class="heroContent">
+  <h1>POWERFUL TOOLS<br><span>FOR HACKERS</span></h1>
+  <p>Fast • Free • Secure • 160+ Professional Browser Tools</p>
+  <div class="status" id="ticker">💻 3 people using Image Tools right now</div>
+ </div>
 </section>
-
-<!-- ALL TOOLS -->
 <section class="section">
-  <h2 class="section-title" id="allTitle">All Tools <span id="count"></span></h2>
-  <div class="tool-grid" id="tools"></div>
-  <div class="noresult" id="noresult">
-    😕 No tools found.<br>
-    Try another search.
-  </div>
+ <div class="title"><h2>🔥 TOP TOOLS</h2><span>Most Used</span></div>
+ <div class="categories">
+  <button class="active" onclick="filterTools('all',this)">ALL</button>
+  <button onclick="filterTools('download',this)">DOWNLOAD</button>
+  <button onclick="filterTools('security',this)">SECURITY</button>
+  <button onclick="filterTools('developer',this)">DEVELOPER</button>
+  <button onclick="filterTools('text',this)">TEXT</button>
+  <button onclick="filterTools('image',this)">IMAGE</button>
+ </div>
+ <div class="grid" id="tools"></div>
 </section>
-
-<footer>
-  ⚡ <b>HACKTOOLS 160+</b><br>
-  <small>Free • Fast • Browser Tools • No Login Required</small>
-</footer>
-
+<div class="stats">
+ <div class="stat"><b>160+</b><small>TOOLS</small></div>
+ <div class="stat"><b>25K+</b><small>USERS</small></div>
+ <div class="stat"><b>99.9%</b><small>UPTIME</small></div>
+ <div class="stat"><b>FREE</b><small>FOREVER</small></div>
 </div>
-
+<footer>© 2026 HACKTOOLS PRO • Premium Hacker Tools Dashboard • Trusted by <span id="trust">1278</span>+</footer>
+</div>
+<!-- MODAL -->
+<div class="modal" id="modal"><div class="modalBox"><span class="close" onclick="closeModal()">✕</span><h2 id="mTitle"></h2><div id="mBody"></div></div></div>
 <script>
-
-/* =====================================================
-   TOP TOOLS — THESE ALWAYS APPEAR FIRST
-   ===================================================== */
-
-const topTools = [
-
- {name:"Instagram Reel Downloader",icon:"📸",cat:"Social",badge:"HOT",
-  desc:"Download public Instagram reels quickly."},
-
- {name:"WhatsApp Status Downloader",icon:"🟢",cat:"Social",badge:"HOT",
-  desc:"Save WhatsApp status media from your device."},
-
- {name:"QR Code Generator",icon:"▦",cat:"Web",badge:"TOP",
-  desc:"Create QR codes for text, links and contact data."},
-
- {name:"Password Generator",icon:"🔐",cat:"Security",badge:"TOP",
-  desc:"Generate strong random passwords instantly."},
-
- {name:"Image Compressor",icon:"🖼️",cat:"Image",badge:"TOP",
-  desc:"Compress images directly in your browser."},
-
- {name:"Word Counter",icon:"⚡",cat:"Text",badge:"HOT",
-  desc:"Count words, characters, sentences and lines."},
-
- {name:"Character Counter",icon:"⚡",cat:"Text",badge:"TOP",
-  desc:"Count characters with and without spaces."},
-
- {name:"JSON Formatter",icon:"{}",
-  cat:"Developer",badge:"HOT",
-  desc:"Format and validate JSON data."},
-
- {name:"Base64 Encoder / Decoder",icon:"🔣",
-  cat:"Developer",badge:"TOP",
-  desc:"Encode or decode Base64 text."},
-
- {name:"URL Encoder / Decoder",icon:"🔗",
-  cat:"Developer",badge:"TOP",
-  desc:"Encode and decode URL strings."},
-
- {name:"UUID Generator",icon:"🆔",cat:"Developer",badge:"NEW",
-  desc:"Generate unique UUID identifiers."},
-
- {name:"BMI Calculator",icon:"⚖️",cat:"Calculator",badge:"TOP",
-  desc:"Calculate BMI from height and weight."}
-
+const tools=[
+["📸","Instagram Reel Downloader","Download public Instagram reel links.","download","HOT"],
+["🟢","WhatsApp Status Downloader","Save status media you are authorized to download.","download","HOT"],
+["▶️","YouTube Downloader","Prepare YouTube URLs for permitted downloads.","download","HOT"],
+["🔳","QR Code Generator","Create QR codes for text and links.","image","TOP"],
+["🔐","Password Generator","Generate strong random passwords locally.","security","TOP"],
+["{}","JSON Formatter","Format and validate JSON data.","developer","TOP"],
+["B64","Base64 Encoder","Encode / Decode Base64.","developer",""],
+["↔","Text Reverser","Reverse text instantly.","text",""],
+["🔢","Word Counter","Count words and characters.","text",""],
+["🌐","IP Information","Display public IP information.","developer",""],
+["SHA","SHA256 Generator","Generate SHA-256 hashes.","security",""],
+["🎨","Color Picker","Pick colors and copy HEX codes.","image",""],
+["🔗","URL Encoder","Encode URL text safely.","developer",""],
+["🧰","Developer Toolbox","Useful browser developer utilities.","developer",""],
+["📝","Lorem Ipsum","Generate placeholder text.","text",""],
+["⚡","Random Generator","Generate random values.","security",""]
 ];
-
-
-/* =====================================================
-   160+ TOOL CATALOG
-   ===================================================== */
-
-const names = {
-
-Text:[
-"Text Case Converter","Uppercase Converter","Lowercase Converter",
-"Title Case Converter","Sentence Case Converter","Alternating Case",
-"Reverse Text","Remove Duplicate Lines","Sort Lines",
-"Text Cleaner","Whitespace Remover","Line Counter",
-"Sentence Counter","Paragraph Counter","Reading Time Calculator",
-"Lorem Ipsum Generator","Random Text Generator","Palindrome Checker",
-"Text Diff Checker","Find and Replace","Email Extractor",
-"URL Extractor","Number Extractor","Hashtag Extractor",
-"Keyword Extractor","Slug Generator","Text to Binary",
-"Binary to Text","Text to Morse","Morse to Text",
-"Text to ASCII","ASCII to Text","ROT13 Encoder",
-"ROT13 Decoder","Caesar Cipher","Word Frequency Counter",
-"Character Frequency","Text Repeater","Text Splitter",
-"Text Joiner","Markdown Preview"
-],
-
-Image:[
-"Image Resizer","Image Cropper","Image Rotator","Image Flipper",
-"Image Converter","JPG to PNG","PNG to JPG","WebP Converter",
-"Image to Base64","Base64 to Image","Image Color Picker",
-"Image Metadata Viewer","Image Blur Tool","Image Grayscale",
-"Image Brightness","Image Contrast","Image Filters",
-"Favicon Generator","Thumbnail Generator","Placeholder Image",
-"SVG Previewer","SVG to PNG","Image Pixel Checker",
-"Image Dimension Checker","Photo Frame Tool"
-],
-
-Developer:[
-"HTML Formatter","CSS Formatter","JavaScript Formatter",
-"JSON Minifier","HTML Minifier","CSS Minifier","JS Minifier",
-"XML Formatter","SQL Formatter","SQL Minifier",
-"Regex Tester","Regex Generator","JWT Decoder",
-"Hash Generator","MD5 Generator","SHA256 Generator",
-"SHA1 Generator","Timestamp Converter","Unix Timestamp",
-"Color Code Converter","HEX to RGB","RGB to HEX",
-"HSL Converter","HTML Entity Encoder","HTML Entity Decoder",
-"URL Parser","Query String Parser","User Agent Parser",
-"IP Address Parser","HTTP Status Code Lookup","MIME Type Lookup",
-"Port Number Lookup","Cron Generator","Chmod Calculator",
-"Git Command Helper","Gitignore Generator","Nginx Config Helper",
-"Apache Config Helper","Meta Tag Generator","Robots.txt Generator",
-"Sitemap Generator","Open Graph Generator"
-],
-
-Calculator:[
-"Age Calculator","Percentage Calculator","Discount Calculator",
-"Tip Calculator","Loan Calculator","EMI Calculator",
-"Simple Interest","Compound Interest","GST Calculator",
-"Tax Calculator","Currency Calculator","Unit Converter",
-"Length Converter","Weight Converter","Temperature Converter",
-"Speed Converter","Time Converter","Data Storage Converter",
-"Area Calculator","Volume Calculator","Distance Calculator",
-"Average Calculator","Ratio Calculator","Fraction Calculator",
-"Scientific Calculator"
-],
-
-Social:[
-"YouTube Thumbnail URL","YouTube Title Generator",
-"YouTube Description Generator","YouTube Tag Generator",
-"Instagram Bio Generator","Instagram Caption Generator",
-"Hashtag Generator","Social Media Text Counter",
-"Twitter/X Character Counter","Facebook Text Formatter",
-"WhatsApp Text Formatter","WhatsApp Link Generator",
-"Telegram Link Generator","YouTube Embed Generator",
-"YouTube Timestamp Generator"
-],
-
-SEO:[
-"SEO Meta Generator","Meta Description Generator","SEO Title Generator",
-"Keyword Density Checker","Word Density Checker","Robots.txt Generator",
-"Sitemap XML Generator","Canonical URL Generator","Schema Generator",
-"Open Graph Meta Generator","Twitter Card Generator",
-"Slug Generator SEO","SERP Snippet Preview","Keyword Counter",
-"Text Readability Checker"
-],
-
-PDF:[
-"PDF Page Counter","PDF Text Extractor","PDF Metadata Viewer",
-"PDF to Text","Text to PDF","Image to PDF","PDF Merge Helper",
-"PDF Split Helper","PDF Size Calculator","PDF Filename Generator"
-],
-
-Web:[
-"QR Code Generator","Barcode Generator","Color Picker",
-"Gradient Generator","CSS Shadow Generator","CSS Border Generator",
-"CSS Button Generator","CSS Glass Generator","CSS Animation Generator",
-"HTML Boilerplate","Landing Page Generator","Email Link Generator",
-"Phone Link Generator","Google Maps Link Generator",
-"WhatsApp Link Generator","Data URI Generator","PWA Manifest Generator",
-"Web App Icon Generator","Viewport Tester","Screen Size Checker",
-"Browser Info","Local Storage Viewer"
-],
-
-Security:[
-"Password Generator","Strong Password Checker","Random Token Generator",
-"UUID Generator","Hash Generator","MD5 Generator","SHA256 Generator",
-"Base64 Encoder","Base64 Decoder","URL Encoder","URL Decoder",
-"JWT Decoder","IP Privacy Checker","Security Headers Helper",
-"Random Number Generator"
-]
-
-};
-
-
-/* CREATE TOOL DATA */
-
-let tools=[];
-
-Object.keys(names).forEach(cat=>{
-  names[cat].forEach((name,i)=>{
-    tools.push({
-      name,
-      cat,
-      icon:cat==="Text"?"📝":
-           cat==="Image"?"🖼️":
-           cat==="Developer"?"💻":
-           cat==="Calculator"?"🧮":
-           cat==="Social"?"📱":
-           cat==="SEO"?"📈":
-           cat==="PDF"?"📄":
-           cat==="Web"?"🌐":"🔐",
-      badge:i<2?"NEW":"",
-      desc:"Fast browser utility"
-    });
-  });
-});
-
-
-/* REMOVE DUPLICATES */
-const used=new Set();
-tools=tools.filter(t=>{
-  if(used.has(t.name)) return false;
-  used.add(t.name);
-  return true;
-});
-
-
-/* TOOL CARD */
-
-function card(t){
-
-  return `
-  <article class="tool" data-name="${t.name.toLowerCase()}"
-           data-cat="${t.cat}">
-    <div class="tool-top">
-      <span class="tool-icon">${t.icon}</span>
-      <h3>${t.name}</h3>
-      ${t.badge?`<span class="badge">${t.badge}</span>`:""}
-    </div>
-
-    <p>${t.desc}</p>
-
-    <button class="open"
-      onclick="openTool('${t.name.replace(/'/g,"\\'")}')">
-      OPEN →
-    </button>
-  </article>
-  `;
+function show(list){
+ document.getElementById("tools").innerHTML=list.map(x=>`
+ <div class="card">
+  ${x[4]?`<div class="badge">${x[4]}</div>`:""}
+  <div class="icon">${x[0]}</div>
+  <h3>${x[1]}</h3>
+  <p>${x[2]}</p>
+  <button class="open" onclick="openTool('${x[1]}')">OPEN TOOL →</button>
+ </div>`).join("");
 }
-
-
-/* RENDER TOP TOOLS FIRST */
-
-document.getElementById("topTools").innerHTML =
-  topTools.map(card).join("");
-
-document.getElementById("tools").innerHTML =
-  tools.map(card).join("");
-
-document.getElementById("count").textContent =
-  "(" + (tools.length + topTools.length) + "+)";
-
-
-/* SEARCH */
-
-const search=document.getElementById("search");
-
-search.addEventListener("input",()=>{
-  const q=search.value.toLowerCase().trim();
-
-  document.querySelectorAll(".tool").forEach(el=>{
-    const match=el.dataset.name.includes(q);
-    const catMatch=
-      currentCat==="All" ||
-      currentCat==="Top" ||
-      el.dataset.cat===currentCat;
-
-    el.style.display=(match && catMatch)?"flex":"none";
-  });
-
-  updateEmpty();
-});
-
-
-/* CATEGORY */
-
-let currentCat="All";
-
-document.querySelectorAll(".cat").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-
-    document.querySelectorAll(".cat")
-      .forEach(x=>x.classList.remove("active"));
-
-    btn.classList.add("active");
-
-    currentCat=btn.dataset.cat;
-
-    const q=search.value.toLowerCase().trim();
-
-    document.querySelectorAll(".tool").forEach(el=>{
-
-      let categoryOK=
-        currentCat==="All" ||
-        (currentCat==="Top" && el.closest("#topTools")) ||
-        el.dataset.cat===currentCat;
-
-      let searchOK=el.dataset.name.includes(q);
-
-      el.style.display=(categoryOK && searchOK)?"flex":"none";
-    });
-
-    document.getElementById("activeCategory").textContent=
-      currentCat==="All"?"Top Tools":currentCat+" Tools";
-
-    updateEmpty();
-  });
-});
-
-
-function updateEmpty(){
-
-  let visible=0;
-
-  document.querySelectorAll(".tool").forEach(x=>{
-    if(x.style.display!=="none") visible++;
-  });
-
-  document.getElementById("noresult").style.display=
-    visible===0?"block":"none";
+function searchTools(){
+ const q=document.getElementById("search").value.toLowerCase();
+ show(tools.filter(x=>x[1].toLowerCase().includes(q)||x[2].toLowerCase().includes(q)));
 }
-
-
-function clearSearch(){
-  search.value="";
-  search.dispatchEvent(new Event("input"));
-  search.focus();
+function filterTools(cat,btn){
+ document.querySelectorAll(".categories button").forEach(x=>x.classList.remove("active"));
+ btn.classList.add("active");
+ if(cat==="all") show(tools); else show(tools.filter(x=>x[3]===cat));
 }
-
-
-/* TOOL OPEN */
+function closeModal(){document.getElementById("modal").classList.remove("active")}
+function openModal(title,html){document.getElementById("mTitle").textContent=title;document.getElementById("mBody").innerHTML=html;document.getElementById("modal").classList.add("active")}
 
 function openTool(name){
-
-  /*
-    Yahan future me individual tools connect kar sakte ho.
-    Browser-based tools ke liye actual functionality yahin
-    add ki ja sakti hai.
-  */
-
-  if(name==="Word Counter"){
-    const text=prompt("Text paste karo:");
-    if(text!==null){
-      const words=text.trim()?text.trim().split(/\s+/).length:0;
-      const chars=text.length;
-      alert("Words: "+words+"\nCharacters: "+chars);
-    }
-    return;
-  }
-
-  if(name==="Character Counter"){
-    const text=prompt("Text paste karo:");
-    if(text!==null){
-      alert("Characters: "+text.length);
-    }
-    return;
-  }
-
-  if(name==="Password Generator"){
-    const chars=
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-    let pass="";
-    for(let i=0;i<16;i++){
-      pass+=chars[Math.floor(Math.random()*chars.length)];
-    }
-    alert("Generated Password:\n\n"+pass);
-    return;
-  }
-
-  if(name==="UUID Generator"){
-    const uuid=crypto.randomUUID
-      ? crypto.randomUUID()
-      : "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
-        .replace(/[xy]/g,c=>{
-          const r=Math.random()*16|0;
-          const v=c==="x"?r:(r&3|8);
-          return v.toString(16);
-        });
-
-    alert("UUID:\n\n"+uuid);
-    return;
-  }
-
-  alert(
-    "⚡ "+name+
-    "\n\nTool interface ready.\nActual functionality can be connected here."
-  );
+ if(name==="QR Code Generator"){
+   openModal(name,`<input id="qrText" placeholder="Enter text / link"><button onclick="genQR()">Generate</button><div id="qrOut" style="margin-top:12px;text-align:center"></div>
+   <script>function genQR(){let t=document.getElementById('qrText').value;if(!t)return;let u='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data='+encodeURIComponent(t);document.getElementById('qrOut').innerHTML='<img src=\\''+u+'\\' style=\\'border:3px solid #39ff14;border-radius:10px\\'><br><br><a href=\\''+u+'\\' target=\\'_blank\\' style=\\'color:#39ff14\\'>Download QR</a>'}<\/script>`.replace('<script>','').replace('<\/script>',''));
+   window.genQR=function(){let t=document.getElementById('qrText').value;if(!t)return;let u='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data='+encodeURIComponent(t);document.getElementById('qrOut').innerHTML='<img src=\''+u+'\' style=\'border:3px solid #39ff14;border-radius:10px\'><br><br><a href=\''+u+'\' target=\'_blank\' style=\'color:#39ff14\'>Download QR</a>'}
+   return;
+ }
+ if(name==="Password Generator"){
+   let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";let p="";for(let i=0;i<16;i++)p+=chars[Math.floor(Math.random()*chars.length)];
+   openModal(name,`<input id="pOut" value="${p}"><button onclick="navigator.clipboard.writeText(document.getElementById('pOut').value);alert('Copied!')">Copy</button><button onclick="openTool('Password Generator')" style="margin-left:6px">New</button>`);return;
+ }
+ if(name==="Word Counter"){
+   openModal(name,`<textarea id="wText" rows="5" placeholder="Paste text..."></textarea><button onclick="let t=document.getElementById('wText').value;alert('Words: '+(t.trim()?t.trim().split(/\\s+/).length:0)+'\\nChars: '+t.length)">Count</button>`);return;
+ }
+ if(name==="Base64 Encoder"){
+   openModal(name,`<textarea id="bText" rows="4" placeholder="Enter text"></textarea><button onclick="document.getElementById('bOut').value=btoa(document.getElementById('bText').value)">Encode</button><button onclick="try{document.getElementById('bOut').value=atob(document.getElementById('bText').value)}catch(e){alert('Invalid Base64')}" style="margin-left:6px">Decode</button><textarea id="bOut" rows="4" placeholder="Result" style="margin-top:10px"></textarea>`);return;
+ }
+ if(name==="URL Encoder"){
+   openModal(name,`<input id="uText" placeholder="Enter URL / text"><button onclick="document.getElementById('uOut').value=encodeURIComponent(document.getElementById('uText').value)">Encode</button><button onclick="document.getElementById('uOut').value=decodeURIComponent(document.getElementById('uText').value)" style="margin-left:6px">Decode</button><input id="uOut" placeholder="Result" style="margin-top:10px">`);return;
+ }
+ if(name.includes("Instagram")){
+   openModal(name,`<input id="insta" placeholder="Paste Instagram Reel Link"><button onclick="let l=document.getElementById('insta').value;if(!l)return alert('Link daal');window.open('https://snapinsta.app/instagram-reels-download?url='+encodeURIComponent(l),'_blank')">Download via SnapInsta</button><p style="color:#759b7c;font-size:11px;margin-top:10px">Note: Instagram blocks direct browser downloads. We use safe external resolver. Next update me apni API lagayenge.</p>`);return;
+ }
+ if(name.includes("YouTube")){
+   openModal(name,`<input id="yt" placeholder="Paste YouTube Link"><button onclick="let l=document.getElementById('yt').value;if(!l)return;window.open('https://y2mate.is/youtube/'+l.split('v=')[1],'__blank')">Open Downloader</button><p style="color:#759b7c;font-size:11px;margin-top:10px">YouTube download needs backend. Temporary redirect.</p>`);return;
+ }
+ if(name.includes("WhatsApp")){
+   openModal(name,`<p style="color:#d8ffe0">WhatsApp Status folder is protected by Android. Browser se direct access nahi milta.<br><br>✅ Solution: Isko PWA app banana padega jo file system access de. Chaahe to mai PWA code de du?</p>`);return;
+ }
+ openModal(name,`<p>This tool is in demo. Real logic for <b>${name}</b> will be added next. Konsa tool pehle chahiye bol!</p>`);
 }
-
-
-/* DEMO LIVE COUNTERS */
-
-setInterval(()=>{
-  let online=12+Math.floor(Math.random()*7);
-  let visitors=1278+Math.floor(Math.random()*35);
-
-  document.getElementById("online").textContent=online;
-  document.getElementById("visitors").textContent=visitors;
-
-  document.getElementById("activeToolUsers").textContent=
-    2+Math.floor(Math.random()*7);
-
-},5000);
-
+show(tools);
+// LIVE COUNTERS + TICKER
+let v=parseInt(localStorage.getItem('ht_v')||'1278');
+function upd(){let o=70+Math.floor(Math.random()*35);v+=Math.floor(Math.random()*2);localStorage.setItem('ht_v',v);document.getElementById("online").textContent=o;document.getElementById("visitors").textContent=v;document.getElementById("trust").textContent=v;}
+setInterval(upd,4000);upd();
+const msgs=["💻 3 people using Image Tools right now","🔥 Rahul used Password Generator 2 min ago","⚡ Priya used Word Counter just now","🚀 7 tools used in last 10 min","🌍 Someone from Mumbai just visited","📸 5 people using Instagram Tools","🔐 2 people generating passwords"];
+let mi=0;setInterval(()=>{document.getElementById("ticker").textContent=msgs[mi++%msgs.length]},3000);
 </script>
-
 </body>
 </html>
