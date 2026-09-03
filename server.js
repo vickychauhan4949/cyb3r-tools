@@ -1,3 +1,4 @@
+require('dns').setServers(['1.1.1.1','8.8.8.8','1.0.0.1']);
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
@@ -24,11 +25,12 @@ app.get('/download', async (req, res) => {
   try {
     // TRY 1: ddinstagram - ye Render pe chalta hai
     try {
-      const dd = await axios.get(`https://d.ddinstagram.com/reel/${shortcode}/`, {
-        headers: { 'User-Agent': 'Mozilla/5.0' },
-        timeout: 15000,
-        maxRedirects: 5
-      });
+      const dd = await axios.get('https://d.ddinstagram.com/reel/'+shortcode, {
+  headers: { 'User-Agent': 'Mozilla/5.0' },
+  timeout: 20000,
+  maxRedirects: 5,
+  family: 4     
+   });
       const m = dd.data.match(/"videoUrl":"([^"]+)"/) || dd.data.match(/"contentUrl":"([^"]+)"/) || dd.data.match(/<meta property="og:video" content="([^"]+)"/);
       if(m){
         let v = m[1].replace(/\\u0026/g, '&').replace(/\\/g, '');
