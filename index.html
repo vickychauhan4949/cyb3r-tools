@@ -2397,8 +2397,8 @@ async function downloadReel(){
   const data=await res.json();
   if(!data.ok){result.textContent="✕ "+(data.error||"Failed");return;}
   result.textContent="✅ MP4 READY: "+(data.title||"Reel");
-  actions.innerHTML=`<div class="downloadBox"><b>⬇️ MP4 EXTRACTED</b><a class="downloadMain" href="${data.video_url}" target="_blank">⬇️ DOWNLOAD MP4 NOW</a><button class="toolBtn" onclick="navigator.clipboard.writeText('${data.video_url}')">COPY VIDEO LINK</button></div>`;
- }catch(e){result.textContent="✕ Server error: "+e.message;}
+actions.innerHTML=`<div class="downloadBox"><b> ✅ MP4 READY</b><br><a class="downloadMain" href="/download?url=${encodeURIComponent(data.video_url)}" download="CYB3R_REEL.mp4">DOWNLOAD MP4 NOW - Gallery me ayega</a></div>`;
+}catch(e){result.textContent="❌ Server error: "+e.message;}
 }
 function openInstagramReel(){if(window.currentInstagramURL)window.open(window.currentInstagramURL,"_blank");}
 function copyInstagramURL(){if(window.currentInstagramURL)navigator.clipboard.writeText(window.currentInstagramURL);}
