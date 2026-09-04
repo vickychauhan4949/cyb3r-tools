@@ -2376,151 +2376,32 @@ function openTool(index){
    INSTAGRAM REEL
 ========================================================= */
 
-function checkInstagramReel(){
-
+async function downloadReel(){
  const input=document.getElementById("reelUrl");
  const result=document.getElementById("result");
  const actions=document.getElementById("reelActions");
-
- if(!input || !result)return;
-
+ if(!input||!result)return;
  const raw=input.value.trim();
-
  actions.innerHTML="";
-
- if(!raw){
-
-  result.textContent=
-   "Please paste an Instagram Reel URL.";
-
-  return;
- }
-
+ if(!raw){result.textContent="Please paste an Instagram Reel URL.";return;}
+ result.textContent="⏳ Fetching MP4... 5-10 sec lag sakta hai";
  try{
-
   const u=new URL(raw);
-
   const host=u.hostname.toLowerCase();
-
-  const allowed=
-   host==="instagram.com" ||
-   host==="www.instagram.com" ||
-   host==="m.instagram.com";
-
-  if(!allowed){
-
-   result.textContent=
-    "✕ This is not an Instagram URL.";
-
-   return;
+  if(!(host==="instagram.com"||host==="www.instagram.com"||host==="m.instagram.com")){
+    result.textContent="✕ This is not an Instagram URL.";return;
   }
-
-  if(!/\/reel\/|\/reels\//i.test(u.pathname)){
-
-   result.textContent=
-    "✕ Please enter an Instagram Reel URL.";
-
-   return;
-  }
-
-  const cleanUrl=
-   "https://www.instagram.com"+u.pathname;
-
-  window.currentInstagramURL=cleanUrl;
-
-  result.textContent=
-   "✓ VALID INSTAGRAM REEL\n\n"+
-   cleanUrl;
-
-  actions.innerHTML=`
-
-   <div class="downloadBox">
-
-    <b>📸 REEL READY</b>
-
-    <p class="toolDesc">
-     The Reel URL is valid. Open it or copy the link.
-    </p>
-
-    <button
-     class="toolBtn"
-     onclick="openInstagramReel()">
-     OPEN REEL ↗
-    </button>
-
-    <button
-     class="toolBtn"
-     onclick="copyInstagramURL()">
-     COPY LINK
-    </button>
-
-   </div>
-
-   <div class="downloadBox">
-
-    <b>⬇️ MP4 DOWNLOAD</b>
-
-    <p class="toolDesc">
-     Instagram page URLs do not expose the protected
-     MP4 file directly to a browser-only GitHub Pages app.
-     A server/API is required for automatic MP4 extraction.
-    </p>
-
-   </div>
-
-  `;
-
- }catch(e){
-
-  result.textContent=
-   "✕ INVALID URL\n\n"+
-   "Example:\n"+
-   "https://www.instagram.com/reel/XXXXXXXXXXX/";
-
- }
-
+ }catch(e){result.textContent="✕ INVALID URL";return;}
+ try{
+  const res=await fetch("/api/reel",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url:raw})});
+  const data=await res.json();
+  if(!data.ok){result.textContent="✕ "+(data.error||"Failed");return;}
+  result.textContent="✅ MP4 READY: "+(data.title||"Reel");
+  actions.innerHTML=`<div class="downloadBox"><b>⬇️ MP4 EXTRACTED</b><a class="downloadMain" href="${data.video_url}" target="_blank">⬇️ DOWNLOAD MP4 NOW</a><button class="toolBtn" onclick="navigator.clipboard.writeText('${data.video_url}')">COPY VIDEO LINK</button></div>`;
+ }catch(e){result.textContent="✕ Server error: "+e.message;}
 }
-
-function openInstagramReel(){
-
- if(!window.currentInstagramURL)return;
-
- window.open(
-  window.currentInstagramURL,
-  "_blank",
-  "noopener"
- );
-
-}
-
-function copyInstagramURL(){
-
- if(!window.currentInstagramURL)return;
-
- if(navigator.clipboard){
-
-  navigator.clipboard.writeText(
-   window.currentInstagramURL
-  ).then(()=>{
-
-   const r=document.getElementById("result");
-
-   if(r)
-    r.textContent=
-     "✓ Instagram Reel link copied";
-
-  });
-
- }else{
-
-  document.getElementById("result")
-  .textContent=
-   window.currentInstagramURL;
-
- }
-
-}
-
+function openInstagramReel(){if(window.currentInstagramURL)window.open(window.currentInstagramURL,"_blank");}
+function copyInstagramURL(){if(window.currentInstagramURL)navigator.clipboard.writeText(window.currentInstagramURL);}
 
 /* =========================================================
    WHATSAPP STATUS FILE DOWNLOADER
