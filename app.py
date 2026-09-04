@@ -21,16 +21,29 @@ def reel():
     if not url:
         return jsonify({"ok":False,"error":"URL empty"}),400
     try:
-        ydl_opts = {'quiet':True,'skip_download':True,'noplaylist':True,'nocheckcertificate':True}
+        ydl_opts = {
+            'quiet':True,
+            'skip_download':True,
+            'noplaylist':True,
+            'nocheckcertificate':True,
+            'format': 'bestvideo+bestaudio/best'
+        }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
-            video_url = info.get('url')
+
+            video_url = None
+            formats = info.get('formats', [])
+            best_with_audio = [f for f in formats if f.get('vcodec')!= 'none' and f.get('acodec')!= 'none' and f.get('url')]
+            if best_with_audio:
+                best_with_audio = sorted(best_with_audio, key=lambda x: x.get('height',0) or 0, reverse=True)
+                video_url = best_with_audio[0]['url']
             if not video_url:
-                fmts = info.get('formats',[])
-                if fmts:
-                    video_url = sorted([f for f in fmts if f.get('url')], key=lambda x: x.get('height',0) or 0)[-1]['url']
+                video_url = info.get('url')
+            if not video_url and formats:
+                video_url = sorted([f for f in formats if f.get('url')], key=lambda x: x.get('height',0) or 0)[-1]['url']
+
             if not video_url:
-                return jsonify({"ok":False,"error":"Could not extract video - Instagram blocked"}),500
+                return jsonify({"ok":False,"error":"Could not extract video"}),500
             return jsonify({"ok":True,"video_url":video_url,"title":info.get('title','Reel'),"thumbnail":info.get('thumbnail','')})
     except Exception as e:
         return jsonify({"ok":False,"error":str(e)}),500
