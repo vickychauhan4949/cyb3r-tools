@@ -31,33 +31,35 @@ def reel():
                     video_url = sorted([f for f in fmts if f.get('url')], key=lambda x: x.get('height',0) or 0)[-1]['url']
             if not video_url:
                 return jsonify({"ok":False,"error":"Could not extract video - Instagram blocked"}),500
-            # Ab hum direct cdn link nahi, apne server ka link denge
             return jsonify({"ok":True,"video_url":video_url,"title":info.get('title','Reel'),"thumbnail":info.get('thumbnail','')})
     except Exception as e:
         return jsonify({"ok":False,"error":str(e)}),500
 
-# === NAYA ROUTE - YE GALLERY PROBLEM FIX KAREGA ===
 @app.route('/download')
 def download_video():
     cdn_url = request.args.get('url')
     if not cdn_url:
         return "No URL", 400
-
-    # Insta se video fetch karke apne server se dega .mp4 naam ke saath
     try:
+        # Full browser headers taaki Insta block na kare
         headers_req = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "Referer": "https://www.instagram.com/",
+            "Origin": "https://www.instagram.com",
+            "Accept": "*/*",
+            "Accept-Language": "en-US,en;q=0.9",
         }
-        r = requests.get(cdn_url, headers=headers_req, stream=True, timeout=30)
+        r = requests.get(cdn_url, headers=headers_req, stream=True, timeout=60)
+        if r.status_code != 200:
+            return f"CDN Error {r.status_code}", 500
+            
         filename = f"CYB3R_REEL_{datetime.now().strftime('%H%M%S')}.mp4"
-        
         return Response(
-            r.iter_content(chunk_size=1024*1024),
+            r.iter_content(chunk_size=8192),
             headers={
                 "Content-Disposition": f"attachment; filename={filename}",
-                "Content-Type": "video/mp4"
-            }
+            },
+            content_type="video/mp4"
         )
     except Exception as e:
         return f"Error: {str(e)}", 500
