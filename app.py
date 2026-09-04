@@ -42,17 +42,23 @@ def download_video():
     cdn_url = request.args.get('url')
     if not cdn_url:
         return "No URL", 400
-    
+
     # Insta se video fetch karke apne server se dega .mp4 naam ke saath
     try:
-        r = requests.get(cdn_url, stream=True, timeout=20)
+        headers_req = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Referer": "https://www.instagram.com/",
+        }
+        r = requests.get(cdn_url, headers=headers_req, stream=True, timeout=30)
         filename = f"CYB3R_REEL_{datetime.now().strftime('%H%M%S')}.mp4"
         
-        headers = {
-            "Content-Disposition": f"attachment; filename={filename}",
-            "Content-Type": "video/mp4"
-        }
-        return Response(r.iter_content(chunk_size=1024*1024), headers=headers, content_type="video/mp4")
+        return Response(
+            r.iter_content(chunk_size=1024*1024),
+            headers={
+                "Content-Disposition": f"attachment; filename={filename}",
+                "Content-Type": "video/mp4"
+            }
+        )
     except Exception as e:
         return f"Error: {str(e)}", 500
 
