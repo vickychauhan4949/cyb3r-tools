@@ -117,7 +117,42 @@ function openTool(index){
  if(["YouTube Link Tool","Audio Link Tool","Image Link Tool","Video Link Tool","PDF Link Tool","File Link Tool"].includes(name)){openModal(name,`<p class="toolDesc">Enter a URL you are authorized to access.</p>${field("input","Paste URL")}${btn("OPEN URL","openURL()")}<div class="result" id="result"></div>`);return;}
  openModal(name,`<p class="toolDesc">${escapeHTML(tools[index][2])}</p><div class="result">Ready.</div>`);
 }
-function downloadReel(){
+async function downloadReel(){
+ const input=document.getElementById("reelUrl");
+ const result=document.getElementById("result");
+ const actions=document.getElementById("reelActions");
+ if(!input||!result) return;
+ const raw=input.value.trim();
+ if(!raw){result.textContent="Please paste an Instagram Reel URL.";return;}
+ result.textContent="⏳ Fetching MP4... 5-10 sec lag sakta hai";
+ actions.innerHTML="";
+ try{
+   const res = await fetch("/api/reel", {
+     method: "POST",
+     headers: {"Content-Type":"application/json"},
+     body: JSON.stringify({url: raw})
+   });
+   const data = await res.json();
+   if(!data.ok){
+     result.textContent="✕ "+data.error;
+     window.currentInstagramURL=raw;
+     actions.innerHTML=`<div class="downloadBox"><b>📸 Fallback</b><br><button class="toolBtn" onclick="window.open(window.currentInstagramURL,'_blank')">OPEN REEL ↗</button></div>`;
+     return;
+   }
+   result.textContent="✅ MP4 READY: "+data.title;
+   actions.innerHTML=`
+    <div class="downloadBox">
+     <b>⬇️ MP4 EXTRACTED - Visitor badhenge!</b>
+     ${data.thumbnail ? `<img class="preview" src="${data.thumbnail}">` : ``}
+     <br>
+     <a class="downloadMain" href="${data.video_url}" target="_blank" download>⬇️ DOWNLOAD MP4 NOW</a>
+     <br><br>
+     <button class="toolBtn" onclick="navigator.clipboard.writeText('${data.video_url}')">COPY MP4 LINK</button>
+    </div>`;
+ }catch(e){
+   result.textContent="✕ Server error: "+e.message;
+ }
+}
  const input=document.getElementById("reelUrl");
  const result=document.getElementById("result");
  const actions=document.getElementById("reelActions");
