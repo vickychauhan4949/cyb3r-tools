@@ -315,9 +315,15 @@ textarea.field{resize:vertical}
 
 <body>
 
+<div style="background:#00ff88;color:#000;text-align:center;padding:7px;font-weight:900;font-size:13px;position:sticky;top:0;z-index:9999;">
+🔴 LIVE: <span id="liveName">Priya from Mumbai</span> used <span id="liveTool">IP Lookup</span> • <span id="topVisitors">1278+</span> Visitors
+</div>
+<script>
+let liveNames=["Rahul - Delhi","Priya - Mumbai","Ruhul - Kolkata","Aman - Pune","Sneha - Bangalore"];
+let liveTools=["IP Lookup","Insta Info","Phone Tracker","WiFi Hack"];
 setInterval(()=>{
- document.getElementById('liveName').innerText=names[Math.floor(Math.random()*names.length)];
- document.getElementById('liveTool').innerText=tools[Math.floor(Math.random()*tools.length)];
+ document.getElementById('liveName').innerText=liveNames[Math.floor(Math.random()*liveNames.length)];
+ document.getElementById('liveTool').innerText=liveTools[Math.floor(Math.random()*liveTools.length)];
  document.getElementById('topVisitors').innerText=(1240+Math.floor(Math.random()*100))+"+";
 },3000);
 </script>
