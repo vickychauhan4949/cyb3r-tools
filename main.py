@@ -61,6 +61,9 @@ def reel_api():
             return jsonify({"ok": True, "video_url": video_url, "title": info.get('title') or 'reel'})
     except Exception as e:
         return jsonify({"ok": False, "error": str(e)[:200]}), 500
-
+@app.route('/debug')
+def debug():
+    import os
+    return f"TEMPLATE_DIR={TEMPLATE_DIR} exists={os.path.exists(TEMPLATE_DIR)}<br>FREE_FIRE_DIR={FREE_FIRE_DIR} exists={os.path.exists(FREE_FIRE_DIR)}<br>list={os.listdir(FREE_FIRE_DIR) if os.path.exists(FREE_FIRE_DIR) else 'NOT FOUND'}<br>BASE_DIR={BASE_DIR}<br>FILES={os.listdir(BASE_DIR)}"
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 10000)))
