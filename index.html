@@ -3745,25 +3745,41 @@ setInterval(()=>{
   ];
 
 },3000);
-// --- VICKY FIX FINAL ---
+// --- VICKY FIX FINAL - CORRECTED ---
 function openTool(id){
-  console.log("Opening:", id);
   let s = String(id).toLowerCase();
-  window.location.href = "/free-fire-tools/";
+  console.log("Opening:", s);
+  if(s.includes("instagram") || s.includes("reel")){
+    window.location.href = "/instagram-reel-downloader/";
+  } else if(s.includes("whatsapp")){
+    window.location.href = "/whatsapp-status-downloader/";
+  } else if(s.includes("youtube") && s.includes("thumb")){
+    window.location.href = "/youtube-link-tool/";
+  } else if(s.includes("youtube")){
+    window.location.href = "/youtube-link-tool/";
+  } else if(s.includes("audio")){
+    window.location.href = "/audio-link-tool/";
+  } else if(s.includes("qr")){
+    window.location.href = "/qr-code-generator/";
+  } else {
+    window.location.href = "/free-fire-tools/";
+  }
 }
+
 document.querySelectorAll("button").forEach(b=>{
   if(b.innerText.includes("OPEN TOOL")){
-    b.removeAttribute("onclick");
-    b.addEventListener("click", function(e){
+    let newBtn = b.cloneNode(true);
+    b.parentNode.replaceChild(newBtn, b);
+    newBtn.addEventListener("click", function(e){
       e.preventDefault();
-      e.stopPropagation();
-      window.location.href = "/free-fire-tools/";
-    }, true);
-    b.style.pointerEvents="auto";
-    b.style.zIndex="99999";
-    b.style.position="relative";
+      let txt = this.closest('div').innerText.toLowerCase();
+      openTool(txt);
+    });
   }
 });
+</script>
+</body>
+</html>
 </script>
 
 </body>
