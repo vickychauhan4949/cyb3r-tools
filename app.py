@@ -1,82 +1,69 @@
-from flask import Flask, request, jsonify, send_from_directory, Response
-import yt_dlp, os, requests
-from datetime import datetime
+from flask import Flask, send_from_directory, jsonify, request
+import os
+import yt_dlp, re
 
 app = Flask(__name__)
 
+BASE = os.path.dirname(os.path.abspath(__file__))
+POSSIBLE_ROOTS = [
+    os.path.join(BASE, "cyb3r-tools"),
+    os.path.join(BASE, "cyb3r-tools", "cyb3r-tools"),
+    BASE
+]
+
+def find_root():
+    for r in POSSIBLE_ROOTS:
+        if os.path.exists(os.path.join(r, "index.html")):
+            return r
+    return POSSIBLE_ROOTS[0]
+
+ROOT = find_root()
+FF_DIR = None
+for r in POSSIBLE_ROOTS:
+    p = os.path.join(r, "free-fire-tools")
+    if os.path.exists(p):
+        FF_DIR = p
+        break
+    p2 = os.path.join(r, "cyb3r-tools", "free-fire-tools")
+    if os.path.exists(p2):
+        FF_DIR = p2
+        break
+if not FF_DIR:
+    FF_DIR = os.path.join(ROOT, "free-fire-tools")
+
+print("ROOT:", ROOT, os.listdir(ROOT))
+print("FF_DIR:", FF_DIR, os.listdir(FF_DIR) if os.path.exists(FF_DIR) else "NOT FOUND")
+
+@app.route('/api/health')
+def health():
+    return jsonify({"online": True})
+
 @app.route('/')
 def home():
-    return send_from_directory('.', 'index.html')
+    return send_from_directory(ROOT, 'index.html')
+
+@app.route('/free-fire-tools/')
+def ff_index():
+    return send_from_directory(FF_DIR, 'index.html')
+
+@app.route('/free-fire-tools/<path:path>')
+def ff_files(path):
+    return send_from_directory(FF_DIR, path)
 
 @app.route('/<path:path>')
-def static_files(path):
-    if os.path.exists(path):
-        return send_from_directory('.', path)
-    return send_from_directory('.', 'index.html')
-
-@app.route('/api/reel', methods=['POST'])
-def reel():
-    data = request.get_json()
-    url = data.get('url','').strip()
-    if not url:
-        return jsonify({"ok":False,"error":"URL empty"}),400
-    try:
-        ydl_opts = {
-            'quiet':True,
-            'skip_download':True,
-            'noplaylist':True,
-            'nocheckcertificate':True,
-            'format': 'bestvideo+bestaudio/best'
-        }
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url, download=False)
-
-            video_url = None
-            formats = info.get('formats', [])
-            best_with_audio = [f for f in formats if f.get('vcodec')!= 'none' and f.get('acodec')!= 'none' and f.get('url')]
-            if best_with_audio:
-                best_with_audio = sorted(best_with_audio, key=lambda x: x.get('height',0) or 0, reverse=True)
-                video_url = best_with_audio[0]['url']
-            if not video_url:
-                video_url = info.get('url')
-            if not video_url and formats:
-                video_url = sorted([f for f in formats if f.get('url')], key=lambda x: x.get('height',0) or 0)[-1]['url']
-
-            if not video_url:
-                return jsonify({"ok":False,"error":"Could not extract video"}),500
-            return jsonify({"ok":True,"video_url":video_url,"title":info.get('title','Reel'),"thumbnail":info.get('thumbnail','')})
-    except Exception as e:
-        return jsonify({"ok":False,"error":str(e)}),500
-
-@app.route('/download')
-def download_video():
-    cdn_url = request.args.get('url')
-    if not cdn_url:
-        return "No URL", 400
-    try:
-        # Full browser headers taaki Insta block na kare
-        headers_req = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Referer": "https://www.instagram.com/",
-            "Origin": "https://www.instagram.com",
-            "Accept": "*/*",
-            "Accept-Language": "en-US,en;q=0.9",
-        }
-        r = requests.get(cdn_url, headers=headers_req, stream=True, timeout=60)
-        if r.status_code != 200:
-            return f"CDN Error {r.status_code}", 500
-            
-        filename = f"CYB3R_REEL_{datetime.now().strftime('%H%M%S')}.mp4"
-        return Response(
-            r.iter_content(chunk_size=8192),
-            headers={
-                "Content-Disposition": f"attachment; filename={filename}",
-            },
-            content_type="video/mp4"
-        )
-    except Exception as e:
-        return f"Error: {str(e)}", 500
+def all_files(path):
+    # try root
+    full = os.path.join(ROOT, path)
+    if os.path.exists(full) and os.path.isfile(full):
+        return send_from_directory(ROOT, path)
+    # try ff
+    full2 = os.path.join(FF_DIR, path)
+    if os.path.exists(full2) and os.path.isfile(full2):
+        return send_from_directory(FF_DIR, path)
+    # fallback to index
+    if path.startswith("api/"):
+        return jsonify({"error":"not found"}), 404
+    return send_from_directory(ROOT, 'index.html')
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT",10000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=10000)
