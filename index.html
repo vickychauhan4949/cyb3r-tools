@@ -1294,17 +1294,16 @@ function btn(text,fn){
 function openTool(index){
   var t = tools[index];
   if(!t) return;
-  if(t[3]==="gaming" || t[0]==="gaming"){
-    window.location.href="./free-fire-tools/";
-    return;
-  }
-  var name = t[1];
+
+  // category aur naam dono check - small/capital sab chalega
+  var name = (t[1]||"").toString();
   var lname = name.toLowerCase();
-  if(lname.includes("gaming") || lname.includes("free fire") || lname.includes("free-fire")){
-    window.location.href="./free-fire-tools/";
+  var cat = ((t[3]||"") + " " + (t[0]||"")).toLowerCase();
+
+  if(cat.includes("gaming") || lname.includes("gaming") || lname.includes("free fire") || lname.includes("free-fire") || lname.includes("bgmi") || lname.includes("nickname") || lname.includes("stylish name")){
+    window.location.href = "./free-fire-tools/";
     return;
  }
-
 
  /* =====================================================
     INSTAGRAM REEL DOWNLOADER
