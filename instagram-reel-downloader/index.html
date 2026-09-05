@@ -1,6 +1,50 @@
-<!DOCTYPE html><html><head><title>Insta Downloader</title></head><body style="background:#000;color:#0f0;text-align:center;padding:30px">
-<h1>INSTAGRAM REEL DOWNLOADER</h1>
-<input id="link" placeholder="Paste Insta Link" style="width:90%;padding:12px"><br><br>
-<button onclick="alert('Tool Ready - Abhi backend connect karna hai')" style="padding:12px 20px;background:#8cff00">DOWNLOAD</button>
-<br><br><a href="/" style="color:#fff">← Back to Home</a>
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insta Downloader - CYB3R TOOLS</title>
+<style>
+body{background:#000;color:#0f0;font-family:Arial;text-align:center;padding:20px}
+.box{border:2px solid #8cff00;padding:25px;border-radius:15px;max-width:400px;margin:auto;box-shadow:0 0 20px #8cff00}
+input{width:90%;padding:14px;border-radius:8px;border:1px solid #8cff00;background:#111;color:#fff}
+button{padding:14px 25px;background:#8cff00;color:#000;font-weight:bold;border:none;border-radius:8px;margin-top:15px;cursor:pointer;width:92%}
+#result{margin-top:20px}
+a.btn{display:inline-block;padding:12px 20px;background:#fff;color:#000;text-decoration:none;border-radius:8px;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>INSTAGRAM REEL DOWNLOADER</h2>
+<input id="link" placeholder="Paste Instagram Reel Link Here">
+<br>
+<button onclick="download()">DOWNLOAD NOW</button>
+<div id="result"></div>
+<br><br>
+<a href="/" style="color:#8cff00">← Back to Home</a>
+</div>
+
+<script>
+async function download(){
+let url = document.getElementById('link').value.trim();
+if(!url){alert('Link paste karo pehle!');return;}
+document.getElementById('result').innerHTML = '⏳ Loading... Please wait...';
+try{
+let res = await fetch('https://api.cobalt.tools/api/json', {
+method:'POST',
+headers:{'Content-Type':'application/json','Accept':'application/json'},
+body: JSON.stringify({url: url})
+});
+let data = await res.json();
+if(data.url){
+document.getElementById('result').innerHTML = `<p style="color:#fff">✅ Ready!</p><a class="btn" href="${data.url}" target="_blank" download>📥 DOWNLOAD VIDEO</a><p style="font-size:12px;margin-top:10px">Video new tab me khulega, wahan se Save kar lena</p>`;
+}else{
+document.getElementById('result').innerHTML = '❌ Link sahi nahi hai ya private hai. Public reel try karo.';
+}
+}catch(e){
+document.getElementById('result').innerHTML = '❌ Server busy hai, 2 sec baad fir try karo.';
+}
+}
+</script>
+</body>
+</html>
