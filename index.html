@@ -1292,13 +1292,23 @@ function btn(text,fn){
    TOOL ENGINE
 ========================================================= */
 
-function openTool(index){
+ function openTool(index){
+ try{
+  var t = tools[index];
+  if(!t) return;
+  if(t[3]==="gaming" || t[0]==="gaming"){
+    window.location.href="./free-fire-tools/";
+    return;
+  }
+  var name = t[1];
+  if(window.openModal) {
+    openModal(name, "<p>Loading "+name+"...</p>");
+  } else {
+    alert(name + " clicked! Modal missing, check mTitle/mBody ids");
+  }
+ }catch(e){ console.log(e); alert("Error: "+e.message); }
+}
 
- if(tools[index][3]==="gaming"){
-   window.location.href="./free-fire-tools/";
-   return;
- }
-  const name=tools[index][1];
 
  /* =====================================================
     INSTAGRAM REEL DOWNLOADER
