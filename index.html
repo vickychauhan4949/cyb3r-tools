@@ -1204,7 +1204,7 @@ activeCat==="all" &&
 <h3>${escapeHTML(t[1])}</h3>
 <p>${escapeHTML(t[2])}</p>
 <button class="open"
-onclick="handleOpen('${t[3]}',${tools.indexOf(t)})">
+onclick="if('${t[3]}'==='gaming'){window.location.href='./free-fire-tools/';}else{openTool(${tools.indexOf(t)})}">
 OPEN TOOL →
 </button>
 </div>
