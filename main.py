@@ -23,7 +23,13 @@ TEMPLATE_DIR = find_index()
 @app.route('/')
 def index():
     return send_from_directory(TEMPLATE_DIR, "index.html")
+@app.route('/free-fire-tools/')
+def free_fire():
+    return send_from_directory(os.path.join(TEMPLATE_DIR, "free-fire-tools"), "index.html")
 
+@app.route('/free-fire-tools/<path:filename>')
+def free_fire_files(filename):
+    return send_from_directory(os.path.join(TEMPLATE_DIR, "free-fire-tools"), filename)
 @app.route('/api/reel', methods=['POST'])
 def reel_api():
     data = request.get_json() or {}
