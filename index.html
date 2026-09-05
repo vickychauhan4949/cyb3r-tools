@@ -1291,9 +1291,7 @@ function btn(text,fn){
 /* =========================================================
    TOOL ENGINE
 ========================================================= */
-
- function openTool(index){
- try{
+function openTool(index){
   var t = tools[index];
   if(!t) return;
   if(t[3]==="gaming" || t[0]==="gaming"){
@@ -1301,13 +1299,11 @@ function btn(text,fn){
     return;
   }
   var name = t[1];
-  if(window.openModal) {
-    openModal(name, "<p>Loading "+name+"...</p>");
-  } else {
-    alert(name + " clicked! Modal missing, check mTitle/mBody ids");
-  }
- }catch(e){ console.log(e); alert("Error: "+e.message); }
-}
+  var lname = name.toLowerCase();
+  if(lname.includes("gaming") || lname.includes("free fire") || lname.includes("free-fire")){
+    window.location.href="./free-fire-tools/";
+    return;
+ }
 
 
  /* =====================================================
