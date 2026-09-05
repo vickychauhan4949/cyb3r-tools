@@ -1210,7 +1210,7 @@ function render(){
     <p>${escapeHTML(t[2])}</p>
 
     <button class="open"
-     onclick="openTool(${tools.indexOf(t)})">
+onclick="if('${t[3]}'==='gaming'){window.location.href='./free-fire-tools/';}else{openTool(${tools.indexOf(t)})}">
      OPEN TOOL →
     </button>
 
