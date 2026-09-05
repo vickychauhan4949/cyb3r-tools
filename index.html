@@ -3745,31 +3745,23 @@ setInterval(()=>{
   ];
 
 },3000);
-// --- VICKY FIX: Button click force enable ---
+// --- VICKY FIX FINAL ---
 function openTool(id){
   console.log("Opening:", id);
-  if(id.includes("free") || id.includes("Free Fire") || id.includes("stylish") || id.includes("sensitivity")){
-    window.location.href = "/free-fire-tools/";
-  } else if(id.includes("Instagram") || id.includes("reel")){
-    window.location.href = "/free-fire-tools/";
-  } else {
-    window.location.href = "/free-fire-tools/";
-  }
+  let s = String(id).toLowerCase();
+  window.location.href = "/free-fire-tools/";
 }
-
-// Saare OPEN TOOL button ko direct link bana do
 document.querySelectorAll("button").forEach(b=>{
   if(b.innerText.includes("OPEN TOOL")){
-    b.onclick = function(){
-      let card = this.closest("div").innerText;
-      if(card.includes("Free Fire")) location.href="/free-fire-tools/";
-      else if(card.includes("Stylish")) location.href="/free-fire-tools/";
-      else if(card.includes("Sensitivity")) location.href="/free-fire-tools/";
-      else if(card.includes("Instagram")) location.href="/free-fire-tools/";
-      else location.href="/free-fire-tools/";
-    };
+    b.removeAttribute("onclick");
+    b.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      window.location.href = "/free-fire-tools/";
+    }, true);
     b.style.pointerEvents="auto";
-    b.style.zIndex="9999";
+    b.style.zIndex="99999";
+    b.style.position="relative";
   }
 });
 </script>
