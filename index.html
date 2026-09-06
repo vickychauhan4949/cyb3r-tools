@@ -134,6 +134,14 @@ function openTool(i){
 let t=tools[i];
 document.getElementById("modalTitle").textContent=t[0];
 let area=document.getElementById("toolarea");
+ if(t[0].includes("MP4 Downloader")){
+  document.getElementById('toolarea').innerHTML = `
+    <input id="ytUrl" placeholder="Paste YouTube Link..." style="width:100%;padding:14px;border-radius:10px;border:1px solid #ccc;">
+    <button onclick="goMP4()" style="margin-top:12px;background:#ff0000;color:white;padding:14px;width:100%;border:none;border-radius:10px;font-weight:bold;">⬇️ Get Download Link</button>
+    <div id="ytResult" style="margin-top:15px;"></div>
+  `;
+  return;
+}
 if(t[0].includes("Thumbnail")){
 area.innerHTML=`<p style="color:#39ff88">Thumbnail 4K FIXED ✅</p><input id="u" placeholder="YouTube URL"><button onclick="doThumb()" style="width:100%;background:#39ff88;color:#000;font-weight:900;padding:12px">Get 4K Thumbnail</button><div id="out" class="result">Paste YT URL</div>`;
 }else if(t[1]==="AI Tools"){
