@@ -77,23 +77,22 @@ function openT(name){
 }
 function closeM(){document.getElementById("modal").classList.remove("show");}
 function getId(u){let m=u.match(/(?:v=|\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:"";}
-
 function doDown(){
  let url=document.getElementById("url").value.trim();
  if(!url) return alert("Link daalo Vicky!");
  let id=getId(url);
- let save="https://en.savefrom.net/1-youtube-video-downloader-2/?url="+encodeURIComponent(url);
- let ss="https://ssyoutube.com/watch?v="+id;
- let ten="https://10downloader.com/download?v="+encodeURIComponent(url);
+ let o1="https://y2mate.is/youtube/"+id;
+ let o2="https://yt1s.com/en/youtube-to-mp4?q="+encodeURIComponent(url);
+ let o3="https://9xbuddy.com/process?url="+encodeURIComponent(url);
  document.getElementById("res").innerHTML=`
  <div style="margin-top:12px;background:#111;padding:12px;border-radius:10px;border:1px solid #333">
- <p style="color:#20ff7a;margin:0 0 10px">✅ Ready! Best Option pe click karo:</p>
- <a href="${save}" target="_blank" class="link" style="background:#00c853;color:#fff">⬇️ OPTION 1 - SaveFrom (100% Working)</a>
- <a href="${ss}" target="_blank" class="link" style="background:#1877F2;color:#fff">⬇️ OPTION 2 - SSYouTube</a>
- <a href="${ten}" target="_blank" class="link" style="background:#ff0000;color:#fff">⬇️ OPTION 3 - 10Downloader</a>
- <p style="color:#888;font-size:11px;margin-top:8px">SaveFrom khule toh 3 sec wait karke Download button dabao - direct download hoga</p>
+ <p style="color:#20ff7a;margin:0 0 10px">✅ Ready! India me ye chalega:</p>
+ <a href="${o1}" target="_blank" class="link" style="background:#00c853;color:#fff">⬇️ OPTION 1 - Y2Mate (Best)</a>
+ <a href="${o2}" target="_blank" class="link" style="background:#1877F2;color:#fff">⬇️ OPTION 2 - YT1S</a>
+ <a href="${o3}" target="_blank" class="link" style="background:#ff0000;color:#fff">⬇️ OPTION 3 - 9xBuddy</a>
  </div>`;
 }
+
 function doThumb(){
  let url=document.getElementById("url").value.trim();
  let id=getId(url);
