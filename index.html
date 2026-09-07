@@ -7,16 +7,15 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#020604;color:#eafff1;font-family:Arial,sans-serif}
 header{padding:18px;text-align:center;background:#020805;border-bottom:2px solid #20ff7a}
-.logo{color:#20ff7a;font-weight:900;font-size:22px}
+.logo{color:#20ff7a;font-weight:900;font-size:20px}
 .hero{padding:30px 15px;text-align:center}
-.hero h1{color:#20ff7a;font-size:36px;margin:0}
-.hero p{color:#8ab99a}
+.hero h1{color:#20ff7a;font-size:32px;margin:0}
 .grid{max-width:900px;margin:20px auto;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:12px}
 .card{background:#08120b;border:1px solid #164d2f;border-radius:12px;padding:16px}
-.card h3{margin:0 0 6px;font-size:15px}
+.card h3{margin:0 0 6px;font-size:14px}
 .card p{margin:0 0 10px;font-size:11px;color:#6f9380}
 .btn{width:100%;background:#20ff7a;color:#000;border:0;padding:12px;border-radius:8px;font-weight:900;cursor:pointer}
-.btn.red{background:#ff0000;color:#fff}
+.btn.red{background:#ff2e2e;color:#fff}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;place-items:center;z-index:99;padding:15px}
 .modal.show{display:grid}
 .box{background:#08120b;border:2px solid #20ff7a;border-radius:14px;padding:20px;width:100%;max-width:480px}
@@ -30,89 +29,8 @@ header{padding:18px;text-align:center;background:#020805;border-bottom:2px solid
 <header><div class="logo">⚡ HACKTOOLS PRO - 20 WORKING TOOLS</div></header>
 <div class="hero"><h1>20 REAL WORKING TOOLS</h1><p>No Fake • No API Error • 100% Working</p></div>
 <div class="grid" id="grid"></div>
-
 <div class="modal" id="modal"><div class="box"><button class="close" onclick="closeM()">×</button><h2 id="mt" style="font-size:18px"></h2><div id="mb"></div></div></div>
-
 <script>
 const TOOLS=[
 {name:"▶️ YouTube Video Downloader",cat:"Video"},
-{name:"🎵 YouTube MP3 Downloader",cat:"Audio"},
-{name:"🖼️ YouTube Thumbnail Downloader",cat:"Image"},
-{name:"📘 Facebook Video Downloader",cat:"Social"},
-{name:"📘 Facebook Reel Downloader",cat:"Social"},
-{name:"📸 Instagram Reel Downloader",cat:"Social"},
-{name:"📸 Instagram Photo Downloader",cat:"Social"},
-{name:"🎵 TikTok Video Downloader",cat:"Social"},
-{name:"🐦 Twitter Video Downloader",cat:"Social"},
-{name:"📌 Pinterest Image Downloader",cat:"Social"},
-{name:"🗜️ Image Compressor",cat:"Image"},
-{name:"📏 Image Resizer",cat:"Image"},
-{name:"🔄 PNG to JPG Converter",cat:"Image"},
-{name:"🎬 Video to MP3",cat:"Video"},
-{name:"✂️ MP3 Cutter",cat:"Audio"},
-{name:"📄 PDF Merger",cat:"PDF"},
-{name:"🖼️ JPG to PDF",cat:"PDF"},
-{name:"🔢 Word Counter",cat:"Text"},
-{name:"🔳 QR Code Generator",cat:"Tools"},
-{name:"🔑 Password Generator",cat:"Security"}
-];
-
-function render(){
- document.getElementById("grid").innerHTML=TOOLS.map(t=>`
-  <div class="card"><h3>${t.name}</h3><p>${t.cat} • No API • Working</p><button class="btn" onclick="openT('${t.name}')">OPEN →</button></div>
- `).join("");
-}
-function openT(name){
- document.getElementById("mt").innerText=name;
- document.getElementById("modal").classList.add("show");
- let b=document.getElementById("mb");
- if(name.includes("Downloader")||name.includes("Video")||name.includes("Photo")||name.includes("Image Downloader")||name.includes("Reel")||name.includes("TikTok")||name.includes("Twitter")||name.includes("Pinterest")){
-  b.innerHTML=`<input id="url" placeholder="Paste Link Here..."><button class="btn red" onclick="doDown()">⬇️ GET DOWNLOAD LINKS</button><div id="res"></div>`;
- }else if(name.includes("Thumbnail")){
-  b.innerHTML=`<input id="url" placeholder="Paste YouTube Link..."><button class="btn" onclick="doThumb()">GET THUMBNAIL 4K</button><div id="res"></div>`;
- }else{
-  b.innerHTML=`<textarea id="tin" placeholder="Enter text / data..." style="height:100px"></textarea><button class="btn" onclick="doText()">RUN TOOL</button><div id="res" style="margin-top:10px;color:#20ff7a;white-space:pre-wrap"></div>`;
- }
- window.currentTool=name;
-}
-function closeM(){document.getElementById("modal").classList.remove("show");}
-function getId(u){let m=u.match(/(?:v=|\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:"";}
-function doDown(){
- let url=document.getElementById("url").value.trim();
- if(!url) return alert("Link daalo Vicky!");
- let id=getId(url);
- let o1="https://y2mate.is/youtube/"+id;
- let o2="https://yt1s.com/en/youtube-to-mp4?q="+encodeURIComponent(url);
- let o3="https://9xbuddy.com/process?url="+encodeURIComponent(url);
- document.getElementById("res").innerHTML=`
- <div style="margin-top:12px;background:#111;padding:12px;border-radius:10px;border:1px solid #333">
- <p style="color:#20ff7a;margin:0 0 10px">✅ Ready! India me ye chalega:</p>
- <a href="${o1}" target="_blank" class="link" style="background:#00c853;color:#fff">⬇️ OPTION 1 - Y2Mate (Best)</a>
- <a href="${o2}" target="_blank" class="link" style="background:#1877F2;color:#fff">⬇️ OPTION 2 - YT1S</a>
- <a href="${o3}" target="_blank" class="link" style="background:#ff0000;color:#fff">⬇️ OPTION 3 - 9xBuddy</a>
- </div>`;
-}
-
-function doThumb(){
- let url=document.getElementById("url").value.trim();
- let id=getId(url);
- if(!id) return alert("Valid YouTube Link daalo!");
- let img="https://img.youtube.com/vi/"+id+"/maxresdefault.jpg";
- document.getElementById("res").innerHTML=`<img src="${img}" style="width:100%;border-radius:10px;margin-top:10px"><a href="${img}" target="_blank" class="link" style="background:#20ff7a;color:#000;margin-top:10px">⬇️ DOWNLOAD 4K THUMBNAIL</a>`;
-}
-function doText(){
- let name=window.currentTool;
- let v=document.getElementById("tin").value;
- let out=document.getElementById("res");
- if(!v){out.innerText="Text daalo!";return;}
- if(name.includes("Word Counter")){out.innerText=`Words: ${v.trim().split(/\s+/).length}\nChars: ${v.length}\nLines: ${v.split('\n').length}`;}
- else if(name.includes("Compressor")||name.includes("Resizer")||name.includes("Converter")||name.includes("Merger")||name.includes("Cutter")||name.includes("PDF")){out.innerText=`✅ ${name} Ready!\n\nFile Size: ${(v.length/1024).toFixed(2)} KB\nStatus: Processed (Demo)\n\nNote: Real file processing ke liye backend chahiye, abhi text demo chal raha hai.`;}
- else if(name.includes("QR")){out.innerHTML=`✅ QR Ready:<br><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(v)}" style="margin-top:10px;border-radius:8px">`;}
- else if(name.includes("Password")){let p=Math.random().toString(36).slice(-12)+"@#"+Math.floor(Math.random()*99);out.innerText=`🔑 Strong Password:\n${p}\n\nLength: ${p.length} - Copy kar lo`;}
- else{out.innerText=`✅ Done:\n${v.slice(0,1000)}`;}
-}
-render();
-document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal") closeM();});
-</script>
-</body>
-</html>
+{name:"🎵 YouTube MP3 Downloader",cat:"Audio
