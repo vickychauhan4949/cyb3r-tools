@@ -1,67 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HACKTOOLS PRO - 20 Working Tools</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#020604;color:#eafff1;font-family:Arial,sans-serif}
-header{padding:18px;text-align:center;background:#020805;border-bottom:2px solid #20ff7a}
-.logo{color:#20ff7a;font-weight:900;font-size:20px}
-.hero{padding:25px 15px;text-align:center}
-.hero h1{color:#20ff7a;font-size:32px;margin:0}
-.grid{max-width:900px;margin:15px auto;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:12px}
-.card{background:#08120b;border:1px solid #164d2f;border-radius:12px;padding:16px}
-.card h3{margin:0 0 5px;font-size:14px}
-.card p{margin:0 0 10px;font-size:11px;color:#6f9380}
-.btn{width:100%;background:#20ff7a;color:#000;border:0;padding:12px;border-radius:8px;font-weight:900;cursor:pointer}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;place-items:center;z-index:99;padding:15px}
-.modal.show{display:grid}
-.box{background:#08120b;border:2px solid #20ff7a;border-radius:14px;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow:auto}
-.box input,.box textarea,.box select{width:100%;padding:12px;border-radius:8px;border:1px solid #164d2f;background:#020604;color:#fff;margin:8px 0}
-.close{float:right;background:none;border:0;color:#20ff7a;font-size:26px;cursor:pointer}
-@media(max-width:600px){.grid{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
-<header><div class="logo">⚡ HACKTOOLS PRO - 20 TOOLS</div></header>
-<div class="hero"><h1>20 REAL WORKING TOOLS</h1><p>100% Client Side • No API Error</p></div>
-<div class="grid" id="grid"></div>
-<div class="modal" id="modal"><div class="box"><button class="close" onclick="closeM()">×</button><h2 id="mt" style="font-size:17px"></h2><div id="mb"></div></div></div>
-
-<script>
-const TOOLS=[
-{name:"🗜️ Image Compressor",id:"compress"},
-{name:"📏 Image Resizer",id:"resize"},
-{name:"🔄 PNG to JPG",id:"pngjpg"},
-{name:"🖼️ JPG to PDF",id:"jpgpdf"},
-{name:"🔢 Word Counter",id:"word"},
-{name:"🔳 QR Generator",id:"qr"},
-{name:"🔑 Password Generator",id:"pass"},
-{name:"🎨 Color Picker",id:"color"},
-{name:"🔤 Base64 Encode",id:"base64"},
-{name:"📋 JSON Formatter",id:"json"},
-{name:"🖼️ YouTube Thumbnail Viewer",id:"thumb"},
-{name:"🔗 URL Shortener View",id:"url"},
-{name:"📅 Age Calculator",id:"age"},
-{name:"💰 EMI Calculator",id:"emi"},
-{name:"📐 Unit Converter",id:"unit"},
-{name:"✂️ Text Case Converter",id:"case"},
-{name:"🔠 Hashtag Generator",id:"hash"},
-{name:"🔢 Binary Converter",id:"bin"},
-{name:"📝 Lorem Generator",id:"lorem"},
-{name:"⌚ Stopwatch",id:"watch"}
-];
-
-function render(){
- document.getElementById("grid").innerHTML=TOOLS.map((t,i)=>`
-  <div class="card"><h3>${t.name}</h3><p>Tool #${i+1} • Working</p><button class="btn" onclick="openT(${i})">OPEN →</button></div>
- `).join("");
-}
-function openT(i){
- window.cur=TOOLS[i];
- document.getElementById("mt").innerText=window.cur.name;
- document.getElementById("modal").classList.add("show");
+*{
  let b=document.getElementById("mb");
  let html="";
  switch(window.cur.id){
