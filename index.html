@@ -77,21 +77,30 @@ function searchTools(){search=document.getElementById("search").value.trim();cat
 function setCat(c){category=c;search="";document.getElementById("search").value="";render();document.getElementById("all").scrollIntoView({behavior:"smooth"});}
 function go(id){document.getElementById(id).scrollIntoView({behavior:"smooth"});}
 function getYTid(url){let m=url.match(/(?:v=|\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:null;}
+function getYTid(url){let m=url.match(/(?:v=|\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:null;}
 function openTool(name,cat){
- document.getElementById("modalTitle").textContent=name;
- document.getElementById("modalCat").textContent=cat+" • NO API";
- document.getElementById("modal").classList.add("show");
- const body=document.getElementById("modalBody");
- if(name.includes("YouTube Video Downloader")|| (name.includes("YouTube")&&name.includes("Downloader"))){
-  body.innerHTML=`<input id="ytUrl1" placeholder="Paste YouTube Link Here..."><button id="mp4Btn" class="open" style="width:100%;padding:14px;margin-top:10px;background:#ff0000;color:white;font-size:16px;">⬇️ Get Download Link</button><div id="ytResult" class="result"></div>`;
-  document.getElementById('mp4Btn').onclick=goMP4;return;
+document.getElementById("modalTitle").textContent=name;
+document.getElementById("modalCat").textContent=cat+" • NO API";
+document.getElementById("modal").classList.add("show");
+const body=document.getElementById("modalBody");
+if(name.toLowerCase().includes("thumbnail")){
+body.innerHTML=`<input id="u" placeholder="Paste YouTube Link..."><button onclick="doThumb()" class="open" style="width:100%;padding:12px;margin-top:8px;background:#20ff7a;color:#000;font-weight:900;">Get Thumbnail 4K</button><div id="out" class="result"></div>`;return;
+}
+if(name.includes("MP3")){
+body.innerHTML=`<input id="ytMp3" placeholder="Paste YouTube Link..."><button onclick="goMP3()" class="open" style="width:100%;padding:14px;margin-top:10px;background:#20ff7a;color:#000;font-weight:900;">⬇️ Get MP3 Link</button><div id="mp3Result" class="result"></div>`;return;
+}
+if(name.includes("YouTube Video Downloader")||name.includes("YouTube Shorts Downloader")||name.includes("Video Downloader")){
+body.innerHTML=`<input id="ytUrl1" placeholder="Paste YouTube Link Here..."><button id="mp4Btn" class="open" style="width:100%;padding:14px;margin-top:10px;background:#ff0000;color:white;font-size:16px;font-weight:900;">⬇️ Get Download Link</button><div id="ytResult" class="result"></div>`;
+document.getElementById("mp4Btn").onclick=goMP4;return;
+}
  }
  if(name.includes("Thumbnail")){
   body.innerHTML=`<input id="u" placeholder="Paste YouTube Link..."><button onclick="doThumb()" class="open" style="width:100%;padding:12px;margin-top:8px;background:#20ff7a;color:#000;">Get Thumbnail 4K</button><div id="out" class="result"></div>`;return;
  }
  if(name.includes("MP3")){
-  body.innerHTML=`<input id="ytMp3" placeholder="Paste YouTube Link..."><button onclick="goMP3()" class="open" style="width:100%;padding:14px;margin-top:10px;background:#20ff7a;color:#000;">⬇️ Get MP3 Link</button><div id="mp3Result" class="result"></div>`;return;
- }
+  function closeTool(){document.getElementById("modal").classList.remove("show");}
+function goMP4(){let url=document.getElementById('ytUrl1').value.trim();if(!url) return alert('Link daalo!');let id=(url.match(/(?:v=|\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/)||[])[1]||'';let d1='https://10downloader.com/download?v='+encodeURIComponent(url);let d2='https://en.savefrom.net/1-youtube-video-downloader-2/?url='+encodeURIComponent(url);let d3='https://ssyoutube.com/watch?v='+id;document.getElementById('ytResult').innerHTML=`<div style="background:#111;padding:14px;border-radius:10px;border:1px solid #333"><p style="color:#20ff7a">✅ Link Ready - 3 Option:</p><a href="${d1}" target="_blank" style="display:block;background:#ff0000;color:white;padding:12px;text-align:center;border-radius:8px;text-decoration:none;font-weight:bold;margin-bottom:8px;">⬇️ OPTION 1 - 10Downloader</a><a href="${d2}" target="_blank" style="display:block;background:#00c853;color:white;padding:12px;text-align:center;border-radius:8px;text-decoration:none;font-weight:bold;margin-bottom:8px;">⬇️ OPTION 2 - SaveFrom (Fast)</a><a href="${d3}" target="_blank" style="display:block;background:#1877F2;color:white;padding:12px;text-align:center;border-radius:8px;text-decoration:none;font-weight:bold;">⬇️ OPTION 3 - SSYouTube</a></div>`;}
+function goMP3(){let url=document.getElementById('ytMp3').value.trim();if(!url) return alert('Link daalo!');let id=(url.match(/(?:v=|\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/)||[])[1]||'';let m1='https://10downloader.com/download?v='+encodeURIComponent(url);let m2='https://en.savefrom.net/1-youtube-video-downloader-2/?url='+encodeURIComponent(url);let m3='https://ytmp3.cc/en2/'+id;document.getElementById('mp3Result').innerHTML=`<div style="background:#111;padding:14px;border-radius:10px;border:1px solid #333"><p style="color:#20ff7a">✅ MP3 Ready - 3 Option:</p><a href="${m1}" target="_blank" style="display:block;background:#20ff7a;color:#000;padding:12px;text-align:center;border-radius:8px;text-decoration:none;font-weight:bold;margin-bottom:8px;">⬇️ OPTION 1 - MP3</a><a href="${m2}" target="_blank" style="display:block;background:#00c853;color:white;padding:12px;text-align:center;border-radius:8px;text-decoration:none;font-weight:bold;margin-bottom:8px;">⬇️ OPTION 2 - SaveFrom MP3</a><a href="${m3}" target="_blank" style="display:block;background:#ff6d00;color:white;padding:12px;text-align:center;border-radius:8px;text-decoration:none;font-weight:bold;">⬇️ OPTION 3 - YTMP3</a></div>`;}
  if(name.includes("Facebook")||name.includes("Instagram")||name.includes("TikTok")){
   body.innerHTML=`<input id="socialUrl" placeholder="Paste URL"><button onclick="goSocial()" class="open" style="width:100%;padding:14px;margin-top:10px;background:#1877F2;color:white;">⬇️ Download</button><div id="socialResult" class="result"></div>`;return;
  }
