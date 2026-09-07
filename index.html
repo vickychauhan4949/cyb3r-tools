@@ -133,8 +133,9 @@ function openTool(i){
 let t=tools[i];
 document.getElementById("modalTitle").textContent=t[0];
 let area=document.getElementById("toolarea");
+document.getElementById("modal").classList.add("show");
 if(t[0].includes("MP4 Downloader")){
-document.getElementById('toolarea').innerHTML = `
+area.innerHTML = `
 <input id="ytUrl1" placeholder="Paste YouTube Link Here..." style="width:100%;padding:14px;border-radius:10px;border:1px solid #333;background:#111;color:white;">
 <button id="mp4Btn" style="margin-top:12px;background:#ff0000;color:white;padding:14px;width:100%;border:none;border-radius:10px;font-weight:bold;">⬇️ Get Download Link</button>
 <div id="ytResult" style="margin-top:15px;"></div>
@@ -142,6 +143,11 @@ document.getElementById('toolarea').innerHTML = `
 document.getElementById('mp4Btn').addEventListener('click', goMP4);
 return;
 }
+if(t[0].includes("Thumbnail")){
+area.innerHTML = `<input id="u" placeholder="Paste YouTube Link..." style="width:100%;padding:14px;border-radius:10px;border:1px solid #333;background:#111;color:white;"><button onclick="doThumb()" style="margin-top:12px;background:#39ff88;padding:12px;width:100%;border:none;border-radius:10px;font-weight:bold;">Get Thumbnail</button><div id="out" style="margin-top:12px;"></div>`;
+return;
+}
+area.innerHTML = `<textarea id="inp" placeholder="Enter text..." style="width:100%;height:100px;padding:12px;border-radius:10px;background:#111;color:white;border:1px solid #333;"></textarea><button onclick="runBasic('${t[0]}')" style="margin-top:10px;background:#39ff88;padding:12px;width:100%;border:none;border-radius:10px;font-weight:bold;">Run Tool</button><pre id="out" style="margin-top:12px;background:#111;padding:12px;border-radius:8px;white-space:pre-wrap;"></pre>`;
 }
 
 function goMP4(){
