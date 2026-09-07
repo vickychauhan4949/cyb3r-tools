@@ -155,9 +155,16 @@ area.innerHTML=`<textarea id="inp" placeholder="Enter text..."></textarea><butto
 document.getElementById("modal").classList.add("show");
 }
  function goMP4(){
-  let url=document.getElementById('ytUrl').value;
+  let url=document.getElementById('ytUrl1').value.trim();
   if(!url) return alert('Link daalo!');
-  window.open('https://10downloader.com/download?v='+encodeURIComponent(url),'_blank');
+  let downUrl='https://10downloader.com/download?v='+encodeURIComponent(url);
+  document.getElementById('ytResult').innerHTML = `
+    <div style="background:#111;padding:15px;border-radius:10px;border:1px solid #333;margin-top:10px;">
+      <p style="color:#39ff88;">✅ Link Ready Hai!</p>
+      <a href="${downUrl}" target="_blank" style="display:block;background:#ff0000;color:white;padding:14px;text-align:center;border-radius:8px;text-decoration:none;font-weight:bold;margin-top:10px;">⬇️ CLICK HERE TO DOWNLOAD</a>
+      <p style="color:#888;font-size:12px;margin-top:8px;">Naye tab me khulega, wahan se quality select karke download kar lena.</p>
+    </div>
+  `;
 }
   
 function doThumb(){
