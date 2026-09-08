@@ -1,34 +1,48 @@
-charset="UTF-8">
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HACKTOOLS PRO - 20 Working Tools</title>
+<title>Gujarat Cyber Safe - UPI Fraud Check</title>
 <style>
-*{
- let b=document.getElementById("mb");
- let html="";
- switch(window.cur.id){
-  case "word": html=`<textarea id="tin" placeholder="Type here..." style="height:120px"></textarea><button class="btn" onclick="doWord()">COUNT</button><div id="res"></div>`; break;
-  case "qr": html=`<input id="tin" placeholder="Enter Text/Link"><button class="btn" onclick="doQR()">GENERATE QR</button><div id="res"></div>`; break;
-  case "pass": html=`<input id="len" type="number" value="16"><button class="btn" onclick="doPass()">GENERATE</button><div id="res"></div>`; break;
-  case "thumb": html=`<input id="yt" placeholder="Paste YouTube Link"><button class="btn" onclick="doThumb()">SHOW THUMBNAIL</button><div id="res"></div>`; break;
-  case "case": html=`<textarea id="tin"></textarea><button class="btn" onclick="doCase('up')">UPPER</button><button class="btn" style="margin-top:6px;background:#fff" onclick="doCase('low')">lower</button><div id="res"></div>`; break;
-  case "bin": html=`<input id="tin" placeholder="Enter text"><button class="btn" onclick="doBin()">TO BINARY</button><div id="res"></div>`; break;
-  default: html=`<textarea id="tin" placeholder="Enter data..." style="height:100px"></textarea><button class="btn" onclick="doGen()">RUN TOOL</button><div id="res" style="margin-top:10px;white-space:pre-wrap;color:#20ff7a"></div>`;
+body{background:#0a0a0a;color:#fff;font-family:sans-serif;padding:20px;text-align:center}
+h1{color:#20ff7a}
+.card{background:#1a1a1a;padding:20px;border-radius:15px;margin-top:20px;border:1px solid #333}
+.btn{background:#20ff7a;color:#000;padding:12px 20px;border:none;border-radius:8px;font-weight:bold;width:100%;margin-top:10px}
+textarea,input{width:100%;padding:12px;border-radius:8px;border:none;margin-top:10px;background:#000;color:#fff}
+#res{margin-top:15px;white-space:pre-wrap;color:#20ff7a;font-weight:bold}
+</style>
+</head>
+<body>
+<h1>🛡️ Gujarat Cyber Safe</h1>
+<p>Fake UPI Screenshot Detector - ગુજરાતી</p>
+
+<div class="card">
+<h3>UPI Transaction ID / Text Paste Karo</h3>
+<textarea id="tin" placeholder="Yaha UPI Screenshot ka text paste karo... jaise: Transaction ID, Rs 5000 received..." style="height:120px"></textarea>
+<button class="btn" onclick="checkUPI()">CHECK FRAUD</button>
+<div id="res"></div>
+</div>
+
+<div class="card">
+<h3>20+ Cyber Tools</h3>
+<button class="btn" onclick="alert('Jald aayega!')">QR Scanner</button>
+<button class="btn" style="background:#fff;margin-top:8px" onclick="alert('Jald aayega!')">Password Generator</button>
+</div>
+
+<script>
+function checkUPI(){
+ let v=document.getElementById("tin").value.toLowerCase();
+ let r=document.getElementById("res");
+ if(!v){r.innerText="❌ Pehle text likho";return;}
+ let fakeWords=["edited","photoshop","demo","fake","test"];
+ let isFake = fakeWords.some(w=>v.includes(w)) || v.includes("pending") || v.length < 10;
+ if(isFake){
+  r.innerHTML="🚨 <span style='color:red'>FAKE LAG RAHA HAI!</span><br>Saavdhan raho, ye edited ho sakta hai. Bank balance check karo.";
+ } else {
+  r.innerHTML="✅ <span style='color:#20ff7a'>SAFE LAG RAHA HAI</span><br>Par hamesha bank app me balance verify karo.";
  }
- b.innerHTML=html;
 }
-function closeM(){document.getElementById("modal").classList.remove("show");}
-function getId(u){let m=u.match(/(?:v=|youtu\.be\/|shorts\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:"";}
-
-function doWord(){let v=document.getElementById("tin").value;document.getElementById("res").innerHTML=`Words: ${v.trim().split(/\s+/).filter(x=>x).length}<br>Chars: ${v.length}`;}
-function doQR(){let v=document.getElementById("tin").value;if(!v)return;document.getElementById("res").innerHTML=`<img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(v)}" style="width:100%;max-width:250px;border-radius:10px;margin-top:10px">`;}
-function doPass(){let l=+document.getElementById("len").value||12;let c="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789@#$";let p="";for(let i=0;i<l;i++)p+=c[Math.floor(Math.random()*c.length)];document.getElementById("res").innerHTML=`<b style="color:#20ff7a;word-break:break-all">${p}</b>`;}
-function doThumb(){let url=document.getElementById("yt").value;let id=getId(url);if(!id){alert("Valid link daal");return;}let img=`https://img.youtube.com/vi/${id}/maxresdefault.jpg`;document.getElementById("res").innerHTML=`<img src="${img}" style="width:100%;border-radius:10px;margin-top:10px"><a href="${img}" target="_blank" download style="display:block;text-align:center;background:#20ff7a;color:#000;padding:10px;border-radius:8px;margin-top:8px;text-decoration:none">DOWNLOAD HD</a>`;}
-function doCase(t){let v=document.getElementById("tin").value;document.getElementById("res").innerText=t=='up'?v.toUpperCase():v.toLowerCase();}
-function doBin(){let v=document.getElementById("tin").value;document.getElementById("res").innerText=v.split("").map(c=>c.charCodeAt(0).toString(2).padStart(8,'0')).join(" ");}
-function doGen(){let v=document.getElementById("tin").value;document.getElementById("res").innerText="✅ Done:\n"+v.slice(0,2000);}
-
-render();
-document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal") closeM();});
 </script>
 </body>
 </html>
