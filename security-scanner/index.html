@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security Scanner</title>
+<style>body{font-family:sans-serif; background:#0d1117; color:white; padding:15px}
+.box{background:#161b22; padding:20px; border-radius:12px; border:1px solid #30363d}
+input{width:92%; padding:12px; border-radius:8px; background:#0d1117; color:white; border:1px solid #30363d}
+button{padding:12px; background:#1f6feb; color:white; border:none; border-radius:8px; width:100%; margin-top:10px; font-weight:bold}
+code{background:#0d1117; padding:10px; display:block; border-radius:8px; margin-top:10px; word-break:break-all}
+</style></head>
+<body>
+<h2>🔍 Security Scanner - Python Tool</h2>
+<div class="box">
+<p>Ye mera khud ka banaya hua Python tool hai jo XSS & Open Redirect check karta hai.</p>
+<input id="url" placeholder="https://example.com">
+<button onclick="runScan()">Check for Bugs (Demo)</button>
+<div id="result"></div>
+
+<h3 style="margin-top:20px">Real Python Code se kaise chalaye:</h3>
+<code>pip install requests<br>python scanner.py</code>
+<p><a href="scanner.py" style="color:#58a6ff">📥 scanner.py Download karo</a></p>
+</div>
+
+<script>
+function runScan(){
+ let u=document.getElementById('url').value;
+ if(!u){alert('URL daalo'); return}
+ let r=document.getElementById('result');
+ r.innerHTML = "<br>Scanning "+u+"...<br><br>[1] Checking XSS with payload: &lt;script&gt;alert('XSS')&lt;/script&gt;<br>[2] Checking Open Redirect:?url=https://evil.com<br><br>✅ Demo complete! Full scan ke liye Python wala scanner.py download karo.<br><br>Ye demo hai, real scan Termux ya Laptop me `python scanner.py` se hota hai.";
+}
+</script>
+</body>
+</html>
