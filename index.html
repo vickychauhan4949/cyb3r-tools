@@ -1,39 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>cyb3r-tools - By Vicky</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cyb3r-tools - Vicky Chauhan | Bug Bounty Hunter</title>
 <style>
-body{font-family:sans-serif; background:#0d1117; color:white; padding:15px}
-.box{background:#161b22; padding:20px; border-radius:12px; margin-bottom:15px; border:1px solid #30363d}
-input{width:92%; padding:12px; border-radius:8px; border:1px solid #30363d; background:#0d1117; color:white}
-button{padding:12px 20px; background:#1f6feb; color:white; border:none; border-radius:8px; margin-top:10px; font-weight:bold; width:100%}
-a{color:#58a6ff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#07070b;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto; padding:16px;}
+.header{text-align:center;padding:25px 10px 10px 10px;}
+.header h1{font-size:26px;letter-spacing:0.5px;}
+.header p{color:#888;margin-top:8px;font-size:15px;}
+.card{background:linear-gradient(145deg,#12121a,#0e0e14);border:1px solid #222;border-radius:20px;padding:20px;margin:18px 0;}
+.card h2{font-size:19px;margin-bottom:8px;}
+.card p{color:#9ca3af;font-size:14px;line-height:1.5;margin-bottom:14px;}
+.btn{display:block;width:100%;text-align:center;padding:14px 10px;border-radius:12px;text-decoration:none;font-weight:800;font-size:16px;letter-spacing:0.3px;}
+.btn-blue{background:#2563eb;color:#fff;}
+.btn-green{background:#00ff88;color:#000;}
+.badge{display:inline-block;background:#1f2937;color:#9ca3af;font-size:11px;padding:3px 8px;border-radius:20px;margin-bottom:8px;}
+.footer{text-align:center;color:#555;font-size:13px;padding:30px 10px;}
 </style>
 </head>
 <body>
-<h2>🛡️ cyb3r-tools - My Cyber Security Tools</h2>
+
+<div class="header">
+<h1>🛡️ cyb3r-tools</h1>
 <p>Hi, I am Vicky Chauhan - Bug Bounty Hunter from Ahmedabad</p>
-
-<div class="box">
-<h3>⚡ 1. Website Speed Checker (NEW)</h3>
-<p>Check why your site is slow - LCP, INP, CLS</p>
-<input id="url1" placeholder="https://example.com">
-<button onclick="window.open('https://pagespeed.web.dev/analysis?url='+document.getElementById('url1').value, '_blank')">Check Speed - Like you did for Fiverr</button>
 </div>
 
-<div class="box">
-<h3>🔍 2. Security Scanner (Your Python Tool)</h3>
-<p>Check XSS & Open Redirect - My own tool</p>
-<a href="security-scanner/"><button>Go to Scanner Tool</button></a>
+<div class="card">
+<span class="badge">POPULAR</span>
+<h2>🔍 1. Security Scanner</h2>
+<p>My own Python tool. Check XSS & Open Redirect for Bug Bounty.</p>
+<a class="btn btn-blue" href="./cyb3r-tools/security-scanner/">Go to Scanner Tool →</a>
 </div>
 
-<div class="box">
-<h3>💼 Hire Me - $5 / $20 / $30</h3>
+<div class="card">
+<span class="badge">NEW • FIVERR CLIENTS</span>
+<h2>⚡ 2. Website Speed Checker</h2>
+<p>Check LCP, CLS, INP. Why your site is slow and how to fix it.</p>
+<a class="btn btn-blue" href="./cyb3r-tools/website-speed-checker/">Check Speed Now →</a>
+</div>
+
+<div class="card">
+<span class="badge">FOR ANDROID DEVS</span>
+<h2>🤖 3. Android Logcat Fixer</h2>
+<p>Paste your Logcat & get instant fix - NullPointer, OOM, Crash.</p>
+<a class="btn btn-green" href="./cyb3r-tools/android-logcat-fixer/">Fix Android Bug Now →</a>
+</div>
+
+<div class="card">
+<h2>🔒 4. Privacy Policy Generator</h2>
+<p>Play Store ke liye 1-click me policy banao. App publish karne ke liye.</p>
+<a class="btn btn-blue" href="./cyb3r-tools/privacy-policy-generator/">Open Privacy Tool →</a>
+</div>
+
+<div class="card">
+<h2>🧩 5. JSON Formatter</h2>
+<p>Ugly JSON ko sundar banao. Format, Validate & Minify.</p>
+<a class="btn btn-green" href="./cyb3r-tools/json-formatter/">Open JSON Tool →</a>
+</div>
+
+<div class="card">
+<h2>📥 6. Instagram Reel Downloader</h2>
+<p>For testing purpose - Download reels for bug bounty testing.</p>
+<a class="btn btn-blue" href="./cyb3r-tools/instagram-reel-downloader/">Open Downloader →</a>
+</div>
+
+<div class="card" style="border-style:dashed;">
+<h2>💼 Hire Me - $5 / $20 / $30</h2>
 <p>Fix Website Bugs - $5<br>Security Check - $20<br>Full Audit + Speed Fix - $30</p>
-<a href="https://contra.com/s/of36oqYO-i-will-check-your-website-for-security-bugs-xss-open-redirect">Contra Profile</a> | 
-<a href="https://www.fiverr.com/">Fiverr Profile</a>
 </div>
+
+<div class="footer">Made with ❤️ by Vicky Chauhan • Ahmedabad, Gujarat</div>
 
 </body>
 </html>
