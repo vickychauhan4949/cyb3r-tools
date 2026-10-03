@@ -1,36 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Website Speed Checker</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cyb3r-tools - Vicky Chauhan | Bug Bounty Hunter</title>
 <style>
-body{background:#07070b;color:#fff;font-family:system-ui;padding:15px;display:flex;justify-content:center;}
-.box{width:100%;max-width:420px;border:1px solid #00ff88;box-shadow:0 0 18px rgba(0,255,136,0.3);border-radius:20px;padding:22px;background:#12121a;margin-top:30px;text-align:center;}
-input{width:100%;padding:13px;border-radius:10px;border:1px solid #333;background:#000;color:#00ff88;margin:12px 0;outline:none;}
-button{width:100%;padding:14px;border-radius:12px;background:#00ff88;color:#000;font-weight:800;border:none;font-size:16px;}
-#res{margin-top:15px;text-align:left;color:#aaa;font-size:14px;line-height:1.6;background:#0a0a0f;padding:12px;border-radius:12px;display:none;}
-a{color:#00ff88;text-decoration:none;font-size:14px;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#07070b;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto; padding:16px;}
+.header{text-align:center;padding:25px 10px 10px 10px;}
+.header h1{font-size:26px;letter-spacing:0.5px;}
+.header p{color:#888;margin-top:8px;font-size:15px;}
+.card{background:linear-gradient(145deg,#12121a,#0e0e14);border:1px solid #222;border-radius:20px;padding:20px;margin:18px 0;}
+.card h2{font-size:19px;margin-bottom:8px;}
+.card p{color:#9ca3af;font-size:14px;line-height:1.5;margin-bottom:14px;}
+.btn{display:block;width:100%;text-align:center;padding:14px 10px;border-radius:12px;text-decoration:none;font-weight:800;font-size:16px;letter-spacing:0.3px;}
+.btn-blue{background:#2563eb;color:#fff;}
+.btn-green{background:#00ff88;color:#000;}
+.badge{display:inline-block;background:#1f2937;color:#9ca3af;font-size:11px;padding:3px 8px;border-radius:20px;margin-bottom:8px;}
+.footer{text-align:center;color:#555;font-size:13px;padding:30px 10px;}
 </style>
 </head>
 <body>
-<div class="box">
-<h2 style="color:#00ff88;">⚡ WEBSITE SPEED CHECKER</h2>
-<p style="color:#888;font-size:13px;margin:6px 0 10px 0;">LCP • CLS • INP Check</p>
-<input id="url" placeholder="https://example.com">
-<button onclick="check()">CHECK SPEED NOW</button>
-<div id="res"></div>
-<br><br><a href="../../">← Back to Home</a>
+
+<div class="header">
+<h1>🛡️ cyb3r-tools</h1>
+<p>Hi, I am Vicky Chauhan - Bug Bounty Hunter from Ahmedabad</p>
 </div>
-<script>
-function check(){
- let u=document.getElementById('url').value.trim();
- if(!u){alert('URL daal bhai!');return;}
- let r=document.getElementById('res'); r.style.display='block';
- r.innerHTML='Checking <b>'+u+'</b>...<br><br>⏳ LCP...<br>⏳ CLS...<br>⏳ INP...';
- setTimeout(()=>{
-   r.innerHTML='✅ <b>'+u+'</b><br><br>🚀 LCP: 1.6s - Good<br>🎯 CLS: 0.04 - Good<br>⚡ INP: 98ms - Good<br><br><b>Fix Tips:</b><br>- Images compress karo<br>- Extra JS hatao<br>- Caching ON karo<br><br><b style="color:#00ff88;font-size:18px;">Score: 92/100</b>';
- },1800);
-}
-</script>
+
+<div class="card">
+<span class="badge">POPULAR</span>
+<h2>🔍 1. Security Scanner</h2>
+<p>My own Python tool. Check XSS & Open Redirect for Bug Bounty.</p>
+<a class="btn btn-blue" href="./cyb3r-tools/security-scanner/">Go to Scanner Tool →</a>
+</div>
+
+<div class="card">
+<span class="badge">NEW • FIVERR CLIENTS</span>
+<h2>⚡ 2. Website Speed Checker</h2>
+<p>Check LCP, CLS, INP. Why your site is slow and how to fix it.</p>
+<a class="btn btn-blue" href="./cyb3r-tools/website-speed-checker/">Check Speed Now →</a>
+</div>
+
+<div class="card">
+<span class="badge">FOR ANDROID DEVS</span>
+<h2>🤖 3. Android Logcat Fixer</h2>
+<p>Paste your Logcat & get instant fix - NullPointer, OOM, Crash.</p>
+<a class="btn btn-green" href="./cyb3r-tools/android-logcat-fixer/">Fix Android Bug Now →</a>
+</div>
+
+<div class="card">
+<h2>🔒 4. Privacy Policy Generator</h2>
+<p>Play Store ke liye 1-click me policy banao. App publish karne ke liye.</p>
+<a class="btn btn-blue" href="./cyb3r-tools/privacy-policy-generator/">Open Privacy Tool →</a>
+</div>
+
+<div class="card">
+<h2>🧩 5. JSON Formatter</h2>
+<p>Ugly JSON ko sundar banao. Format, Validate & Minify.</p>
+<a class="btn btn-green" href="./cyb3r-tools/json-formatter/">Open JSON Tool →</a>
+</div>
+
+<div class="card">
+<h2>📥 6. Instagram Reel Downloader</h2>
+<p>For testing purpose - Download reels for bug bounty testing.</p>
+<a class="btn btn-blue" href="./cyb3r-tools/instagram-reel-downloader/">Open Downloader →</a>
+</div>
+
+<div class="card" style="border-style:dashed;">
+<h2>💼 Hire Me - $5 / $20 / $30</h2>
+<p>Fix Website Bugs - $5<br>Security Check - $20<br>Full Audit + Speed Fix - $30</p>
+</div>
+
+<div class="footer">Made with ❤️ by Vicky Chauhan • Ahmedabad, Gujarat</div>
+
 </body>
 </html>
