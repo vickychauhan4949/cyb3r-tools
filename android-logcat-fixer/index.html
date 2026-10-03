@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html><head><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Android Crash Fixer</title>
+<style>body{font-family:sans-serif;background:#0d1117;color:white;padding:15px}
+.box{background:#161b22;padding:20px;border-radius:12px;border:1px solid #30363d}
+textarea{width:92%;height:120px;padding:12px;border-radius:8px;background:#0d1117;color:#ff7b72;border:1px solid #30363d}
+button{padding:12px;background:#238636;color:white;border:none;border-radius:8px;width:100%;margin-top:10px;font-weight:bold}
+#out{background:#0d1117;padding:15px;border-radius:8px;margin-top:15px;white-space:pre-wrap}
+</style></head>
+<body>
+<h2>🤖 Android Logcat Crash Fixer</h2>
+<div class="box">
+<p>Mera banaya hua tool - App crash ka reason batata hai</p>
+<textarea id="log" placeholder="Yaha Logcat error paste karo... 
+Example: java.lang.NullPointerException at com.example.MainActivity"></textarea>
+<button onclick="fix()">Analyze & Fix Bug</button>
+<div id="out">Result yaha ayega...</div>
+<a href="https://vickychauhan4949.github.io/cyb3r-tools/" style="color:#58a6ff"><br>← Back to all tools</a>
+</div>
+<script>
+function fix(){
+let l=document.getElementById('log').value.toLowerCase();
+let o=document.getElementById('out');
+if(!l){o.innerText="Pehle log paste karo bhai!";return}
+let ans="🔍 Analysis:\n";
+if(l.includes("nullpointer")) ans+="Bug: NullPointerException - Koi value null hai!\nFix: if (object != null) check lagao.\n";
+else if(l.includes("networkonmainthread")) ans+="Bug: NetworkOnMainThread - Internet ka kaam main thread pe kar rahe ho.\nFix: Use Coroutine / AsyncTask\n";
+else if(l.includes("outofmemory")) ans+="Bug: OutOfMemory - Image bahut badi hai!\nFix: Glide library use karo.\n";
+else if(l.includes("inflater")||l.includes("xml")) ans+="Bug: XML Layout Error\nFix: XML file check karo, koi tag band nahi hua.\n";
+else ans+="Bug: Common Crash\nFix: Log me Activity name dekho, wahi pe error hai.\n";
+ans+="\n✅ Need full fix? Contact me on Fiverr - I will fix for $10";
+o.innerText=ans;
+}
+</script>
+</body></html>
