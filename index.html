@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vicky's Bug Fix Tools</title>
+<style>
+body{font-family: sans-serif; padding:15px; background:#f5f5f5}
+.box{background:white; padding:20px; border-radius:12px; margin-bottom:15px; box-shadow:0 2px 5px #ccc}
+input{width:90%; padding:12px; border:1px solid #ddd; border-radius:8px}
+button{padding:12px 20px; background:#1dbf73; color:white; border:none; border-radius:8px; margin-top:10px; font-weight:bold}
+</style>
+</head>
+<body>
+<h2>🛠️ Vicky's Website Fix Tools</h2>
+
+<div class="box">
+<h3>1. Speed Test (PageSpeed)</h3>
+<p>Apni website ka speed score check karo</p>
+<input id="url1" placeholder="https://example.com">
+<button onclick="checkSpeed()">Check Speed</button>
+</div>
+
+<div class="box">
+<h3>2. Security Scanner</h3>
+<p>XSS & Redirect bug check (Mera banaya hua tool)</p>
+<input id="url2" placeholder="https://example.com">
+<button onclick="alert('Ye tool GitHub pe hai: github.com/tera-username/website-security-scanner - Python me run karo')">Check Security</button>
+</div>
+
+<script>
+function checkSpeed(){
+ let u=document.getElementById('url1').value;
+ if(!u){alert('URL daalo'); return}
+ window.open('https://pagespeed.web.dev/analysis?url='+u, '_blank');
+}
+</script>
+
+<p style="text-align:center; margin-top:20px;">Made by Vicky | Fiverr Gig: Fix bugs in 1 hour</p>
+</body>
+</html>
