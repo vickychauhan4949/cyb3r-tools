@@ -9,5 +9,5 @@ A simple Python tool to check websites for basic security bugs.
 pip install requests
 python scanner.py
 
-### My Freelance Service
+### My Freelance Serv
 I provide professional security checks for $20.
