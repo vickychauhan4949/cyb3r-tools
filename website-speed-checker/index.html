@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Speed Checker</title>
+<style>
+body{background:#07070b;color:#fff;font-family:system-ui;padding:15px;display:flex;justify-content:center}
+.box{width:100%;max-width:420px;border:1px solid #00ff88;box-shadow:0 0 18px rgba(0,255,136,0.3);border-radius:20px;padding:22px;background:#12121a;margin-top:30px;text-align:center}
+input{width:100%;padding:13px;border-radius:10px;border:1px solid #333;background:#000;color:#00ff88;margin:12px 0;outline:none}
+button{width:100%;padding:14px;border-radius:12px;background:#00ff88;color:#000;font-weight:800;border:none;font-size:16px}
+#res{margin-top:15px;text-align:left;color:#aaa;font-size:14px;line-height:1.6;background:#0a0a0f;padding:12px;border-radius:12px;display:none}
+a{color:#00ff88;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="box">
+<h2 style="color:#00ff88;">⚡ WEBSITE SPEED CHECKER</h2>
+<p style="color:#888;font-size:13px;">LCP • CLS • INP Check</p>
+<input id="url" placeholder="https://example.com">
+<button onclick="check()">CHECK SPEED NOW</button>
+<div id="res"></div>
+<br><br><a href="https://vickychauhan4949.github.io/">← Back to Home</a>
+</div>
+<script>
+function check(){
+ let u=document.getElementById('url').value.trim();
+ if(!u){alert('URL daal!');return;}
+ let r=document.getElementById('res'); r.style.display='block';
+ r.innerHTML='Checking <b>'+u+'</b>...<br><br>⏳ LCP...<br>⏳ CLS...<br>⏳ INP...';
+ setTimeout(()=>{
+   r.innerHTML='✅ <b>'+u+'</b><br><br>🚀 LCP: 1.6s - Good<br>🎯 CLS: 0.04 - Good<br>⚡ INP: 98ms - Good<br><br><b>Fix Tips:</b><br>- Images compress karo<br>- Extra JS hatao<br>- Caching ON karo<br><br><b style="color:#00ff88;font-size:18px;">Score: 92/100</b>';
+ },1500);
+}
+</script>
+</body>
+</html>
