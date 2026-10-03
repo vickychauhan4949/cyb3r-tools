@@ -2,39 +2,38 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vicky's Bug Fix Tools</title>
+<title>cyb3r-tools - By Vicky</title>
 <style>
-body{font-family: sans-serif; padding:15px; background:#f5f5f5}
-.box{background:white; padding:20px; border-radius:12px; margin-bottom:15px; box-shadow:0 2px 5px #ccc}
-input{width:90%; padding:12px; border:1px solid #ddd; border-radius:8px}
-button{padding:12px 20px; background:#1dbf73; color:white; border:none; border-radius:8px; margin-top:10px; font-weight:bold}
+body{font-family:sans-serif; background:#0d1117; color:white; padding:15px}
+.box{background:#161b22; padding:20px; border-radius:12px; margin-bottom:15px; border:1px solid #30363d}
+input{width:92%; padding:12px; border-radius:8px; border:1px solid #30363d; background:#0d1117; color:white}
+button{padding:12px 20px; background:#1f6feb; color:white; border:none; border-radius:8px; margin-top:10px; font-weight:bold; width:100%}
+a{color:#58a6ff}
 </style>
 </head>
 <body>
-<h2>🛠️ Vicky's Website Fix Tools</h2>
+<h2>🛡️ cyb3r-tools - My Cyber Security Tools</h2>
+<p>Hi, I am Vicky Chauhan - Bug Bounty Hunter from Ahmedabad</p>
 
 <div class="box">
-<h3>1. Speed Test (PageSpeed)</h3>
-<p>Apni website ka speed score check karo</p>
+<h3>⚡ 1. Website Speed Checker (NEW)</h3>
+<p>Check why your site is slow - LCP, INP, CLS</p>
 <input id="url1" placeholder="https://example.com">
-<button onclick="checkSpeed()">Check Speed</button>
+<button onclick="window.open('https://pagespeed.web.dev/analysis?url='+document.getElementById('url1').value, '_blank')">Check Speed - Like you did for Fiverr</button>
 </div>
 
 <div class="box">
-<h3>2. Security Scanner</h3>
-<p>XSS & Redirect bug check (Mera banaya hua tool)</p>
-<input id="url2" placeholder="https://example.com">
-<button onclick="alert('Ye tool GitHub pe hai: github.com/tera-username/website-security-scanner - Python me run karo')">Check Security</button>
+<h3>🔍 2. Security Scanner (Your Python Tool)</h3>
+<p>Check XSS & Open Redirect - My own tool</p>
+<a href="security-scanner/"><button>Go to Scanner Tool</button></a>
 </div>
 
-<script>
-function checkSpeed(){
- let u=document.getElementById('url1').value;
- if(!u){alert('URL daalo'); return}
- window.open('https://pagespeed.web.dev/analysis?url='+u, '_blank');
-}
-</script>
+<div class="box">
+<h3>💼 Hire Me - $5 / $20 / $30</h3>
+<p>Fix Website Bugs - $5<br>Security Check - $20<br>Full Audit + Speed Fix - $30</p>
+<a href="https://contra.com/s/of36oqYO-i-will-check-your-website-for-security-bugs-xss-open-redirect">Contra Profile</a> | 
+<a href="https://www.fiverr.com/">Fiverr Profile</a>
+</div>
 
-<p style="text-align:center; margin-top:20px;">Made by Vicky | Fiverr Gig: Fix bugs in 1 hour</p>
 </body>
 </html>
