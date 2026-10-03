@@ -1,61 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>cyb3r-tools - By Vicky</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cyb3r-tools - Vicky Chauhan | Bug Bounty Hunter</title>
 <style>
-body{font-family:sans-serif; background:#0d1117; color:white; padding:15px}
-.box{background:#161b22; padding:20px; border-radius:12px; margin-bottom:15px; border:1px solid #30363d}
-input{width:92%; padding:12px; border-radius:8px; border:1px solid #30363d; background:#0d1117; color:white}
-button{padding:12px 20px; background:#1f6feb; color:white; border:none; border-radius:8px; margin-top:10px; font-weight:bold; width:100%}
-a{color:#58a6ff}
+body{background:#0a0a0f; color:#fff; font-family: system-ui; margin:0; padding:15px;}
+.header{text-align:center; padding:20px 10px;}
+.header h1{margin:5px 0;}
+.header p{color:#888; margin:0;}
+.card{border:1px solid #222; border-radius:20px; padding:22px; margin:16px 0; background:linear-gradient(145deg,#111,#0e0e14);}
+.card h2{margin:0 0 10px 0; font-size:22px;}
+.card p{color:#aaa; margin:0 0 15px 0; font-size:15px; line-height:1.5;}
+.btn{display:block; text-align:center; padding:14px; border-radius:12px; text-decoration:none; font-weight:bold; font-size:16px;}
+.btn-blue{background:#2563eb; color:#fff;}
+.btn-green{background:#00ff88; color:#000;}
+.hire{border:1px dashed #444;}
+.hire a{color:#60a5fa;}
 </style>
 </head>
 <body>
-<h2>🛡️ cyb3r-tools - My Cyber Security Tools</h2>
-<p>Hi, I am Vicky Chauhan - Bug Bounty Hunter from Ahmedabad</p>
 
-<div class="box">
-<h3>⚡ 1. Website Speed Checker (NEW)</h3>
-<p>Check why your site is slow - LCP, INP, CLS</p>
-<input id="url1" placeholder="https://example.com">
-<button onclick="window.open('https://pagespeed.web.dev/analysis?url='+document.getElementById('url1').value, '_blank')">Check Speed - Like you did for Fiverr</button>
+<div class="header">
+<h1>🛡️ cyb3r-tools - My Cyber Security Tools</h1>
+<p>Hi, I am Vicky Chauhan - Bug Bounty Hunter from Ahmedabad</p>
 </div>
 
- <div style="background:#161b22;padding:20px;border-radius:12px;border:1px solid #30363d;margin-top:20px">
+<div class="card">
+<h2>⚡ 1. Website Speed Checker (NEW)</h2>
+<p>Check why your site is slow - LCP, INP, CLS. Fiverr client ke liye banaya tha.</p>
+<a class="btn btn-blue" href="speed-checker/">Check Speed →</a>
+</div>
+
+<div class="card">
 <h2>🤖 2. Android Crash Fixer (For App Devs)</h2>
 <p>Paste your Logcat & get instant fix - NullPointer, OOM etc.</p>
-<a href="android-logcat-fixer/"><button style="padding:12px;background:#238636;color:white;border:none;border-radius:8px;width:100%;font-weight:bold">Fix Android Bug Now</button></a>
-</div>
-  
-<div class="box">
-<h3>🔍 3. Security Scanner (Your Python Tool)</h3>
-<p>Check XSS & Open Redirect - My own tool</p>
-<a href="security-scanner/"><button>Go to Scanner Tool</button></a>
-</div>
- 
-<div style="border:1px solid #333; border-radius:16px; padding:20px; margin:15px; background:#111;">
-  <h2>🔒 Privacy Policy Generator</h2>
-  <p>Play Store ke liye. App publish karne ke liye chahiye.</p>
-  <a href="privacy-policy-generator/" style="display:block; background:#2563eb; color:#fff; text-align:center; padding:12px; border-radius:10px; text-decoration:none; font-weight:bold; margin-top:10px;">
-    Open Privacy Tool →
-  </a>
+<a class="btn btn-green" href="crash-fixer/">Fix Android Bug Now →</a>
 </div>
 
-<div style="border:1px solid #333; border-radius:16px; padding:20px; margin:15px; background:#111;">
-  <h2>🧩 JSON Formatter - For Developers</h2>
-  <p>Ugly JSON ko sundar banao. Format, Validate & Minify - Developer ka roz ka tool.</p>
-  <a href="json-formatter/" style="display:block; background:#00ff88; color:#000; text-align:center; padding:12px; border-radius:10px; text-decoration:none; font-weight:bold; margin-top:10px;">
-    Open JSON Tool →
-  </a>
+<div class="card">
+<h2>🔍 3. Security Scanner (Your Python Tool)</h2>
+<p>Check XSS & Open Redirect - My own Python tool for bug bounty.</p>
+<a class="btn btn-blue" href="security-scanner/">Go to Scanner Tool →</a>
 </div>
- 
- 
-<div class="box">
-<h3>💼 Hire Me - $5 / $20 / $30</h3>
-<p>Fix Website Bugs - $5<br>Security Check - $20<br>Full Audit + Speed Fix - $30</p>
-<a href="https://contra.com/s/of36oqYO-i-will-check-your-website-for-security-bugs-xss-open-redirect">Contra Profile</a> | 
-<a href="https://www.fiverr.com/">Fiverr Profile</a>
+
+<div class="card">
+<h2>🔒 Privacy Policy Generator</h2>
+<p>Play Store ke liye. App publish karne ke liye 1-click me policy banao.</p>
+<a class="btn btn-blue" href="privacy-policy-generator/">Open Privacy Tool →</a>
+</div>
+
+<div class="card">
+<h2>🧩 JSON Formatter - For Developers</h2>
+<p>Ugly JSON ko sundar banao. Format, Validate & Minify - Roz ka kaam ka tool.</p>
+<a class="btn btn-green" href="json-formatter/">Open JSON Tool →</a>
+</div>
+
+<div class="card hire">
+<h2>💼 Hire Me - $5 / $20 / $30</h2>
+<p>
+Fix Website Bugs - $5<br>
+Security Check - $20<br>
+Full Audit + Speed Fix - $30<br><br>
+<a href="#">Contra Profile</a> | <a href="#">Fiverr Profile</a>
+</p>
 </div>
 
 </body>
